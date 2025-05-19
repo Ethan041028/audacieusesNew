@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : dim. 18 mai 2025 à 15:24
+-- Généré le : lun. 19 mai 2025 à 14:07
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -44,9 +44,10 @@ CREATE TABLE `activites` (
 --
 
 INSERT INTO `activites` (`id`, `titre`, `description`, `contenu`, `type_activite_id`, `duree`, `date_creation`, `date_update`, `updated_at`) VALUES
-(1, 'Introduction au HTML', 'Présentation des concepts de base', 'Contenu vidéo d\'introduction', 1, 15, '2025-05-13 09:33:43', '2025-05-16 15:41:51', '2025-05-16 15:41:51'),
-(10, 'test', 'test', '{\"type\":\"texte\",\"contenu\":\"{\\\"type\\\":\\\"qcm\\\",\\\"questions\\\":[{\\\"texte\\\":\\\"test\\\",\\\"options\\\":[\\\"a\\\",\\\"b\\\"],\\\"reponse_correcte\\\":0},{\\\"texte\\\":\\\"test 2\\\",\\\"options\\\":[\\\"a\\\",\\\"b\\\"],\\\"reponse_correcte\\\":0}]}\"}', 2, 40, '2025-05-16 23:52:20', '2025-05-16 23:52:20', '2025-05-16 23:52:20'),
-(11, 'test vidéo', '', '{\"type\":\"texte\",\"contenu\":\"{\\\"type\\\":\\\"video\\\",\\\"lien\\\":\\\"https://www.youtube.com/watch?v=XAU9jLmCQw0&ab_channel=CharlesSchiele\\\",\\\"description\\\":\\\"\\\"}\"}', 1, 40, '2025-05-16 23:56:21', '2025-05-16 23:56:21', '2025-05-16 23:56:21');
+(14, 'test quizz', '', '{\"type\":\"qcm\",\"questions\":[{\"texte\":\"test\",\"options\":[\"a\",\"b\",\"c\"],\"reponse_correcte\":0}]}', 2, 40, '2025-05-18 15:17:54', '2025-05-18 18:05:23', '2025-05-18 18:05:23'),
+(15, 'test séance vidéo', 'séance vidéo', '{\"type\":\"texte\",\"contenu\":\"\"}', 1, 22, '2025-05-19 09:13:33', '2025-05-19 09:13:50', '2025-05-19 09:13:50'),
+(16, 'test séance lecture', '', '{\"type\":\"texte\",\"contenu\":\"{\\\"type\\\":\\\"texte\\\",\\\"contenu\\\":\\\"test de lecture\\\"}\"}', 4, NULL, '2025-05-19 10:16:01', '2025-05-19 10:16:01', '2025-05-19 10:16:01'),
+(17, 'Tarte aux pommes', 'test', '{\"type\":\"texte\",\"contenu\":\"{\\\"type\\\":\\\"qcm\\\",\\\"questions\\\":[{\\\"texte\\\":\\\"test\\\",\\\"options\\\":[\\\"a\\\",\\\"v\\\",\\\"d\\\"],\\\"reponse_correcte\\\":0}]}\"}', 2, NULL, '2025-05-19 11:52:29', '2025-05-19 11:52:29', '2025-05-19 11:52:29');
 
 -- --------------------------------------------------------
 
@@ -108,34 +109,6 @@ INSERT INTO `evenements_users` (`id`, `evenement_id`, `user_id`, `statut`, `crea
 -- --------------------------------------------------------
 
 --
--- Structure de la table `messages`
---
-
-CREATE TABLE `messages` (
-  `id` int(11) NOT NULL,
-  `expediteur_id` int(11) NOT NULL,
-  `destinataire_id` int(11) NOT NULL,
-  `contenu` text NOT NULL,
-  `lu` tinyint(1) DEFAULT 0,
-  `date_envoi` timestamp NOT NULL DEFAULT current_timestamp(),
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `messages`
---
-
-INSERT INTO `messages` (`id`, `expediteur_id`, `destinataire_id`, `contenu`, `lu`, `date_envoi`, `created_at`, `updated_at`) VALUES
-(1, 2, 3, 'Bonjour Sophie, comment avancez-vous sur le module HTML ?', 1, '2025-05-13 09:33:43', '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(2, 3, 2, 'Bonjour Julie, ça avance bien ! J\'ai terminé la première séance.', 1, '2025-05-13 09:33:43', '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(3, 2, 3, 'Excellent ! N\'hésitez pas à me contacter si vous avez des questions sur la suite.', 0, '2025-05-13 09:33:43', '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(4, 2, 4, 'Bonjour Emma, bienvenue dans notre programme!', 1, '2025-05-13 09:33:43', '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(5, 4, 2, 'Merci Julie, je suis très enthousiaste pour commencer!', 0, '2025-05-13 09:33:43', '2025-05-13 09:33:43', '2025-05-13 09:33:43');
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `modules`
 --
 
@@ -160,11 +133,7 @@ CREATE TABLE `modules` (
 --
 
 INSERT INTO `modules` (`id`, `titre`, `description`, `objectifs`, `duree`, `niveau`, `image_url`, `created_by`, `active`, `statut`, `date_creation`, `created_at`, `updated_at`) VALUES
-(1, 'Introduction au développement web', 'Module d\'introduction aux bases du développement web moderne.', '[\"Comprendre les fondamentaux du HTML, CSS et JavaScript\"]', 10, 'Débutant', '/assets/images/module1.jpg', 2, 1, 'publié', '2025-05-13 09:33:43', '2025-05-13 09:33:43', '2025-05-14 10:30:56'),
-(2, 'Confiance en soi et prise de parole', 'Techniques et exercices pour développer sa confiance en soi', 'Être capable de s\'exprimer avec assurance en public', 8, 'Intermédiaire', '/assets/images/module2.jpg', 2, 1, 'publié', '2025-05-13 09:33:43', '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(4, 'test', '', NULL, NULL, NULL, NULL, 5, 1, 'brouillon', '2025-05-14 08:44:08', '2025-05-14 08:44:08', '2025-05-14 08:44:08'),
-(5, 'test2', 'test', NULL, NULL, NULL, NULL, 5, 1, 'brouillon', '2025-05-14 08:45:17', '2025-05-14 08:45:17', '2025-05-14 08:45:17'),
-(6, 'test 3', 'ceci est un test de création', '[\"test\"]', 1, 'Débutant', '/uploads/modules/module-1747214957690-148776596.jpg', 5, 1, 'publié', '2025-05-14 09:29:17', '2025-05-14 09:29:17', '2025-05-16 08:58:07');
+(7, 'test module', 'test du module ', '[\"test\"]', 1, 'Débutant', '/uploads/modules/module-1747594819837-351579203.jpg', 5, 1, 'publié', '2025-05-18 15:18:50', '2025-05-18 15:18:50', '2025-05-18 19:00:21');
 
 -- --------------------------------------------------------
 
@@ -186,15 +155,7 @@ CREATE TABLE `modules_users` (
 --
 
 INSERT INTO `modules_users` (`id`, `module_id`, `user_id`, `date_affectation`, `created_at`, `updated_at`) VALUES
-(1, 1, 3, '2025-05-13 09:33:43', '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(2, 2, 3, '2025-05-13 09:33:43', '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(3, 1, 4, '2025-05-13 09:33:43', '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(4, 1, 5, '2025-05-13 09:42:10', '2025-05-13 09:42:10', '2025-05-13 09:42:10'),
-(9, 6, 3, '2025-05-14 14:03:43', '2025-05-14 14:03:43', '2025-05-14 14:03:43'),
-(12, 1, 7, '2025-05-17 00:11:49', '2025-05-17 00:11:49', '2025-05-17 00:11:49'),
-(13, 6, 7, '2025-05-17 00:12:09', '2025-05-17 00:12:09', '2025-05-17 00:12:09'),
-(14, 6, 8, '2025-05-17 00:14:25', '2025-05-17 00:14:25', '2025-05-17 00:14:25'),
-(15, 1, 8, '2025-05-17 10:16:02', '2025-05-17 10:16:02', '2025-05-17 10:16:02');
+(16, 7, 8, '2025-05-18 15:19:36', '2025-05-18 15:19:36', '2025-05-18 15:19:36');
 
 -- --------------------------------------------------------
 
@@ -216,12 +177,7 @@ CREATE TABLE `module_seance` (
 --
 
 INSERT INTO `module_seance` (`id`, `module_id`, `seance_id`, `positions`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 1, '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(2, 1, 2, 2, '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(3, 2, 3, 1, '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(4, 2, 4, 2, '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(5, 6, 4, 1, '2025-05-14 12:17:05', '2025-05-14 12:17:05'),
-(8, 6, 6, 0, '2025-05-16 14:02:15', '2025-05-16 14:02:15');
+(11, 7, 10, 1, '2025-05-18 18:14:00', '2025-05-18 18:14:00');
 
 -- --------------------------------------------------------
 
@@ -239,6 +195,13 @@ CREATE TABLE `reponse_client` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `reponse_client`
+--
+
+INSERT INTO `reponse_client` (`id`, `user_id`, `activite_id`, `contenu`, `date_soumission`, `feedback`, `created_at`, `updated_at`) VALUES
+(2, 8, 14, '{\"completed\":true,\"completedAt\":\"2025-05-18T17:30:07.837Z\",\"type\":\"QUIZ\",\"reponse\":\"a\"}', '2025-05-18 15:26:04', NULL, '2025-05-18 15:26:04', '2025-05-19 11:57:29');
 
 -- --------------------------------------------------------
 
@@ -290,12 +253,7 @@ CREATE TABLE `seances` (
 --
 
 INSERT INTO `seances` (`id`, `titre`, `description`, `duree`, `type`, `contenu`, `ressources`, `created_by`, `active`, `date_creation`, `created_at`, `updated_at`) VALUES
-(1, 'Les bases du HTML ', 'Découverte des balises HTML et structure d\'une page web', 90, 'theorique', 'Contenu détaillé de la séance sur le HTML', NULL, 2, 1, '2025-05-13 09:33:43', '2025-05-13 09:33:43', '2025-05-16 13:41:55'),
-(2, 'Styliser avec CSS', 'Apprendre à mettre en forme une page web', 120, 'pratique', 'Contenu détaillé de la séance sur le CSS', NULL, 2, 1, '2025-05-13 09:33:43', '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(3, 'Préparer son discours', 'Méthodes de préparation efficace pour une présentation', 60, 'theorique', 'Contenu détaillé sur la préparation', NULL, 2, 1, '2025-05-13 09:33:43', '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(4, 'Techniques de respiration', 'Exercices pratiques pour gérer le stress', 45, 'pratique', 'Contenu détaillé sur les techniques de respiration', NULL, 2, 1, '2025-05-13 09:33:43', '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(6, 'test', 'test', 60, 'individuelle', 'test', NULL, 5, 1, '2025-05-16 14:02:15', '2025-05-16 14:02:15', '2025-05-16 14:02:15'),
-(8, 'Cookies au chocolat', 'test', 60, 'groupe', 'test', NULL, 5, 1, '2025-05-16 23:46:40', '2025-05-16 23:46:40', '2025-05-16 23:46:40');
+(10, 'test séance', '', 60, 'individuelle', '', NULL, 5, 1, '2025-05-18 15:18:05', '2025-05-18 15:18:05', '2025-05-18 15:18:05');
 
 -- --------------------------------------------------------
 
@@ -317,8 +275,9 @@ CREATE TABLE `seance_activite` (
 --
 
 INSERT INTO `seance_activite` (`id`, `seance_id`, `activite_id`, `ordre`, `created_at`, `updated_at`) VALUES
-(2, 6, 1, 1, '2025-05-16 23:47:51', '2025-05-16 23:47:51'),
-(3, 6, 10, 0, '2025-05-16 23:52:20', '2025-05-16 23:52:20');
+(7, 10, 14, 0, '2025-05-18 15:18:10', '2025-05-19 09:17:28'),
+(8, 10, 15, 1, '2025-05-19 09:13:50', '2025-05-19 09:17:28'),
+(9, 10, 16, 0, '2025-05-19 10:16:01', '2025-05-19 10:16:01');
 
 -- --------------------------------------------------------
 
@@ -367,13 +326,30 @@ CREATE TABLE `suivi` (
 --
 
 INSERT INTO `suivi` (`id`, `seance_id`, `user_id`, `status_id`, `progression`, `update_suivi`, `commentaire`, `created_at`, `updated_at`) VALUES
-(1, 1, 3, 3, 100.00, '2025-05-13 09:33:43', 'Séance terminée avec succès', '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(2, 2, 3, 2, 50.00, '2025-05-13 09:33:43', 'En cours de progression', '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(3, 1, 4, 2, 30.00, '2025-05-13 09:33:43', 'Début de la séance', '2025-05-13 09:33:43', '2025-05-13 09:33:43'),
-(4, 6, 8, 3, 100.00, '2025-05-18 13:06:50', NULL, '2025-05-17 10:34:10', '2025-05-18 13:06:50'),
-(5, 4, 8, 3, 100.00, '2025-05-18 13:06:50', NULL, '2025-05-17 10:34:10', '2025-05-18 13:06:50'),
-(6, 1, 8, 3, 100.00, '2025-05-18 13:06:50', NULL, '2025-05-17 10:34:10', '2025-05-18 13:06:50'),
-(7, 2, 8, 3, 100.00, '2025-05-18 13:06:50', NULL, '2025-05-17 10:34:10', '2025-05-18 13:06:50');
+(8, 10, 8, 3, 100.00, '2025-05-19 11:58:20', NULL, '2025-05-18 15:26:06', '2025-05-19 11:58:20');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `suivi_module`
+--
+
+CREATE TABLE `suivi_module` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `module_id` int(11) NOT NULL,
+  `progression` float DEFAULT 0,
+  `status_id` int(11) NOT NULL,
+  `date_completion` datetime DEFAULT NULL,
+  `date_mise_a_jour` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `suivi_module`
+--
+
+INSERT INTO `suivi_module` (`id`, `user_id`, `module_id`, `progression`, `status_id`, `date_completion`, `date_mise_a_jour`) VALUES
+(1, 8, 7, 100, 3, '2025-05-18 16:05:06', '2025-05-18 16:05:06');
 
 -- --------------------------------------------------------
 
@@ -415,7 +391,6 @@ CREATE TABLE `users` (
   `date_naissance` date DEFAULT NULL,
   `role_id` int(11) NOT NULL,
   `active` tinyint(1) DEFAULT 1,
-  `avatar` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -424,14 +399,17 @@ CREATE TABLE `users` (
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `mail`, `mdp`, `prenom`, `nom`, `date_naissance`, `role_id`, `active`, `avatar`, `created_at`, `updated_at`) VALUES
-(1, 'admin@audacieuses.fr', '$2a$10$xVLXqoOwn9kiOKVlITBTWuUYyqx7BQGwDnP5U.gGz6YuDnpnIN1HK', 'Admin', 'Système', NULL, 1, 1, NULL, '2025-05-13 09:33:42', '2025-05-13 09:33:42'),
-(2, 'coach@audacieuses.fr', '$2a$10$xVLXqoOwn9kiOKVlITBTWuUYyqx7BQGwDnP5U.gGz6YuDnpnIN1HK', 'Julie', 'Dupont', '1985-06-15', 3, 1, '/assets/images/avatar.jpg', '2025-05-13 09:33:42', '2025-05-13 09:33:42'),
-(3, 'client1@example.com', '$2a$10$xVLXqoOwn9kiOKVlITBTWuUYyqx7BQGwDnP5U.gGz6YuDnpnIN1HK', 'Sophie', 'Martin', '1990-03-22', 4, 1, NULL, '2025-05-13 09:33:42', '2025-05-13 09:33:42'),
-(4, 'client2@example.com', '$2a$10$xVLXqoOwn9kiOKVlITBTWuUYyqx7BQGwDnP5U.gGz6YuDnpnIN1HK', 'Emma', 'Leroy', '1988-09-10', 4, 1, NULL, '2025-05-13 09:33:42', '2025-05-13 09:33:42'),
-(5, 'jason.jako.57@gmail.com', '$2b$10$EZt9f4LBgiS58fRV69HdeeJ/gumMuGnzyQ0j8FsRKp9cZ3zWuwNl2', 'Jason', 'JAKO', '2001-01-08', 2, 1, '/uploads/avatars/avatar-1747139098585-797473548.jpg', '2025-05-13 09:34:49', '2025-05-13 14:15:31'),
-(7, 'test@test.com', '$2b$10$y4jP3lYOF0xiDRrEeuWWzO2/rUOdx39g6k99UItvjo0JqqtRe.YjK', 'test', 'test', NULL, 1, 1, NULL, '2025-05-14 14:44:15', '2025-05-17 00:13:12'),
-(8, 'test1@test.com', '$2b$10$AsqnH2brmTI9u3lfHdBOAuGXKyUdokc3gZ1i5kHbeb5sGJYv0EOcG', 'Jason', 'Jako', '2025-05-08', 4, 1, NULL, '2025-05-17 00:13:43', '2025-05-17 00:13:43');
+INSERT INTO `users` (`id`, `mail`, `mdp`, `prenom`, `nom`, `date_naissance`, `role_id`, `active`, `created_at`, `updated_at`) VALUES
+(1, 'admin@audacieuses.fr', '$2a$10$xVLXqoOwn9kiOKVlITBTWuUYyqx7BQGwDnP5U.gGz6YuDnpnIN1HK', 'Admin', 'Système', NULL, 1, 1, '2025-05-13 09:33:42', '2025-05-13 09:33:42'),
+(2, 'coach@audacieuses.fr', '$2a$10$xVLXqoOwn9kiOKVlITBTWuUYyqx7BQGwDnP5U.gGz6YuDnpnIN1HK', 'Julie', 'Dupont', '1985-06-15', 3, 1, '2025-05-13 09:33:42', '2025-05-13 09:33:42'),
+(3, 'client1@example.com', '$2a$10$xVLXqoOwn9kiOKVlITBTWuUYyqx7BQGwDnP5U.gGz6YuDnpnIN1HK', 'Sophie', 'Martin', '1990-03-22', 4, 1, '2025-05-13 09:33:42', '2025-05-13 09:33:42'),
+(4, 'client2@example.com', '$2a$10$xVLXqoOwn9kiOKVlITBTWuUYyqx7BQGwDnP5U.gGz6YuDnpnIN1HK', 'Emma', 'Leroy', '1988-09-10', 4, 1, '2025-05-13 09:33:42', '2025-05-13 09:33:42'),
+(5, 'jason.jako.57@gmail.com', '$2b$10$EZt9f4LBgiS58fRV69HdeeJ/gumMuGnzyQ0j8FsRKp9cZ3zWuwNl2', 'Jason', 'JAKO', '2001-01-08', 2, 1, '2025-05-13 09:34:49', '2025-05-18 17:43:07'),
+(7, 'test@test.com', '$2b$10$y4jP3lYOF0xiDRrEeuWWzO2/rUOdx39g6k99UItvjo0JqqtRe.YjK', 'test', 'test', NULL, 1, 1, '2025-05-14 14:44:15', '2025-05-17 00:13:12'),
+(8, 'test1@test.com', '$2b$10$AsqnH2brmTI9u3lfHdBOAuGXKyUdokc3gZ1i5kHbeb5sGJYv0EOcG', 'Jason', 'Jako', '2025-05-08', 4, 1, '2025-05-17 00:13:43', '2025-05-17 00:13:43'),
+(9, 'ethan@test.com', '$2b$10$mBflIy2vnpwG6Dg6XlrdOuPrt8CUCbA1FuvBARQZglpcj4buPX33q', 'Etahn', 'test', NULL, 2, 1, '2025-05-18 18:14:48', '2025-05-18 18:14:48'),
+(10, 'ethan@client.com', '$2b$10$7/IWC9g0gvYripZGsNbeKuUSDuxnAujgFdL8oGQeyR6pNbKVs9RgS', 'Ethan', 'client', NULL, 4, 1, '2025-05-19 12:06:05', '2025-05-19 12:06:05'),
+(11, 'ethan@admin.com', '$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS', 'Ethan', 'admin', NULL, 2, 1, '2025-05-19 12:06:31', '2025-05-19 12:06:31');
 
 --
 -- Index pour les tables déchargées
@@ -459,14 +437,6 @@ ALTER TABLE `evenements_users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `unique_evenement_user` (`evenement_id`,`user_id`),
   ADD KEY `evenements_users_user_id_foreign` (`user_id`);
-
---
--- Index pour la table `messages`
---
-ALTER TABLE `messages`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `messages_expediteur_id_foreign` (`expediteur_id`),
-  ADD KEY `messages_destinataire_id_foreign` (`destinataire_id`);
 
 --
 -- Index pour la table `modules`
@@ -536,6 +506,15 @@ ALTER TABLE `suivi`
   ADD UNIQUE KEY `unique_seance_user` (`seance_id`,`user_id`),
   ADD KEY `suivi_user_id_foreign` (`user_id`),
   ADD KEY `suivi_status_id_foreign` (`status_id`);
+
+--
+-- Index pour la table `suivi_module`
+--
+ALTER TABLE `suivi_module`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_id` (`user_id`,`module_id`),
+  ADD KEY `module_id` (`module_id`),
+  ADD KEY `status_id` (`status_id`);
 
 --
 -- Index pour la table `type_activites`
@@ -621,7 +600,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `activites`
 --
 ALTER TABLE `activites`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT pour la table `evenements`
@@ -636,34 +615,28 @@ ALTER TABLE `evenements_users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT pour la table `messages`
---
-ALTER TABLE `messages`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
 -- AUTO_INCREMENT pour la table `modules`
 --
 ALTER TABLE `modules`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `modules_users`
 --
 ALTER TABLE `modules_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT pour la table `module_seance`
 --
 ALTER TABLE `module_seance`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT pour la table `reponse_client`
 --
 ALTER TABLE `reponse_client`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `roles`
@@ -675,13 +648,13 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT pour la table `seances`
 --
 ALTER TABLE `seances`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT pour la table `seance_activite`
 --
 ALTER TABLE `seance_activite`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `status_suivi`
@@ -693,7 +666,13 @@ ALTER TABLE `status_suivi`
 -- AUTO_INCREMENT pour la table `suivi`
 --
 ALTER TABLE `suivi`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT pour la table `suivi_module`
+--
+ALTER TABLE `suivi_module`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `type_activites`
@@ -705,7 +684,7 @@ ALTER TABLE `type_activites`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Contraintes pour les tables déchargées
@@ -730,13 +709,6 @@ ALTER TABLE `evenements`
 ALTER TABLE `evenements_users`
   ADD CONSTRAINT `evenements_users_evenement_id_foreign` FOREIGN KEY (`evenement_id`) REFERENCES `evenements` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `evenements_users_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Contraintes pour la table `messages`
---
-ALTER TABLE `messages`
-  ADD CONSTRAINT `messages_destinataire_id_foreign` FOREIGN KEY (`destinataire_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `messages_expediteur_id_foreign` FOREIGN KEY (`expediteur_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `modules`
@@ -785,6 +757,14 @@ ALTER TABLE `suivi`
   ADD CONSTRAINT `suivi_seance_id_foreign` FOREIGN KEY (`seance_id`) REFERENCES `seances` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `suivi_status_id_foreign` FOREIGN KEY (`status_id`) REFERENCES `status_suivi` (`id`) ON DELETE NO ACTION ON UPDATE CASCADE,
   ADD CONSTRAINT `suivi_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Contraintes pour la table `suivi_module`
+--
+ALTER TABLE `suivi_module`
+  ADD CONSTRAINT `suivi_module_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `suivi_module_ibfk_2` FOREIGN KEY (`module_id`) REFERENCES `modules` (`id`),
+  ADD CONSTRAINT `suivi_module_ibfk_3` FOREIGN KEY (`status_id`) REFERENCES `status_suivi` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

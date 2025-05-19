@@ -66,3 +66,6 @@
 [2025-05-19 13:48:11] ERROR: Erreur lors de l'enregistrement de la réponse: notNull Violation: ReponseClient.contenu cannot be null
 [2025-05-19 13:48:12] ERROR: Erreur lors de la mise à jour de la progression du module 7 pour l'utilisateur 8: Cannot read properties of undefined (reading 'findAll')
 [2025-05-19 13:48:12] ERROR: Erreur lors de la mise à jour de la progression du module 7: Cannot read properties of undefined (reading 'findAll')
+[2025-05-19 13:57:47] ERROR: Erreur lors de l'enregistrement de la réponse: notNull Violation: ReponseClient.contenu cannot be null
+[2025-05-19 13:58:20] ERROR: Erreur lors de la mise à jour de la progression du module 7 pour l'utilisateur 8: Cannot read properties of undefined (reading 'findAll')
+[2025-05-19 13:58:20] ERROR: Erreur lors de la mise à jour de la progression du module 7: Cannot read properties of undefined (reading 'findAll')
