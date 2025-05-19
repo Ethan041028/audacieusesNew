@@ -1,0 +1,37 @@
+<div class="question-reponse-container">
+  <!-- Liste des questions -->
+  <div class="questions-list" [formGroup]="parentForm">
+    <div formArrayName="questions">
+      <div *ngFor="let question of questionsArray.controls; let i = index" class="question-item">
+        <div [formGroupName]="i" class="question-form">
+          <div class="question-header">
+            <h4>Question {{i + 1}}</h4>
+            <button type="button" class="btn btn-sm btn-danger" 
+                    (click)="removeQuestion(i)" 
+                    [disabled]="questionsArray.length <= 1"
+                    title="Supprimer cette question">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          
+          <div class="form-group">
+            <label [for]="'question-libre-' + i">Texte de la question <span class="required">*</span></label>
+            <textarea [id]="'question-libre-' + i" formControlName="texte" class="form-control" rows="3"
+                   [ngClass]="{'is-invalid': question.get('texte')?.invalid && question.get('texte')?.touched}"
+                   placeholder="Entrez votre question..."></textarea>
+            <div *ngIf="question.get('texte')?.invalid && question.get('texte')?.touched" class="invalid-feedback">
+              <div *ngIf="question.get('texte')?.errors?.['required']">Le texte de la question est obligatoire.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Bouton pour ajouter une nouvelle question -->
+    <div class="add-question-btn">
+      <button type="button" class="btn btn-outline-primary" (click)="addQuestion()">
+        <i class="fas fa-plus"></i> Ajouter une question
+      </button>
+    </div>
+  </div>
+</div> 

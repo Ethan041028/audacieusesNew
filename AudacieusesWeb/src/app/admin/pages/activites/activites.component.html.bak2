@@ -1,0 +1,174 @@
+<div class="activites-container">
+  <div class="page-header">
+    <h1>
+      <span *ngIf="!currentSeance">Gestion des activités</span>
+      <span *ngIf="currentSeance">Activités de la séance: {{ currentSeance.titre }}</span>
+    </h1>
+    <button mat-raised-button color="primary" (click)="openCreateForm()" *ngIf="!isCreating && !isEditing">
+      <mat-icon>add</mat-icon> Nouvelle activité
+    </button>
+    <a mat-button [routerLink]="['/admin/seances']" *ngIf="currentSeance">
+      <mat-icon>arrow_back</mat-icon> Retour aux séances
+    </a>
+  </div>
+
+  <!-- Formulaire de création/édition -->
+  <mat-card *ngIf="isCreating || isEditing" class="form-card">
+    <mat-card-header>
+      <mat-card-title>{{ isCreating ? 'Créer une nouvelle activité' : 'Modifier l\'activité' }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="activiteForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Titre</mat-label>
+            <input matInput formControlName="titre" placeholder="Titre de l'activité">
+            <mat-error *ngIf="activiteForm.get('titre')?.hasError('required')">Le titre est requis</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" placeholder="Description de l'activité" rows="3"></textarea>
+          </mat-form-field>
+        </div>        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Contenu</mat-label>
+            <textarea matInput formControlName="contenu" placeholder="Contenu de l'activité" rows="5"></textarea>
+            <mat-error *ngIf="activiteForm.get('contenu')?.hasError('required')">Le contenu est requis</mat-error>
+            <mat-hint *ngIf="isQuestionType()">
+              <ng-container *ngIf="isQuestionReponseType()">
+                Pour les questions-réponses, saisissez la question et les instructions éventuelles ici.
+              </ng-container>              <ng-container *ngIf="isQCMType()">
+                Pour les QCM, utilisez un format JSON avec les options et la bonne réponse comme ceci:
+                {{ '{"question": "Votre question?", "options": ["Option 1", "Option 2", "Option 3"], "correctAnswer": 0}' }}
+              </ng-container>
+            </mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row two-columns">
+          <mat-form-field appearance="outline">
+            <mat-label>Type d'activité</mat-label>
+            <mat-select formControlName="type_activite_id">
+              <mat-option *ngFor="let type of typeActivites" [value]="type.id">
+                {{ type.type_activite }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="activiteForm.get('type_activite_id')?.hasError('required')">Le type d'activité est requis</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Séance</mat-label>
+            <mat-select formControlName="seance_id" [disabled]="!!seanceId">
+              <mat-option *ngFor="let seance of seances" [value]="seance.id">
+                {{ seance.titre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="activiteForm.get('seance_id')?.hasError('required')">La séance est requise</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row two-columns">
+          <mat-form-field appearance="outline">
+            <mat-label>Ordre</mat-label>
+            <input matInput type="number" formControlName="ordre" min="0">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Durée (minutes)</mat-label>
+            <input matInput type="number" formControlName="duree" min="0">
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="activiteForm.invalid">
+            {{ isCreating ? 'Créer' : 'Mettre à jour' }}
+          </button>
+          <button mat-button type="button" (click)="cancelForm()">Annuler</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Liste des activités -->
+  <div class="activites-list" *ngIf="!isLoading">
+    <div *ngIf="activites.length === 0" class="no-data">
+      <p>Aucune activité trouvée.</p>
+    </div>
+
+    <div cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="seanceId && activites.length > 0">
+      <mat-card *ngFor="let activite of activites" class="activite-card" cdkDrag>
+        <div class="drag-handle" cdkDragHandle *ngIf="seanceId">
+          <mat-icon>drag_indicator</mat-icon>
+        </div>
+        <mat-card-header>
+          <mat-card-title>{{ activite.titre }}</mat-card-title>
+          <mat-card-subtitle>
+            <span class="type-badge" [style.background-color]="activite.typeActivite?.couleur || '#3f51b5'">
+              {{ activite.typeActivite?.type_activite }}
+            </span>
+            <span *ngIf="!seanceId" class="seance-badge">
+              Séance: {{ getSeanceLabel(activite.seance_id) }}
+            </span>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p *ngIf="activite.description">{{ activite.description }}</p>
+          <p class="contenu-preview" [innerHTML]="activite.contenu.substring(0, 150) + (activite.contenu.length > 150 ? '...' : '')"></p>
+          <div class="activite-info">
+            <span *ngIf="activite.duree">Durée: {{ activite.duree }} min</span>
+            <span>Ordre: {{ activite.ordre }}</span>
+          </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-icon-button color="primary" (click)="openEditForm(activite)" matTooltip="Modifier">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteActivite(activite.id)" matTooltip="Supprimer">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+
+    <div *ngIf="!seanceId && activites.length > 0">
+      <mat-card *ngFor="let activite of activites" class="activite-card">
+        <mat-card-header>
+          <mat-card-title>{{ activite.titre }}</mat-card-title>
+          <mat-card-subtitle>
+            <span class="type-badge" [style.background-color]="activite.typeActivite?.couleur || '#3f51b5'">
+              {{ activite.typeActivite?.type_activite }}
+            </span>
+            <span class="seance-badge">
+              Séance: {{ getSeanceLabel(activite.seance_id) }}
+            </span>
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <p *ngIf="activite.description">{{ activite.description }}</p>
+          <p class="contenu-preview" [innerHTML]="activite.contenu.substring(0, 150) + (activite.contenu.length > 150 ? '...' : '')"></p>
+          <div class="activite-info">
+            <span *ngIf="activite.duree">Durée: {{ activite.duree }} min</span>
+            <span>Ordre: {{ activite.ordre }}</span>
+          </div>
+        </mat-card-content>
+        <mat-card-actions align="end">
+          <button mat-icon-button color="primary" (click)="openEditForm(activite)" matTooltip="Modifier">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="deleteActivite(activite.id)" matTooltip="Supprimer">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div class="loading-container" *ngIf="isLoading">
+    <mat-spinner diameter="50"></mat-spinner>
+    <p>Chargement des activités...</p>
+  </div>
+</div>

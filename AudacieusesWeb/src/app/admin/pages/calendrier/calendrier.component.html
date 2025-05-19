@@ -1,0 +1,249 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h2>Calendrier des événements</h2>
+          <button class="btn btn-primary" (click)="resetForm(); eventModal.open()">
+            <i class="fas fa-plus-circle"></i> Nouvel événement
+          </button>
+        </div>
+        <div class="card-body">
+          <!-- Affichage des erreurs -->
+          <div *ngIf="error.events" class="alert alert-danger">
+            {{ error.events }}
+          </div>
+          
+          <!-- Loader -->
+          <div *ngIf="loading.events" class="text-center py-4">
+            <div class="spinner-border text-primary" role="status">
+              <span class="sr-only">Chargement...</span>
+            </div>
+          </div>
+          
+          <!-- Calendrier -->
+          <div *ngIf="!loading.events && !error.events">
+            <full-calendar [options]="calendarOptions"></full-calendar>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal d'événement -->
+<ng-template #eventModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">{{ selectedEvent ? 'Modifier l\'événement' : 'Nouvel événement' }}</h4>
+    <button type="button" class="close" aria-label="Fermer" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="eventForm">
+      <!-- Erreur de sauvegarde -->
+      <div *ngIf="error.saving" class="alert alert-danger mb-3">
+        {{ error.saving }}
+      </div>
+      
+      <!-- Informations générales -->
+      <div class="form-group">
+        <label for="titre">Titre *</label>
+        <input type="text" id="titre" class="form-control" formControlName="titre" 
+               [ngClass]="{'is-invalid': eventForm.get('titre')?.invalid && eventForm.get('titre')?.touched}">
+        <div *ngIf="eventForm.get('titre')?.invalid && eventForm.get('titre')?.touched" class="invalid-feedback">
+          Le titre est requis (max. 100 caractères)
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea id="description" class="form-control" formControlName="description" rows="3"
+                 [ngClass]="{'is-invalid': eventForm.get('description')?.invalid && eventForm.get('description')?.touched}"></textarea>
+        <div *ngIf="eventForm.get('description')?.invalid && eventForm.get('description')?.touched" class="invalid-feedback">
+          Description trop longue (max. 500 caractères)
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="date_debut">Date et heure de début *</label>
+            <input type="datetime-local" id="date_debut" class="form-control" formControlName="date_debut"
+                  [ngClass]="{'is-invalid': eventForm.get('date_debut')?.invalid && eventForm.get('date_debut')?.touched}">
+            <div *ngIf="eventForm.get('date_debut')?.invalid && eventForm.get('date_debut')?.touched" class="invalid-feedback">
+              La date de début est requise
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="date_fin">Date et heure de fin *</label>
+            <input type="datetime-local" id="date_fin" class="form-control" formControlName="date_fin"
+                  [ngClass]="{'is-invalid': eventForm.get('date_fin')?.invalid && eventForm.get('date_fin')?.touched}">
+            <div *ngIf="eventForm.get('date_fin')?.invalid && eventForm.get('date_fin')?.touched" class="invalid-feedback">
+              La date de fin est requise
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="lieu">Lieu</label>
+        <input type="text" id="lieu" class="form-control" formControlName="lieu"
+               [ngClass]="{'is-invalid': eventForm.get('lieu')?.invalid && eventForm.get('lieu')?.touched}">
+        <div *ngIf="eventForm.get('lieu')?.invalid && eventForm.get('lieu')?.touched" class="invalid-feedback">
+          Le lieu est trop long (max. 100 caractères)
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="type">Type d'événement *</label>
+            <select id="type" class="form-control" formControlName="type">
+              <option value="evenement">Événement</option>
+              <option value="reunion">Réunion</option>
+              <option value="formation">Formation</option>
+              <option value="autre">Autre</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="statut">Statut *</label>
+            <select id="statut" class="form-control" formControlName="statut">
+              <option value="planifie">Planifié</option>
+              <option value="confirme">Confirmé</option>
+              <option value="annule">Annulé</option>
+              <option value="complete">Terminé</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="form-group">
+            <label for="couleur">Couleur</label>
+            <input type="color" id="couleur" class="form-control" formControlName="couleur">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-group mt-4">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="prive" formControlName="prive">
+              <label class="custom-control-label" for="prive">Événement privé</label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Rappels -->
+      <div class="form-group mt-3">
+        <div class="custom-control custom-checkbox">
+          <input type="checkbox" class="custom-control-input" id="rappel" formControlName="rappel">
+          <label class="custom-control-label" for="rappel">Activer un rappel</label>
+        </div>
+      </div>
+      
+      <div *ngIf="eventForm.get('rappel')?.value" class="form-group">
+        <label for="temps_rappel">Temps de rappel (minutes avant l'événement)</label>
+        <input type="number" id="temps_rappel" class="form-control" formControlName="temps_rappel"
+               [ngClass]="{'is-invalid': eventForm.get('temps_rappel')?.invalid && eventForm.get('temps_rappel')?.touched}">
+        <div *ngIf="eventForm.get('temps_rappel')?.invalid && eventForm.get('temps_rappel')?.touched" class="invalid-feedback">
+          Le temps de rappel doit être entre 1 et 1440 minutes (24h)
+        </div>
+      </div>
+      
+      <!-- Participants -->
+      <div class="form-group mt-3">
+        <label>Participants</label>
+        <button type="button" class="btn btn-outline-primary btn-sm ml-2" (click)="openParticipantsModal()">
+          Gérer les participants
+        </button>
+        <div *ngIf="participantsForm.get('participants')?.value?.length" class="mt-2">
+          <span class="badge badge-pill badge-primary mr-1" *ngFor="let participantId of participantsForm.get('participants')?.value">
+            {{ users.find(u => u.id === participantId)?.prenom }} {{ users.find(u => u.id === participantId)?.nom }}
+          </span>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Annuler</button>
+    <button *ngIf="selectedEvent" type="button" class="btn btn-danger mr-auto" (click)="confirmDelete()">Supprimer</button>
+    <button type="button" class="btn btn-primary" [disabled]="eventForm.invalid || loading.saving" (click)="saveEvent()">
+      <span *ngIf="loading.saving" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"></span>
+      {{ selectedEvent ? 'Mettre à jour' : 'Créer' }}
+    </button>
+  </div>
+</ng-template>
+
+<!-- Modal de participants -->
+<ng-template #participantsModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Gérer les participants</h4>
+    <button type="button" class="close" aria-label="Fermer" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!-- Loader -->
+    <div *ngIf="loading.users" class="text-center py-4">
+      <div class="spinner-border text-primary" role="status">
+        <span class="sr-only">Chargement...</span>
+      </div>
+    </div>
+    
+    <!-- Erreur -->
+    <div *ngIf="error.users" class="alert alert-danger">
+      {{ error.users }}
+    </div>
+    
+    <!-- Liste des utilisateurs -->
+    <form [formGroup]="participantsForm" *ngIf="!loading.users && !error.users">
+      <div class="form-group">
+        <label>Sélectionnez les participants</label>
+        <div class="custom-control custom-checkbox mb-2" *ngFor="let user of users">
+          <input type="checkbox" class="custom-control-input" 
+                 [id]="'user-' + user.id" 
+                 [value]="user.id" 
+                 (change)="onParticipantChange($event, user.id)">
+          <label class="custom-control-label" [for]="'user-' + user.id">
+            {{ user.prenom }} {{ user.nom }} ({{ user.email }})
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Fermer</button>
+  </div>
+</ng-template>
+
+<!-- Modal de confirmation de suppression -->
+<ng-template #confirmDeleteModal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirmer la suppression</h4>
+    <button type="button" class="close" aria-label="Fermer" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Êtes-vous sûr de vouloir supprimer l'événement <strong>{{ selectedEvent?.titre }}</strong> ?</p>
+    <p class="text-danger">Cette action est irréversible.</p>
+    
+    <!-- Erreur de suppression -->
+    <div *ngIf="error.deleting" class="alert alert-danger mt-3">
+      {{ error.deleting }}
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Annuler</button>
+    <button type="button" class="btn btn-danger" [disabled]="loading.deleting" (click)="deleteEvent()">
+      <span *ngIf="loading.deleting" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"></span>
+      Confirmer la suppression
+    </button>
+  </div>
+</ng-template>

@@ -1,0 +1,30 @@
+<div class="text-activite-container">
+  <div class="card">
+    <div class="card-header">
+      <h2>{{ activite.titre }}</h2>
+    </div>
+    <div class="card-body">
+      <p *ngIf="activite.description" class="activite-description">{{ activite.description }}</p>
+      
+      <div class="text-content fade-in">
+        <div class="text-wrapper" [innerHTML]="textContent"></div>
+      </div>
+      
+      <div class="text-actions" *ngIf="!isCompleted">
+        <button class="btn btn-primary" (click)="markAsRead()">
+          Marquer comme lu
+        </button>
+      </div>
+      
+      <div *ngIf="isCompleted" class="text-completed fade-in">
+        <div class="completion-message">
+          <i class="fas fa-check-circle"></i>
+          <h3>Lecture terminée !</h3>
+        </div>
+        <button class="btn btn-outline-primary" (click)="continueToNext()">
+          Continuer
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

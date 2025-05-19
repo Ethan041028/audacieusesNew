@@ -1,0 +1,10 @@
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  
+  > div {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+}

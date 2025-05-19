@@ -1,0 +1,294 @@
+@use './variables' as vars;
+@use 'sass:color';
+
+// Animations de base
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 0 0 0 color.scale(vars.$color-primary, $alpha: -60%);
+  }
+  70% {
+    box-shadow: 0 0 0 10px color.scale(vars.$color-primary, $alpha: -100%);
+  }
+  100% {
+    box-shadow: 0 0 0 0 color.scale(vars.$color-primary, $alpha: -100%);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@keyframes bounceIn {
+  from,
+  20%,
+  40%,
+  60%,
+  80%,
+  to {
+    animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  }
+  0% {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+  20% {
+    transform: scale3d(1.1, 1.1, 1.1);
+  }
+  40% {
+    transform: scale3d(0.9, 0.9, 0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: scale3d(1.03, 1.03, 1.03);
+  }
+  80% {
+    transform: scale3d(0.97, 0.97, 0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    transform: rotate(-10deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(0);
+    opacity: 1;
+  }
+}
+
+@keyframes floatY {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutLeft {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+
+// Classes d'animation
+.fade-in {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+.fade-in-down {
+  animation: fadeInDown 0.6s ease forwards;
+}
+
+.fade-in-left {
+  animation: fadeInLeft 0.6s ease forwards;
+}
+
+.fade-in-right {
+  animation: fadeInRight 0.6s ease forwards;
+}
+
+.zoom-in {
+  animation: zoomIn 0.5s ease-out forwards;
+}
+
+.bounce-in {
+  animation: bounceIn 0.8s forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.slide-down {
+  animation: slideDown 0.5s ease-out forwards;
+}
+
+.rotate-in {
+  animation: rotateIn 0.5s ease-out forwards;
+}
+
+.float-y {
+  animation: floatY 3s ease-in-out infinite;
+}
+
+.pulse-glow {
+  animation: pulseGlow 2s infinite;
+}
+
+// Animation de chargement
+.shimmer-effect {
+  background: linear-gradient(
+    90deg, 
+    color.scale(vars.$color-primary, $alpha: -90%) 0%, 
+    color.scale(vars.$color-primary, $alpha: -80%) 50%, 
+    color.scale(vars.$color-primary, $alpha: -90%) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+// Mixins d'animation
+@mixin fade-in-animation {
+  opacity: 0;
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@mixin fade-in-up-animation {
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+}
+
+@mixin slide-up-animation {
+  transform: translateY(100%);
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+@mixin zoom-in-animation {
+  opacity: 0;
+  transform: scale(0.9);
+  animation: zoomIn 0.5s ease-out forwards;
+}
+
+// Animation avec délai
+@for $i from 1 through 10 {
+  .delay-#{$i} {
+    animation-delay: #{$i * 0.1}s;
+  }
+}
+
+// Animation pour les transitions de route
+.route-enter-active {
+  animation: fadeInRight 0.3s ease-out forwards;
+}
+
+.route-leave-active {
+  animation: fadeOutLeft 0.3s ease-in forwards;
+}
+
+// Animation de transition entre les activités
+.activite-enter {
+  opacity: 0;
+  transform: translateX(20px);
+}
+
+.activite-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.3s ease-in-out;
+}
+
+.activite-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.activite-exit-active {
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.3s ease-in-out;
+}

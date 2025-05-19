@@ -1,0 +1,108 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="fw-bold">Mes modules</h1>
+  </div>
+
+  <!-- Indicateur de chargement -->
+  <div *ngIf="loading" class="text-center py-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement de vos modules...</p>
+  </div>
+  
+  <!-- Message d'erreur -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+    <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadUserModules()">Réessayer</button>
+  </div>
+
+  <!-- Aucun module trouvé -->
+  <div *ngIf="!loading && !error && modules.length === 0" class="text-center py-5">
+    <p class="text-muted">Aucun module ne vous a été assigné pour le moment.</p>
+  </div>
+
+  <!-- Liste des modules -->
+  <div *ngIf="!loading && !error && modules.length > 0" class="row mt-4">
+    <div *ngFor="let module of modules" class="col-12 mb-3">
+      <div class="card d-flex flex-row">
+        <img [src]="module.image_url || '../../../../assets/images/module' + ((module.id % 2) + 1) + '.jpg'" 
+             class="card-img-left" style="width: 40%;" [alt]="module.titre">            
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <h5 class="card-title">{{ module.titre }}</h5>
+            <!-- Badge de statut et de complétion -->
+            <div>
+              <span class="badge me-2" [ngClass]="{
+              'bg-success': module.statut === 'publié',
+              'bg-warning': module.statut === 'en cours',
+              'bg-secondary': module.statut === 'brouillon'
+            }">{{ module.statut }}</span>
+              
+              <!-- Afficher le badge de progression basé sur le statut fourni par l'API -->
+              <span *ngIf="module.progression && module.progression.status === 'TERMINE'" 
+                    class="badge bg-success">
+                {{ getStatusText('TERMINE') }}
+              </span>
+              <span *ngIf="module.progression && module.progression.status === 'EN_COURS'" 
+                    class="badge bg-warning">
+                {{ getStatusText('EN_COURS') }}
+              </span>
+              <span *ngIf="!module.progression || module.progression.status === 'NON_COMMENCE'" 
+                    class="badge bg-secondary">
+                {{ getStatusText('NON_COMMENCE') }}
+              </span>
+              
+              <!-- Badge de débogage (temporaire) -->
+              <small class="ms-2 text-muted">
+                {{ module.progression?.percentage | number:'1.0-0' }}%
+              </small>
+            </div>
+          </div>
+          <p class="card-text text-muted">
+            <small>{{ module.date_creation | date:'dd/MM/yyyy' }}</small>
+          </p>
+          <p class="card-text">{{ module.description }}</p>
+          
+          <!-- Barre de progression -->
+          <div *ngIf="module.progression" class="mt-3">
+            <div class="d-flex justify-content-between">
+              <small>Progression</small>
+              <small>{{ module.progression.completed }}/{{ module.progression.total }} séances</small>
+            </div>
+            <div class="progress" style="height: 10px;">
+              <div class="progress-bar" 
+                   [ngClass]="{
+                     'bg-success': module.progression.status === 'TERMINE',
+                     'bg-warning': module.progression.status === 'EN_COURS',
+                     'bg-secondary': !module.progression.status || module.progression.status === 'NON_COMMENCE'
+                   }"
+                   [style.width.%]="module.progression.percentage" 
+                   role="progressbar" 
+                   [attr.aria-valuenow]="module.progression.percentage" 
+                   aria-valuemin="0" 
+                   aria-valuemax="100">
+              </div>
+            </div>
+            <div class="text-end mt-1">
+              <small>{{ module.progression.percentage | number:'1.0-0' }}%</small>
+            </div>
+          </div>
+          
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <div>
+              <span class="badge bg-info me-2">{{ module.seances?.length || 0 }} séances</span>
+              <small *ngIf="module.progression?.date_completion" class="text-muted">
+                Terminé le {{ module.progression.date_completion | date:'dd/MM/yyyy' }}
+              </small>
+            </div>
+            <button class="btn btn-primary" [routerLink]="['/client/modules', module.id]">
+              {{ module.progression && module.progression.status === 'TERMINE' ? 'Revoir' : 'Continuer' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

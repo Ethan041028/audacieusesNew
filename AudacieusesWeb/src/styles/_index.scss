@@ -1,0 +1,7 @@
+// Ce fichier regroupe toutes les importations de styles dans un seul endroit
+// pour éviter les importations circulaires
+@use './variables' as vars;
+@use './mixins' as mix;
+@use './animations' as anim;
+@use './components' as comp;
+@use './material-theme' as theme; 

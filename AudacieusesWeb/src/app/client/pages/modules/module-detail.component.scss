@@ -1,0 +1,392 @@
+@use '../../../../styles/variables' as *;
+
+.module-detail-container {
+  padding: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.back-button {
+  background: none;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 0.2s;
+  
+  &:hover {
+    color: var(--color-primary);
+  }
+  
+  i {
+    font-size: 0.8rem;
+  }
+}
+
+// États de chargement et d'erreur
+.loading-container, .error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(var(--color-primary-rgb), 0.1);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+  }
+  
+  button {
+    padding: 0.5rem 1rem;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: $color-primary-dark;
+    }
+  }
+}
+
+// En-tête du module
+.module-header {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+  
+  .module-cover {
+    flex: 0 0 40%;
+    max-width: 40%;
+    
+    @media (max-width: 768px) {
+      flex: auto;
+      max-width: 100%;
+      height: 200px;
+    }
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  .module-info {
+    flex: 1;
+    padding: 1.5rem;
+    
+    h1 {
+      font-size: 1.8rem;
+      color: var(--text-primary);
+      margin: 0 0 1rem;
+    }
+    
+    .module-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      
+      .module-level, .module-duration, .module-status {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 16px;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+      }
+      
+      .module-level {
+        &.débutant {
+          background-color: #E8F5E9;
+          color: #1B5E20;
+        }
+        
+        &.intermédiaire {
+          background-color: #E3F2FD;
+          color: #0D47A1;
+        }
+        
+        &.avancé {
+          background-color: #FFEBEE;
+          color: #B71C1C;
+        }
+      }
+      
+      .module-duration {
+        background-color: #F5F5F5;
+        color: #616161;
+      }
+      
+      .module-status {
+        &.en-cours {
+          background-color: #FFD166;
+          color: #664900;
+        }
+        
+        &.terminé {
+          background-color: #06D6A0;
+          color: #003d2d;
+        }
+        
+        &.non-commencé {
+          background-color: #E0E0E0;
+          color: #424242;
+        }
+      }
+    }
+    
+    .module-progress {
+      margin-bottom: 1.25rem;
+      
+      .progress-bar {
+        height: 8px;
+        background-color: #E0E0E0;
+        border-radius: 4px;
+        overflow: hidden;
+        
+        .progress-fill {
+          height: 100%;
+          background-color: var(--color-primary);
+          border-radius: 4px;
+          transition: width 0.5s ease-in-out;
+        }
+      }
+      
+      .progress-text {
+        display: block;
+        text-align: right;
+        font-size: 0.8rem;
+        color: var(--text-secondary);
+        margin-top: 0.25rem;
+      }
+    }
+    
+    .module-description {
+      font-size: 1rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+    
+    .start-button, .continue-button {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+    
+    .start-button {
+      background-color: var(--color-primary);
+      color: white;
+      
+      &:hover {
+        background-color: $color-primary-dark;
+      }
+    }
+    
+    .continue-button {
+      background-color: #FFD166;
+      color: #664900;
+      
+      &:hover {
+        background-color: darken(#FFD166, 10%);
+      }
+    }
+    
+    .completion-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #06D6A0;
+      color: #003d2d;
+      border-radius: 4px;
+      font-weight: 500;
+      
+      i {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+// Section des séances
+.seances-section {
+  h2 {
+    font-size: 1.5rem;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
+  }
+  
+  .seances-list {
+    .empty-state {
+      text-align: center;
+      padding: 2rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      color: var(--text-secondary);
+    }
+    
+    .seance-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.25rem;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      
+      &.unlocked:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      }
+      
+      &.completed {
+        border-left: 4px solid #06D6A0;
+      }
+      
+      &.locked {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+      
+      .seance-order {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #F5F5F5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        color: var(--text-primary);
+        flex-shrink: 0;
+        
+        .completed & {
+          background-color: #06D6A0;
+          color: white;
+        }
+      }
+      
+      .seance-info {
+        flex: 1;
+        min-width: 0;
+        
+        h3 {
+          margin: 0 0 0.5rem;
+          font-size: 1.1rem;
+          color: var(--text-primary);
+        }
+        
+        p {
+          color: var(--text-secondary);
+          margin: 0 0 0.75rem;
+          font-size: 0.9rem;
+          line-height: 1.4;
+        }
+        
+        .seance-meta {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.75rem;
+          
+          span {
+            font-size: 0.8rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+          }
+          
+          .seance-duration {
+            background-color: #F5F5F5;
+            color: #616161;
+          }
+          
+          .seance-locked {
+            background-color: #E0E0E0;
+            color: #424242;
+          }
+          
+          .seance-available {
+            background-color: #E3F2FD;
+            color: #0D47A1;
+          }
+          
+          .seance-completed {
+            background-color: #E8F5E9;
+            color: #1B5E20;
+          }
+        }
+      }
+      
+      .seance-action {
+        flex-shrink: 0;
+        
+        .btn-primary {
+          padding: 0.5rem 1rem;
+          background-color: var(--color-primary);
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          
+          &:hover {
+            background-color: $color-primary-dark;
+          }
+        }
+        
+        .lock-icon {
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: #9E9E9E;
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+<div class="rappels-container">
+  <!-- Bouton de rafraîchissement -->
+  <div class="text-end mb-3">
+    <button class="btn btn-sm btn-outline-primary" (click)="rafraichir()">
+      <i class="bi bi-arrow-clockwise"></i> Rafraîchir
+    </button>
+  </div>
+  
+  <!-- Affichage du chargement -->
+  <div *ngIf="loading" class="text-center my-3">
+    <div class="spinner-border spinner-border-sm text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <span class="ms-2">Chargement des rappels...</span>
+  </div>
+  
+  <!-- Message d'erreur -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+  
+  <!-- Liste des rappels -->
+  <div *ngIf="!loading && !error">
+    <div *ngIf="rappels.length === 0" class="text-center text-muted my-4">
+      <i class="bi bi-calendar-x fs-2"></i>
+      <p class="mt-2">Vous n'avez pas de rappels à venir.</p>
+    </div>
+    
+    <div *ngIf="rappels.length > 0" class="list-group">
+      <div *ngFor="let rappel of rappels" class="list-group-item list-group-item-action">
+        <div class="d-flex w-100 justify-content-between align-items-center">
+          <div>
+            <span class="badge me-2 py-1" [ngClass]="getEventClass(rappel.type)">{{ rappel.type }}</span>
+            <h6 class="mb-1 d-inline">{{ rappel.titre }}</h6>
+          </div>
+          <small class="text-muted">{{ formatDate(rappel.date_debut) }}</small>
+        </div>
+        <p *ngIf="rappel.description" class="mb-1 small text-truncate">{{ rappel.description }}</p>
+        <div class="d-flex justify-content-between align-items-center mt-2">
+          <small *ngIf="rappel.lieu" class="text-muted">
+            <i class="bi bi-geo-alt"></i> {{ rappel.lieu }}
+          </small>
+          <span class="badge bg-info">
+            <i class="bi bi-alarm"></i> Dans {{ getTempsRestant(rappel.date_debut, rappel.temps_rappel) }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

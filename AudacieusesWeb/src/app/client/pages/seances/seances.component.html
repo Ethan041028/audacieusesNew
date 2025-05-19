@@ -1,0 +1,92 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="fw-bold">Mes séances</h1>
+    
+    <div class="filter-container">
+      <ul class="nav nav-pills">
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="filter === 'all'" (click)="filterSeances('all')" href="javascript:void(0)">
+            Toutes
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="filter === 'pending'" (click)="filterSeances('pending')" href="javascript:void(0)">
+            À faire
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [class.active]="filter === 'completed'" (click)="filterSeances('completed')" href="javascript:void(0)">
+            Terminées
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Indicateur de chargement -->
+  <div *ngIf="loading" class="text-center py-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement de vos séances...</p>
+  </div>
+  
+  <!-- Message d'erreur -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+    <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadUserSeances()">Réessayer</button>
+  </div>
+
+  <!-- Aucune séance trouvée -->
+  <div *ngIf="!loading && !error && getFilteredSeances().length === 0" class="text-center py-5">
+    <p class="text-muted">Aucune séance trouvée pour ce filtre.</p>
+  </div>
+
+  <!-- Liste des séances -->
+  <div *ngIf="!loading && !error && getFilteredSeances().length > 0" class="row mt-4">
+    <div *ngFor="let seance of getFilteredSeances()" class="col-12 mb-3">
+      <div class="card d-flex flex-row">
+        <div class="card-img-left bg-light d-flex align-items-center justify-content-center" style="width: 40%; min-height: 200px;">
+          <!-- Afficher une image si disponible, sinon un badge coloré selon le type -->
+          <div *ngIf="!seance.image_url" class="text-center">
+            <div class="badge p-3 fs-5" [ngClass]="{
+              'bg-success': seance.type === 'individuelle',
+              'bg-info': seance.type === 'groupe'
+            }">{{ seance.type === 'individuelle' ? 'Séance individuelle' : 'Séance de groupe' }}</div>
+            <p class="mt-2 mb-0 text-muted">{{ seance.duree }} minutes</p>
+          </div>
+          <img *ngIf="seance.image_url" [src]="seance.image_url" class="img-fluid" [alt]="seance.titre">
+        </div>            
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-start">
+            <h5 class="card-title">{{ seance.titre }}</h5>
+            <span class="badge" [ngClass]="{
+              'bg-success': seance.suivi?.statut === 'TERMINE',
+              'bg-warning': seance.suivi?.statut === 'EN_COURS',
+              'bg-secondary': !seance.suivi || seance.suivi.statut === 'NON_COMMENCE'
+            }">{{ seance.suivi?.statut === 'TERMINE' ? 'Terminée' : seance.suivi?.statut === 'EN_COURS' ? 'En cours' : 'À faire' }}</span>
+          </div>
+          
+          <!-- Progression si la séance est commencée -->
+          <div *ngIf="seance.suivi && seance.suivi.statut !== 'NON_COMMENCE'" class="progress mt-2 mb-3" style="height: 10px;">
+            <div class="progress-bar" role="progressbar" 
+                [style.width]="(seance.suivi.progression || 0) + '%'" 
+                [attr.aria-valuenow]="seance.suivi.progression || 0" 
+                aria-valuemin="0" 
+                aria-valuemax="100">
+            </div>
+          </div>
+          
+          <p class="card-text">{{ seance.description }}</p>
+          
+          <div class="d-flex justify-content-between align-items-center mt-3">
+            <small class="text-muted">{{ seance.duree }} minutes</small>
+            <button class="btn btn-primary" [routerLink]="['/client/seances', seance.id]">
+              {{ seance.suivi?.statut === 'TERMINE' ? 'Revoir' : seance.suivi?.statut === 'EN_COURS' ? 'Continuer' : 'Commencer' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,359 @@
+@use '../../../../styles/variables' as *;
+
+.module-form-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  
+  h1 {
+    font-size: 1.8rem;
+    color: var(--text-primary);
+    margin: 0;
+  }
+  
+  .btn-back {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    transition: color 0.2s;
+    
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+}
+
+// États de chargement et d'erreur
+.loading-container, .error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 1.5rem;
+  
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(var(--color-primary-rgb), 0.1);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  
+  p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+  }
+  
+  button {
+    padding: 0.5rem 1rem;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: $color-primary-dark;
+    }
+  }
+}
+
+// Formulaire
+.module-form {
+  .form-section {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    
+    h2 {
+      font-size: 1.25rem;
+      color: var(--text-primary);
+      margin: 0 0 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #E0E0E0;
+    }
+    
+    // Groupes de formulaire
+    .form-group {
+      margin-bottom: 1.25rem;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+      
+      label {
+        display: block;
+        font-weight: 500;
+        color: var(--text-primary);
+        margin-bottom: 0.5rem;
+        
+        .required {
+          color: var(--color-error);
+        }
+      }
+      
+      input[type="text"],
+      input[type="number"],
+      textarea,
+      select {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid #E0E0E0;
+        border-radius: 4px;
+        font-family: inherit;
+        font-size: 0.95rem;
+        
+        &:focus {
+          outline: none;
+          border-color: var(--color-primary);
+          box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.1);
+        }
+        
+        &:disabled {
+          background-color: #F5F5F5;
+          cursor: not-allowed;
+        }
+      }
+      
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+      
+      .form-error {
+        margin-top: 0.5rem;
+        color: var(--color-error);
+        font-size: 0.85rem;
+      }
+    }
+    
+    // Ligne de formulaire (plusieurs champs sur une ligne)
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+    
+    // Upload d'image
+    .image-upload {
+      .image-preview {
+        margin: 1rem 0;
+        max-width: 300px;
+        border-radius: 8px;
+        overflow: hidden;
+        border: 1px solid #E0E0E0;
+        
+        img {
+          width: 100%;
+          height: auto;
+          display: block;
+        }
+      }
+      
+      .upload-controls {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 0.5rem;
+        
+        .btn-upload {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.6rem 1rem;
+          background-color: #E3F2FD;
+          color: #0D47A1;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 0.9rem;
+          transition: background-color 0.2s;
+          
+          &:hover {
+            background-color: darken(#E3F2FD, 5%);
+          }
+        }
+        
+        .btn-remove-image {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 0.6rem 1rem;
+          background-color: #FFEBEE;
+          color: #B71C1C;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          font-size: 0.9rem;
+          transition: background-color 0.2s;
+          
+          &:hover {
+            background-color: darken(#FFEBEE, 5%);
+          }
+        }
+      }
+      
+      .image-help {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        margin: 0;
+      }
+    }
+    
+    // Objectifs
+    .objectif-item {
+      margin-bottom: 1rem;
+      
+      &:last-child {
+        margin-bottom: 1.5rem;
+      }
+      
+      .objectif-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        
+        input {
+          flex: 1;
+        }
+        
+        .btn-remove {
+          flex-shrink: 0;
+          width: 36px;
+          height: 36px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #FFEBEE;
+          color: #B71C1C;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+          
+          &:hover:not(:disabled) {
+            background-color: darken(#FFEBEE, 5%);
+          }
+          
+          &:disabled {
+            background-color: #F5F5F5;
+            color: #9E9E9E;
+            cursor: not-allowed;
+          }
+        }
+      }
+    }
+    
+    .btn-add-objectif {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      background-color: #E0E0E0;
+      color: var(--text-secondary);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: background-color 0.2s, color 0.2s;
+      
+      &:hover {
+        background-color: darken(#E0E0E0, 5%);
+        color: var(--text-primary);
+      }
+    }
+  }
+  
+  // Actions du formulaire
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    
+    .btn-cancel, .btn-submit {
+      padding: 0.75rem 1.5rem;
+      border-radius: 4px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+    
+    .btn-cancel {
+      background-color: #F5F5F5;
+      color: var(--text-secondary);
+      border: none;
+      
+      &:hover {
+        background-color: darken(#F5F5F5, 5%);
+      }
+    }
+    
+    .btn-submit {
+      background-color: var(--color-primary);
+      color: white;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      
+      &:hover:not(:disabled) {
+        background-color: $color-primary-dark;
+      }
+      
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+      
+      .spinner-button {
+        width: 16px;
+        height: 16px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+    }
+  }
+  
+  // Message de succès
+  .success-message {
+    padding: 1rem;
+    background-color: #E8F5E9;
+    color: #1B5E20;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    
+    i {
+      font-size: 1.1rem;
+    }
+  }
+}

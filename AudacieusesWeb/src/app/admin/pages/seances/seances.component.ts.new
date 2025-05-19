@@ -1,0 +1,353 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { SeanceService, Seance, SeancesResponse } from '../../../services/seance.service';
+import { NotificationService } from '../../../services/notification.service';
+import { ModuleService } from '../../services/module.service';
+
+declare var bootstrap: any; // Déclaration pour pouvoir utiliser bootstrap
+
+@Component({
+  selector: 'app-seances',
+  templateUrl: './seances.component.html',
+  styleUrls: ['./seances.component.scss'],
+  standalone: true,
+  imports: [CommonModule, RouterLink, FormsModule, ReactiveFormsModule]
+})
+export class SeancesComponent implements OnInit {
+  seances: Seance[] = [];
+  modules: any[] = [];
+  loading = true;
+  error: string | null = null;
+  filter = 'all'; // 'all', 'individual', 'group'
+  searchQuery = '';
+  sortBy = 'date_creation';
+  sortOrder = 'desc';
+  
+  // Formulaire pour la création et l'édition de séances
+  seanceForm: FormGroup;
+  editingSeance: Seance | null = null;
+  
+  // Modal pour les utilisateurs de la séance
+  selectedSeanceId: number | null = null;
+  selectedSeanceUsers: any[] = [];
+  
+  constructor(
+    private seanceService: SeanceService,
+    private moduleService: ModuleService,
+    private fb: FormBuilder,
+    private notificationService: NotificationService
+  ) {
+    // Initialisation du formulaire
+    this.seanceForm = this.fb.group({
+      titre: ['', [Validators.required, Validators.maxLength(100)]],
+      description: ['', [Validators.maxLength(500)]],
+      contenu: ['', [Validators.maxLength(2000)]],
+      duree: [60, [Validators.required, Validators.min(15)]],
+      type: ['individuelle', Validators.required],
+      module_id: ['', Validators.required],
+      statut: ['brouillon', Validators.required]
+    });
+  }
+
+  ngOnInit(): void {
+    this.loadSeances();
+    this.loadModules();
+    
+    // Réinitialiser le formulaire lorsque le modal est fermé
+    const modalElement = document.getElementById('seanceModal');
+    if (modalElement) {
+      modalElement.addEventListener('hidden.bs.modal', () => {
+        this.resetForm();
+      });
+    }
+  }
+
+  resetForm(): void {
+    this.seanceForm.reset({
+      type: 'individuelle',
+      duree: 60,
+      statut: 'brouillon'
+    });
+    this.editingSeance = null;
+  }
+
+  loadSeances(): void {
+    this.loading = true;
+    this.error = null;
+
+    this.seanceService.getAllSeances().subscribe({
+      next: (response: SeancesResponse) => {
+        this.seances = response.seances;
+        this.loading = false;
+      },
+      error: (err: any) => {
+        console.error('Erreur lors du chargement des séances', err);
+        this.error = 'Erreur lors du chargement des séances. Veuillez réessayer.';
+        this.loading = false;
+      }
+    });
+  }
+
+  loadModules(): void {
+    this.moduleService.getAllModules().subscribe({
+      next: (data: any) => {
+        this.modules = data.modules || [];
+      },
+      error: (err: any) => {
+        console.error('Erreur lors du chargement des modules', err);
+        this.notificationService.showError('Erreur lors du chargement des modules');
+      }
+    });
+  }
+
+  // Filtrage des séances
+  getFilteredSeances(): Seance[] {
+    let filteredSeances = [...this.seances];
+    
+    // Filtrer par type (individuelle/groupe)
+    if (this.filter === 'individual') {
+      filteredSeances = filteredSeances.filter(s => s.type === 'individuelle');
+    } else if (this.filter === 'group') {
+      filteredSeances = filteredSeances.filter(s => s.type === 'groupe');
+    }
+    
+    // Filtrer par recherche
+    if (this.searchQuery.trim()) {
+      const query = this.searchQuery.trim().toLowerCase();
+      filteredSeances = filteredSeances.filter(s => 
+        s.titre.toLowerCase().includes(query) || 
+        (s.description && s.description.toLowerCase().includes(query))
+      );
+    }
+    
+    // Trier les séances
+    filteredSeances.sort((a, b) => {
+      let valueA, valueB;
+      
+      switch (this.sortBy) {
+        case 'titre':
+          valueA = a.titre.toLowerCase();
+          valueB = b.titre.toLowerCase();
+          break;
+        case 'date_creation':
+          valueA = new Date(a.date_creation || '').getTime();
+          valueB = new Date(b.date_creation || '').getTime();
+          break;
+        case 'duree':
+          valueA = a.duree;
+          valueB = b.duree;
+          break;
+        default:
+          valueA = new Date(a.date_creation || '').getTime();
+          valueB = new Date(b.date_creation || '').getTime();
+      }
+      
+      const compareResult = valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
+      return this.sortOrder === 'asc' ? compareResult : -compareResult;
+    });
+    
+    return filteredSeances;
+  }
+
+  // Méthodes de filtrage et tri
+  filterSeances(filter: string): void {
+    this.filter = filter;
+  }
+  
+  searchSeances(): void {
+    // La recherche est gérée dans getFilteredSeances()
+  }
+  
+  sortSeances(sortBy: string): void {
+    if (this.sortBy === sortBy) {
+      // Inverser l'ordre si on clique sur le même critère de tri
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortBy = sortBy;
+      this.sortOrder = 'asc';
+    }
+  }
+
+  // Méthodes du formulaire
+  editSeance(seance: Seance): void {
+    this.editingSeance = seance;
+    
+    // Remplir le formulaire avec les données de la séance
+    this.seanceForm.patchValue({
+      titre: seance.titre,
+      description: seance.description || '',
+      contenu: seance.contenu || '',
+      duree: seance.duree,
+      type: seance.type,
+      module_id: seance.module_id,
+      statut: seance.statut
+    });
+    
+    // Ouvrir le modal
+    const modal = new bootstrap.Modal(document.getElementById('seanceModal'));
+    modal.show();
+  }
+
+  onSubmitSeanceForm(): void {
+    if (this.seanceForm.invalid) {
+      // Marquer tous les champs comme touchés pour afficher les erreurs
+      Object.keys(this.seanceForm.controls).forEach(key => {
+        const control = this.seanceForm.get(key);
+        control?.markAsTouched();
+      });
+      return;
+    }
+    
+    const seanceData = this.seanceForm.value;
+    
+    if (this.editingSeance) {
+      // Mise à jour d'une séance existante
+      this.seanceService.updateSeance(this.editingSeance.id, seanceData).subscribe({
+        next: (response) => {
+          // Mettre à jour la séance dans le tableau local
+          const index = this.seances.findIndex(s => s.id === this.editingSeance!.id);
+          if (index !== -1) {
+            this.seances[index] = { ...this.seances[index], ...response.seance };
+          }
+          
+          // Fermer le modal et afficher un message de succès
+          const closeButton = document.getElementById('seanceModal')?.querySelector('.btn-close') as HTMLElement;
+          if (closeButton) closeButton.click();
+          
+          this.notificationService.showSuccess('Séance mise à jour avec succès');
+          this.resetForm();
+        },
+        error: (err: any) => {
+          console.error('Erreur lors de la mise à jour de la séance', err);
+          this.notificationService.showError('Erreur lors de la mise à jour de la séance');
+        }
+      });
+    } else {
+      // Création d'une nouvelle séance
+      this.seanceService.createSeance(seanceData).subscribe({
+        next: (response) => {
+          // Ajouter la nouvelle séance au tableau local
+          this.seances.unshift(response.seance);
+          
+          // Fermer le modal et afficher un message de succès
+          const closeButton = document.getElementById('seanceModal')?.querySelector('.btn-close') as HTMLElement;
+          if (closeButton) closeButton.click();
+          
+          this.notificationService.showSuccess('Séance créée avec succès');
+          this.resetForm();
+        },
+        error: (err: any) => {
+          console.error('Erreur lors de la création de la séance', err);
+          this.notificationService.showError('Erreur lors de la création de la séance');
+        }
+      });
+    }
+  }
+
+  deleteSeance(seanceId: number): void {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette séance ?')) {
+      this.seanceService.deleteSeance(seanceId).subscribe({
+        next: () => {
+          // Supprimer la séance du tableau local
+          this.seances = this.seances.filter(s => s.id !== seanceId);
+          this.notificationService.showSuccess('Séance supprimée avec succès');
+        },
+        error: (err: any) => {
+          console.error('Erreur lors de la suppression de la séance', err);
+          this.notificationService.showError('Erreur lors de la suppression de la séance');
+        }
+      });
+    }
+  }
+
+  duplicateSeance(seanceId: number): void {
+    // Trouver la séance à dupliquer
+    const seanceToDuplicate = this.seances.find(s => s.id === seanceId);
+    
+    if (!seanceToDuplicate) {
+      this.notificationService.showError('Séance introuvable');
+      return;
+    }
+    
+    // Créer une copie de la séance (sans l'ID)
+    const duplicatedSeanceData = {
+      titre: `${seanceToDuplicate.titre} (copie)`,
+      description: seanceToDuplicate.description,
+      contenu: seanceToDuplicate.contenu,
+      duree: seanceToDuplicate.duree,
+      type: seanceToDuplicate.type,
+      module_id: seanceToDuplicate.module_id,
+      statut: 'brouillon' // Toujours mettre la séance dupliquée en brouillon
+    };
+    
+    // Appeler l'API pour créer la nouvelle séance
+    this.seanceService.createSeance(duplicatedSeanceData).subscribe({
+      next: (response) => {
+        // Ajouter la nouvelle séance au tableau local
+        this.seances.unshift(response.seance);
+        this.notificationService.showSuccess('Séance dupliquée avec succès');
+      },
+      error: (err: any) => {
+        console.error('Erreur lors de la duplication de la séance', err);
+        this.notificationService.showError('Erreur lors de la duplication de la séance');
+      }
+    });
+  }
+
+  changeSeanceStatus(seanceId: number, newStatus: 'brouillon' | 'publié'): void {
+    // Trouver la séance à mettre à jour
+    const seanceToUpdate = this.seances.find(s => s.id === seanceId);
+    
+    if (!seanceToUpdate) {
+      this.notificationService.showError('Séance introuvable');
+      return;
+    }
+    
+    // Mettre à jour uniquement le statut
+    this.seanceService.updateSeance(seanceId, { statut: newStatus }).subscribe({
+      next: () => {
+        // Mettre à jour le statut dans le tableau local
+        seanceToUpdate.statut = newStatus;
+        
+        const statusText = newStatus === 'publié' ? 'publiée' : 'mise en brouillon';
+        this.notificationService.showSuccess(`Séance ${statusText} avec succès`);
+      },
+      error: (err: any) => {
+        console.error(`Erreur lors de la mise à jour du statut de la séance`, err);
+        this.notificationService.showError(`Erreur lors du changement de statut de la séance`);
+      }
+    });
+  }
+
+  previewSeance(seanceId: number): void {
+    // Ouvrir la prévisualisation dans un nouvel onglet
+    window.open(`/seance/${seanceId}/preview`, '_blank');
+  }
+
+  // Méthodes pour la gestion des utilisateurs
+  addUsersToSeance(seanceId: number): void {
+    this.selectedSeanceId = seanceId;
+    
+    // Pour l'instant, une version simplifiée car getSeanceUsers n'existe pas encore
+    this.selectedSeanceUsers = [];
+    
+    // Ouvrir le modal
+    const modal = new bootstrap.Modal(document.getElementById('usersModal'));
+    modal.show();
+  }
+
+  saveSeanceUsers(): void {
+    if (!this.selectedSeanceId) {
+      return;
+    }
+    
+    // Cette méthode sera implémentée ultérieurement
+    this.notificationService.showInfo('La gestion des utilisateurs est en cours de développement');
+    
+    // Fermer le modal
+    const closeButton = document.getElementById('usersModal')?.querySelector('.btn-close') as HTMLElement;
+    if (closeButton) closeButton.click();
+  }
+}

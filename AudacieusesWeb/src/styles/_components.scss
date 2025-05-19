@@ -1,0 +1,473 @@
+// Styles communs pour les conteneurs, cartes et autres éléments UI
+@use './variables' as vars;
+@use './mixins' as mix;
+@use './animations' as anim;
+@use 'sass:color';
+
+// Conteneurs génériques
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  min-height: calc(100vh - 120px);
+}
+
+.content-container {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  margin-bottom: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  }
+}
+
+// Section headers
+.section-header {
+  margin-bottom: 2rem;
+  
+  h1, h2, h3 {
+    color: vars.$text-primary;
+    margin-bottom: 0.5rem;
+  }
+  
+  h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+  
+  p {
+    color: vars.$text-secondary;
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+}
+
+// Styles de cartes
+.card {
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  transition: all 0.3s ease;
+  position: relative;
+  
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+  }
+  
+  .card-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    
+    h3, h4 {
+      margin: 0;
+      font-weight: 600;
+    }
+    
+    h3 {
+      font-size: 1.3rem;
+      color: vars.$text-primary;
+    }
+    
+    h4 {
+      font-size: 1.1rem;
+      color: vars.$text-primary;
+    }
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+  
+  .card-footer {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+// Variantes de cartes
+.card-primary {
+  border-top: 4px solid vars.$color-primary;
+}
+
+.card-secondary {
+  border-top: 4px solid vars.$color-secondary;
+}
+
+.card-success {
+  border-top: 4px solid vars.$color-success;
+}
+
+.card-danger {
+  border-top: 4px solid vars.$color-danger;
+}
+
+.card-warning {
+  border-top: 4px solid vars.$color-warning;
+}
+
+.card-info {
+  border-top: 4px solid vars.$color-info;
+}
+
+// Styles d'alerte
+.alert {
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  
+  .alert-icon {
+    font-size: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .alert-content {
+    flex: 1;
+    
+    h4 {
+      margin: 0 0 0.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+    
+    p {
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+  }
+  
+  .alert-close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    display: flex;
+    padding: 0;
+    color: inherit;
+    opacity: 0.7;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// Variantes d'alerte
+.alert-info {
+  background-color: color.scale(vars.$color-info, $alpha: -90%);
+  border-left: 4px solid vars.$color-info;
+  color: color.scale(vars.$color-info, $lightness: -20%);
+}
+
+.alert-success {
+  background-color: color.scale(vars.$color-success, $alpha: -90%);
+  border-left: 4px solid vars.$color-success;
+  color: color.scale(vars.$color-success, $lightness: -20%);
+}
+
+.alert-warning {
+  background-color: color.scale(vars.$color-warning, $alpha: -90%);
+  border-left: 4px solid vars.$color-warning;
+  color: color.scale(vars.$color-warning, $lightness: -20%);
+}
+
+.alert-danger {
+  background-color: color.scale(vars.$color-danger, $alpha: -90%);
+  border-left: 4px solid vars.$color-danger;
+  color: color.scale(vars.$color-danger, $lightness: -20%);
+}
+
+// Badge styles
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.65rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.badge-primary {
+  background-color: color.scale(vars.$color-primary, $alpha: -85%);
+  color: vars.$color-primary;
+}
+
+.badge-secondary {
+  background-color: color.scale(vars.$color-secondary, $alpha: -85%);
+  color: vars.$color-secondary;
+}
+
+.badge-success {
+  background-color: color.scale(vars.$color-success, $alpha: -85%);
+  color: color.scale(vars.$color-success, $lightness: -10%);
+}
+
+.badge-danger {
+  background-color: color.scale(vars.$color-danger, $alpha: -85%);
+  color: color.scale(vars.$color-danger, $lightness: -10%);
+}
+
+.badge-warning {
+  background-color: color.scale(vars.$color-warning, $alpha: -85%);
+  color: color.scale(vars.$color-warning, $lightness: -15%);
+}
+
+.badge-info {
+  background-color: color.scale(vars.$color-info, $alpha: -85%);
+  color: color.scale(vars.$color-info, $lightness: -10%);
+}
+
+// Composants d'avancement
+.progress-container {
+  margin-bottom: 1.5rem;
+  
+  .progress-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    
+    .label-title {
+      font-weight: 500;
+      color: vars.$text-primary;
+      font-size: 0.9rem;
+    }
+    
+    .label-value {
+      color: vars.$text-secondary;
+      font-size: 0.9rem;
+    }
+  }
+  
+  .progress-bar {
+    height: 8px;
+    background-color: color.scale(vars.$color-primary, $alpha: -90%);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    
+    .progress-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background-color: vars.$color-primary;
+      border-radius: 4px;
+      transition: width 0.3s ease;
+    }
+  }
+}
+
+// Variantes de la barre de progression
+.progress-success .progress-fill {
+  background-color: vars.$color-success;
+}
+
+.progress-danger .progress-fill {
+  background-color: vars.$color-danger;
+}
+
+.progress-warning .progress-fill {
+  background-color: vars.$color-warning;
+}
+
+.progress-info .progress-fill {
+  background-color: vars.$color-info;
+}
+
+// Skeleton loaders
+.skeleton-loader {
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 0.06) 0%,
+    rgba(0, 0, 0, 0.12) 50%,
+    rgba(0, 0, 0, 0.06) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+  
+  &.skeleton-text {
+    height: 1rem;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    
+    &.skeleton-text-short {
+      width: 40%;
+    }
+    
+    &.skeleton-text-medium {
+      width: 60%;
+    }
+  }
+  
+  &.skeleton-circle {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 1rem;
+  }
+  
+  &.skeleton-card {
+    height: 200px;
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+
+// Utilitaires de marge
+@each $space in (0, 5, 10, 15, 20, 25, 30, 40, 50) {
+  .mt-#{$space} {
+    margin-top: #{$space}px !important;
+  }
+  
+  .mb-#{$space} {
+    margin-bottom: #{$space}px !important;
+  }
+  
+  .ml-#{$space} {
+    margin-left: #{$space}px !important;
+  }
+  
+  .mr-#{$space} {
+    margin-right: #{$space}px !important;
+  }
+  
+  .mx-#{$space} {
+    margin-left: #{$space}px !important;
+    margin-right: #{$space}px !important;
+  }
+  
+  .my-#{$space} {
+    margin-top: #{$space}px !important;
+    margin-bottom: #{$space}px !important;
+  }
+  
+  .m-#{$space} {
+    margin: #{$space}px !important;
+  }
+}
+
+// Utilitaires de remplissage
+@each $space in (0, 5, 10, 15, 20, 25, 30, 40, 50) {
+  .pt-#{$space} {
+    padding-top: #{$space}px !important;
+  }
+  
+  .pb-#{$space} {
+    padding-bottom: #{$space}px !important;
+  }
+  
+  .pl-#{$space} {
+    padding-left: #{$space}px !important;
+  }
+  
+  .pr-#{$space} {
+    padding-right: #{$space}px !important;
+  }
+  
+  .px-#{$space} {
+    padding-left: #{$space}px !important;
+    padding-right: #{$space}px !important;
+  }
+  
+  .py-#{$space} {
+    padding-top: #{$space}px !important;
+    padding-bottom: #{$space}px !important;
+  }
+  
+  .p-#{$space} {
+    padding: #{$space}px !important;
+  }
+}
+
+// Responsive
+@media (max-width: 992px) {
+  .container {
+    padding: 1.5rem 1.25rem;
+  }
+  
+  .content-container {
+    padding: 1.5rem;
+  }
+  
+  .section-header {
+    h1 { font-size: 1.8rem; }
+    h2 { font-size: 1.6rem; }
+    h3 { font-size: 1.4rem; }
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.25rem 1rem;
+  }
+  
+  .content-container {
+    padding: 1.25rem;
+  }
+  
+  .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+  }
+  
+  .section-header {
+    h1 { font-size: 1.6rem; }
+    h2 { font-size: 1.4rem; }
+    h3 { font-size: 1.3rem; }
+    
+    p { font-size: 1rem; }
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 1rem 0.75rem;
+  }
+  
+  .content-container {
+    padding: 1rem;
+  }
+  
+  .section-header {
+    h1 { font-size: 1.5rem; }
+    h2 { font-size: 1.3rem; }
+    h3 { font-size: 1.2rem; }
+  }
+  
+  .card-header {
+    h3 { font-size: 1.3rem; }
+  }
+}

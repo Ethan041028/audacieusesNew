@@ -1,0 +1,77 @@
+<div class="question-activite-container">
+  <div class="card">
+    <div class="card-header">
+      <h2>{{ activite.titre }}</h2>
+    </div>
+    <div class="card-body">
+      <p *ngIf="activite.description" class="activite-description">{{ activite.description }}</p>
+      
+      <!-- Question-Réponse simple -->
+      <ng-container *ngIf="isQuestionReponseType()">
+        <div class="question-content fade-in">
+          <p class="question-text" [innerHTML]="getQuestionTexte()"></p>
+        </div>
+        
+        <form [formGroup]="reponseForm" (ngSubmit)="submitReponse()" class="question-form fade-in" *ngIf="!reponseSubmitted">
+          <div class="form-group">
+            <label class="form-label" for="reponse">Votre réponse</label>
+            <textarea class="form-control" id="reponse" formControlName="reponse" rows="4" placeholder="Entrez votre réponse..." aria-required="true"></textarea>
+            <div class="text-danger" *ngIf="reponseForm.get('reponse')?.hasError('required') && reponseForm.get('reponse')?.touched">Une réponse est requise</div>
+          </div>
+          
+          <button type="submit" class="btn btn-primary" [disabled]="reponseForm.invalid || isSubmitting">
+            {{ isSubmitting ? 'Envoi en cours...' : 'Soumettre ma réponse' }}
+          </button>
+        </form>
+        <div *ngIf="reponseSubmitted" class="response-submitted fade-in">
+          <h3>Réponse enregistrée</h3>
+          <p>Votre réponse a été enregistrée avec succès.</p>
+          <div class="user-response">
+            <p [innerHTML]="userReponse"></p>
+          </div>
+          <button class="btn btn-outline-primary" (click)="continueToNext()" class="continue-button">
+            Continuer
+          </button>
+        </div>
+      </ng-container>
+      
+      <!-- QCM -->
+      <ng-container *ngIf="isQCMType()">
+        <div class="qcm-content fade-in">
+          <p class="qcm-question">{{ getQCMQuestion() }}</p>
+          
+          <form [formGroup]="qcmForm" (ngSubmit)="submitQCM()" class="qcm-form fade-in" *ngIf="!reponseSubmitted">
+            <div class="qcm-options">
+              <div class="form-group">
+                <div *ngFor="let option of getQCMOptions(); let i = index" class="form-check qcm-option">
+                  <input class="form-check-input" type="radio" [id]="'option-'+i" [value]="i" formControlName="choix">
+                  <label class="form-check-label" [for]="'option-'+i">
+                    {{ option }}
+                  </label>
+                </div>
+                <div class="text-danger" *ngIf="qcmForm.get('choix')?.touched && qcmForm.get('choix')?.hasError('required')">
+                  Veuillez sélectionner une réponse
+                </div>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" [disabled]="qcmForm.invalid || isSubmitting">
+              {{ isSubmitting ? 'Envoi en cours...' : 'Soumettre ma réponse' }}
+            </button>
+          </form>
+          
+          <div *ngIf="reponseSubmitted" class="response-submitted fade-in">
+            <h3>Réponse enregistrée</h3>
+            <p>Votre réponse a été enregistrée avec succès.</p>
+            <div class="user-response">
+              <p [innerHTML]="getUserQcmResponse()"></p>
+            </div>
+            <button class="btn btn-outline-primary" (click)="continueToNext()">
+              Continuer
+            </button>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</div>

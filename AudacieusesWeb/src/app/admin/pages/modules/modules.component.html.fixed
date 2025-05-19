@@ -1,0 +1,204 @@
+<div class="page-header">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="fw-bold mb-0">Gestion des Modules</h1>
+      <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#newModuleModal">
+        <i class="fas fa-plus me-2"></i> Créer un module
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-4">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="search-container">
+        <div class="input-group">
+          <input type="text" class="form-control search-input" placeholder="Rechercher un module..." 
+                 [(ngModel)]="searchQuery" (keyup.enter)="searchModules()">
+          <button class="btn btn-primary" type="button" (click)="searchModules()">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="action-bar d-flex justify-content-between align-items-center">
+        <ul class="nav nav-tabs border-0">
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="filter === 'all'" (click)="filterModules('all')" href="javascript:void(0)">Tous les modules</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="filter === 'publié'" (click)="filterModules('publié')" href="javascript:void(0)">Publiés</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="filter === 'brouillon'" (click)="filterModules('brouillon')" href="javascript:void(0)">Brouillons</a>
+          </li>
+        </ul>
+        <div class="dropdown">
+          <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-filter me-1"></i> Filtrer
+          </button>
+          <ul class="dropdown-menu" [attr.aria-labelledby]="'dropdownMenuButton'">
+            <li><a class="dropdown-item" href="javascript:void(0)" (click)="sortModules('date_creation')">Par date de création</a></li>
+            <li><a class="dropdown-item" href="javascript:void(0)" (click)="sortModules('titre')">Par titre</a></li>
+            <li><a class="dropdown-item" href="javascript:void(0)" (click)="sortModules('nb_seances')">Par nombre de séances</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- État de chargement -->
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2 text-muted">Chargement des modules...</p>
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="error && !loading" class="alert alert-danger">
+    {{ error }}
+    <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadModules()">Réessayer</button>
+  </div>
+
+  <!-- Pas de modules -->
+  <div *ngIf="!loading && !error && modules.length === 0" class="text-center my-5">
+    <div class="empty-state">
+      <i class="fas fa-folder-open display-1 text-muted mb-3"></i>
+      <h3>Aucun module trouvé</h3>
+      <p class="text-muted">Commencez par créer un nouveau module</p>
+      <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#newModuleModal">
+        <i class="fas fa-plus me-2"></i> Créer un module
+      </button>
+    </div>
+  </div>
+
+  <!-- Liste des modules -->
+  <div *ngIf="!loading && !error && modules.length > 0" class="row">
+    <div *ngFor="let moduleItem of modules" class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100 module-card">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+          <span class="badge" [ngClass]="moduleItem.statut === 'publié' ? 'badge-published' : 'badge-draft'">
+            {{ moduleItem.statut === 'publié' ? 'Publié' : 'Brouillon' }}
+          </span>
+          
+          <div class="dropdown">
+            <button class="btn btn-sm btn-light" type="button" id="dropdownMenuButton{{moduleItem.id}}" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" [attr.aria-labelledby]="'dropdownMenuButton' + moduleItem.id">
+              <li><a class="dropdown-item" [routerLink]="['/admin/modules', moduleItem.id, 'edit']"><i class="fas fa-edit"></i> Modifier</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/admin/modules', moduleItem.id, 'seances']"><i class="fas fa-tasks"></i> Gérer les séances</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/admin/modules', moduleItem.id, 'clients']"><i class="fas fa-users"></i> Gérer les clients</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item text-danger" href="javascript:void(0)" (click)="deleteModule(moduleItem.id); $event.stopPropagation()"><i class="fas fa-trash-alt"></i> Supprimer</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="card-body">
+          <h5 class="card-title">{{ moduleItem.titre }}</h5>
+          
+          <div class="mb-3">
+            <span class="badge badge-module me-1">{{ moduleItem.seances?.length || 0 }} séances</span>
+            <span class="badge badge-client">{{ moduleItem.clients?.length || 0 }} clients</span>
+          </div>
+          
+          <p class="card-text text-muted small">{{ moduleItem.description }}</p>
+          
+          <div class="session-list mt-3">
+            <div *ngFor="let seance of moduleItem.seances?.slice(0, 2)" class="session-item">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <strong>{{ seance.titre }}</strong>
+                  <div class="text-muted small">{{ seance.duree }} min</div>
+                </div>
+                <div>
+                  <span class="badge badge-seance">{{ seance.type === 'individuelle' ? 'Individuelle' : 'Groupe' }}</span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="moduleItem.seances?.length === 0" class="text-center py-2">
+              <small class="text-muted">Aucune séance</small>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-white border-0 pt-0">
+          <button class="btn btn-success btn-sm w-100" [routerLink]="['/admin/modules', moduleItem.id, 'seances', 'new']">
+            <i class="fas fa-plus me-1"></i> Ajouter une séance
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour créer un nouveau module -->
+<div class="modal fade" id="newModuleModal" tabindex="-1" aria-labelledby="newModuleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newModuleModalLabel">Créer un nouveau module</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="moduleTitle" class="form-label">Titre du module</label>
+            <input type="text" class="form-control" id="moduleTitle" placeholder="Ex: Développement personnel">
+          </div>
+          <div class="mb-3">
+            <label for="moduleDescription" class="form-label">Description</label>
+            <textarea class="form-control" id="moduleDescription" rows="3" placeholder="Décrivez l'objectif de ce module..."></textarea>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="moduleStatus" class="form-label">Statut</label>
+              <select class="form-select" id="moduleStatus">
+                <option value="draft">Brouillon</option>
+                <option value="published">Publié</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="moduleCategory" class="form-label">Catégorie</label>
+              <select class="form-select" id="moduleCategory">
+                <option value="1">Orientation professionnelle</option>
+                <option value="2">Développement personnel</option>
+                <option value="3">Compétences techniques</option>
+              </select>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Type de séance par défaut</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="sessionType" id="individualSession" value="individual" checked>
+              <label class="form-check-label" for="individualSession">
+                Individuelle
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="sessionType" id="groupSession" value="group">
+              <label class="form-check-label" for="groupSession">
+                Groupe
+              </label>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="sessionDuration" class="form-label">Durée par défaut des séances (minutes)</label>
+            <input type="number" class="form-control" id="sessionDuration" placeholder="60" min="15" step="15">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary">Créer le module</button>
+      </div>
+    </div>
+  </div>
+</div>

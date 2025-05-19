@@ -1,0 +1,27 @@
+/* Styles pour le composant user-profile */
+
+.user-profile-container {
+  padding: 20px;
+}
+
+.profile-section {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Styles pour les boutons */
+.btn-primary {
+  margin-right: 10px;
+}
+
+/* Style pour l'image de profil */
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}

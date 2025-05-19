@@ -1,0 +1,107 @@
+<div class="container-fluid px-4 my-4">
+  <!-- En-tête avec titre et bouton retour -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <button class="btn btn-sm btn-outline-primary me-2" (click)="goBack()">
+        <i class="fas fa-arrow-left"></i> Retour
+      </button>
+      <h2 class="d-inline-block mb-0">Gestion des clients - {{ module?.titre || 'Chargement...' }}</h2>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div *ngIf="loading || userLoading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement des données...</p>
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <!-- Contenu principal -->
+  <div *ngIf="!loading && !userLoading && !error" class="row">
+    <!-- Colonne gauche: Utilisateurs disponibles -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-white">
+          <h4 class="mb-0">Utilisateurs disponibles</h4>
+        </div>
+        <div class="card-body">
+          <!-- Barre de recherche et filtres -->
+          <div class="row mb-3">
+            <div class="col">
+              <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-search"></i></span>
+                <input type="text" class="form-control" placeholder="Rechercher un utilisateur..." [formControl]="searchControl">
+              </div>
+            </div>
+            <div class="col-auto">
+              <div class="btn-group" role="group">
+                <button type="button" class="btn" [class.btn-primary]="roleFilter === 'all'" [class.btn-outline-primary]="roleFilter !== 'all'" (click)="filterByRole('all')">Tous</button>
+                <button type="button" class="btn" [class.btn-primary]="roleFilter === 'client'" [class.btn-outline-primary]="roleFilter !== 'client'" (click)="filterByRole('client')">Clients</button>
+                <button type="button" class="btn" [class.btn-primary]="roleFilter === 'admin'" [class.btn-outline-primary]="roleFilter !== 'admin'" (click)="filterByRole('admin')">Admins</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Liste des utilisateurs disponibles -->
+          <div class="list-group">
+            <div *ngIf="availableUsers.length === 0" class="text-center py-4">
+              <p class="text-muted mb-0">Aucun utilisateur disponible avec ces critères</p>
+            </div>
+            <div *ngFor="let user of availableUsers" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+              <div>
+                <h6 class="mb-1">{{ user.prenom }} {{ user.nom }}</h6>
+                <p class="mb-1 text-muted small">{{ user.mail }}</p>
+                <span class="badge bg-secondary">{{ user.role?.role_type || 'Aucun rôle' }}</span>
+              </div>
+              <button class="btn btn-sm btn-success" (click)="assignToUser(user.id)">
+                <i class="fas fa-plus"></i> Attribuer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Colonne droite: Utilisateurs associés au module -->
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header bg-white">
+          <h4 class="mb-0">Clients ayant accès au module</h4>
+        </div>
+        <div class="card-body">
+          <!-- Liste des utilisateurs associés -->
+          <div class="list-group">
+            <div *ngIf="moduleUsers.length === 0" class="text-center py-4">
+              <p class="text-muted mb-0">Aucun utilisateur n'a accès à ce module</p>
+            </div>
+            <div *ngFor="let user of moduleUsers" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+              <div>
+                <h6 class="mb-1">{{ user.prenom }} {{ user.nom }}</h6>
+                <p class="mb-1 text-muted small">{{ user.mail }}</p>
+                <div class="d-flex align-items-center">
+                  <div class="progress flex-grow-1 small-progress me-2" style="width: 100px;">
+                    <div class="progress-bar" role="progressbar" 
+                         [style.width]="getUserModuleProgress(user) + '%'" 
+                         [attr.aria-valuenow]="getUserModuleProgress(user)" 
+                         aria-valuemin="0" aria-valuemax="100"></div>
+                  </div>
+                  <span class="small">{{ getUserModuleProgress(user) }}%</span>
+                </div>
+                <span class="badge bg-secondary">{{ user.role?.role_type || 'Aucun rôle' }}</span>
+              </div>
+              <button class="btn btn-sm btn-danger" (click)="removeFromUser(user.id)">
+                <i class="fas fa-times"></i> Retirer
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

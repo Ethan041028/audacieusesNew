@@ -1,0 +1,719 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CdkDragDrop, moveItemInArray, DragDropModule } from '@angular/cdk/drag-drop';
+import { SeanceService, Seance, SeancesResponse } from '../../../services/seance.service';
+import { NotificationService } from '../../../services/notification.service';
+import { ModuleService } from '../../services/module.service';
+import { ActiviteService } from '../../../services/activite.service';
+
+declare var bootstrap: any; // Déclaration pour pouvoir utiliser bootstrap
+
+@Component({
+  selector: 'app-seances',
+  templateUrl: './seances.component.html',
+  styleUrls: ['./seances.component.scss'],
+  standalone: true,
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DragDropModule
+  ],
+  providers: [
+    SeanceService,
+    NotificationService,
+    ModuleService,
+    ActiviteService,
+    FormBuilder
+  ]
+})
+export class SeancesComponent implements OnInit {
+  seances: Seance[] = [];
+  modules: any[] = [];
+  loading = true;
+  error: string | null = null;
+  filter = 'all'; // 'all', 'individual', 'group'
+  searchQuery = '';
+  sortBy = 'date_creation';
+  sortOrder = 'desc';
+  
+  // Formulaire pour la création et l'édition de séances
+  seanceForm: FormGroup;
+  editingSeance: Seance | null = null;
+  
+  // Modal pour les utilisateurs de la séance
+  selectedSeanceId: number | null = null;
+  selectedSeanceUsers: any[] = [];
+
+  // Variables pour le modal d'activités
+  previewSeanceData: Seance | null = null;
+  selectedSeance: Seance | null = null;
+  seanceToDelete: Seance | null = null;
+  seanceActivites: any[] = [];
+  allActivites: any[] = [];
+  filteredAvailableActivites: any[] = [];
+  activiteTypes: any[] = [];
+  searchActiviteQuery = '';
+  filterActiviteType = '';
+  loadingActivites = false;
+  loadingAllActivites = false;
+  isSubmitting = false;
+  isSubmittingActivite = false;
+  isSavingOrder = false;
+  isDeleting = false;
+
+  // Formulaire pour les activités
+  activiteForm: FormGroup;
+
+  constructor(
+    private seanceService: SeanceService,
+    private moduleService: ModuleService,
+    private activiteService: ActiviteService,
+    private fb: FormBuilder,
+    private notificationService: NotificationService
+  ) {
+    // Initialisation du formulaire de séance
+    this.seanceForm = this.fb.group({
+      titre: ['', [Validators.required, Validators.maxLength(100)]],
+      description: ['', [Validators.maxLength(500)]],
+      contenu: ['', [Validators.maxLength(2000)]],
+      duree: [60, [Validators.required, Validators.min(15)]],
+      module_id: ['', Validators.required],
+      ordre: [1],
+      statut: ['brouillon', Validators.required]
+    });
+    
+    // Initialisation du formulaire d'activité
+    this.activiteForm = this.fb.group({
+      titre: ['', [Validators.required, Validators.maxLength(100)]],
+      description: ['', [Validators.maxLength(500)]],
+      contenu: ['', [Validators.required, Validators.maxLength(2000)]],
+      duree: [30, [Validators.min(5)]],
+      type: ['', Validators.required]
+    });
+  }
+
+  ngOnInit(): void {
+    this.loadSeances();
+    this.loadModules();
+    
+    // Réinitialiser le formulaire lorsque le modal est fermé
+    const modalElement = document.getElementById('seanceModal');
+    if (modalElement) {
+      modalElement.addEventListener('hidden.bs.modal', () => {
+        this.resetForm();
+      });
+    }
+  }
+
+  resetForm(): void {
+    this.seanceForm.reset({
+      type: 'individuelle',
+      duree: 60,
+      statut: 'brouillon'
+    });
+    this.editingSeance = null;
+  }
+
+  loadSeances(): void {
+    this.loading = true;
+    this.error = null;
+
+    this.seanceService.getAllSeances().subscribe({
+      next: (response: SeancesResponse) => {
+        this.seances = response.seances;
+        this.loading = false;
+      },
+      error: (err: any) => {
+        console.error('Erreur lors du chargement des séances', err);
+        this.error = 'Erreur lors du chargement des séances. Veuillez réessayer.';
+        this.loading = false;
+      }
+    });
+  }
+
+  loadModules(): void {
+    this.moduleService.getAllModules().subscribe({
+      next: (data: any) => {
+        this.modules = data.modules || [];
+      },
+      error: (err: any) => {
+        console.error('Erreur lors du chargement des modules', err);
+        this.notificationService.showError('Erreur lors du chargement des modules');
+      }
+    });
+  }
+  // Filtrage des séances
+  getFilteredSeances(): Seance[] {
+    let filteredSeances = [...this.seances];
+    
+    // Filtrer par statut (publié/brouillon)
+    if (this.filter === 'published') {
+      filteredSeances = filteredSeances.filter(s => s.statut === 'publié');
+    } else if (this.filter === 'draft') {
+      filteredSeances = filteredSeances.filter(s => s.statut === 'brouillon');
+    }
+    
+    // Filtrer par recherche
+    if (this.searchQuery.trim()) {
+      const query = this.searchQuery.trim().toLowerCase();
+      filteredSeances = filteredSeances.filter(s => 
+        s.titre.toLowerCase().includes(query) || 
+        (s.description && s.description.toLowerCase().includes(query))
+      );
+    }
+    
+    // Trier les séances
+    filteredSeances.sort((a, b) => {
+      let valueA, valueB;
+      
+      switch (this.sortBy) {
+        case 'titre':
+          valueA = a.titre.toLowerCase();
+          valueB = b.titre.toLowerCase();
+          break;
+        case 'date_creation':
+          valueA = new Date(a.date_creation || '').getTime();
+          valueB = new Date(b.date_creation || '').getTime();
+          break;
+        case 'duree':
+          valueA = a.duree;
+          valueB = b.duree;
+          break;
+        default:
+          valueA = new Date(a.date_creation || '').getTime();
+          valueB = new Date(b.date_creation || '').getTime();
+      }
+      
+      const compareResult = valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
+      return this.sortOrder === 'asc' ? compareResult : -compareResult;
+    });
+    
+    return filteredSeances;
+  }
+
+  // Méthodes de filtrage et tri
+  filterSeances(filter: string): void {
+    this.filter = filter;
+  }
+  
+  searchSeances(): void {
+    // La recherche est gérée dans getFilteredSeances()
+  }
+  
+  sortSeances(sortBy: string): void {
+    if (this.sortBy === sortBy) {
+      // Inverser l'ordre si on clique sur le même critère de tri
+      this.sortOrder = this.sortOrder === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortBy = sortBy;
+      this.sortOrder = 'asc';
+    }
+  }
+
+  // Méthodes du formulaire
+  editSeance(seance: Seance): void {
+    this.editingSeance = seance;
+    
+    // Remplir le formulaire avec les données de la séance
+    this.seanceForm.patchValue({
+      titre: seance.titre,
+      description: seance.description || '',
+      contenu: seance.contenu || '',
+      duree: seance.duree,
+      type: seance.type,
+      module_id: seance.module_id,
+      statut: seance.statut
+    });
+    
+    // Ouvrir le modal
+    const modal = new bootstrap.Modal(document.getElementById('seanceModal'));
+    modal.show();
+  }
+
+  onSubmitSeanceForm(): void {
+    if (this.seanceForm.invalid) {
+      // Marquer tous les champs comme touchés pour afficher les erreurs
+      Object.keys(this.seanceForm.controls).forEach(key => {
+        const control = this.seanceForm.get(key);
+        control?.markAsTouched();
+      });
+      return;
+    }
+    
+    const seanceData = this.seanceForm.value;
+      if (this.editingSeance) {
+      // Mise à jour d'une séance existante
+      this.seanceService.updateSeance(this.editingSeance.id, seanceData).subscribe({
+        next: (response: { seance: Seance }) => {
+          // Mettre à jour la séance dans le tableau local
+          const index = this.seances.findIndex(s => s.id === this.editingSeance!.id);
+          if (index !== -1) {
+            this.seances[index] = { ...this.seances[index], ...response.seance };
+          }
+          
+          // Fermer le modal et afficher un message de succès
+          const closeButton = document.getElementById('seanceModal')?.querySelector('.btn-close') as HTMLElement;
+          if (closeButton) closeButton.click();
+          
+          this.notificationService.showSuccess('Séance mise à jour avec succès');
+          this.resetForm();
+        },
+        error: (err: any) => {
+          console.error('Erreur lors de la mise à jour de la séance', err);
+          this.notificationService.showError('Erreur lors de la mise à jour de la séance');
+        }
+      });    } else {
+      // Création d'une nouvelle séance
+      this.seanceService.createSeance(seanceData).subscribe({
+        next: (response: { seance: Seance }) => {
+          // Ajouter la nouvelle séance au tableau local
+          this.seances.unshift(response.seance);
+          
+          // Fermer le modal et afficher un message de succès
+          const closeButton = document.getElementById('seanceModal')?.querySelector('.btn-close') as HTMLElement;
+          if (closeButton) closeButton.click();
+          
+          this.notificationService.showSuccess('Séance créée avec succès');
+          this.resetForm();
+        },
+        error: (err: any) => {
+          console.error('Erreur lors de la création de la séance', err);
+          this.notificationService.showError('Erreur lors de la création de la séance');
+        }
+      });
+    }
+  }
+  deleteSeance(seance: Seance): void {
+    this.seanceToDelete = seance;
+    
+    // Ouvrir le modal de confirmation
+    const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+    modal.show();
+  }
+
+  confirmDeleteSeance(): void {
+    if (!this.seanceToDelete) return;
+    
+    this.isDeleting = true;
+    
+    this.seanceService.deleteSeance(this.seanceToDelete.id).subscribe({
+  // Initialiser la méthode
+  duplicateSeance(seanceId: number): void {
+    // Trouver la séance à dupliquer
+    const seanceToDuplicate = this.seances.find(s => s.id === seanceId);
+    
+    if (!seanceToDuplicate) {
+      this.notificationService.showError('Séance introuvable');
+      return;
+    }
+    
+    // Créer une copie de la séance (sans l'ID)
+    const duplicatedSeanceData = {
+      titre: `${seanceToDuplicate.titre} (copie)`,
+      description: seanceToDuplicate.description,
+      contenu: seanceToDuplicate.contenu,
+      duree: seanceToDuplicate.duree,
+      type: seanceToDuplicate.type,
+      module_id: seanceToDuplicate.module_id,
+      statut: 'brouillon' // Toujours mettre la séance dupliquée en brouillon
+    };
+      // Appeler l'API pour créer la nouvelle séance
+    this.seanceService.createSeance(duplicatedSeanceData).subscribe({
+      next: (response: { seance: Seance }) => {
+        // Ajouter la nouvelle séance au tableau local
+        this.seances.unshift(response.seance);
+        this.notificationService.showSuccess('Séance dupliquée avec succès');
+      },
+      error: (err: any) => {
+        console.error('Erreur lors de la duplication de la séance', err);
+        this.notificationService.showError('Erreur lors de la duplication de la séance');
+      }
+    });
+  }
+
+  changeSeanceStatus(seanceId: number, newStatus: 'brouillon' | 'publié'): void {
+    // Trouver la séance à mettre à jour
+    const seanceToUpdate = this.seances.find(s => s.id === seanceId);
+    
+    if (!seanceToUpdate) {
+      this.notificationService.showError('Séance introuvable');
+      return;
+    }
+    
+    // Mettre à jour uniquement le statut
+    this.seanceService.updateSeance(seanceId, { statut: newStatus }).subscribe({
+      next: () => {
+        // Mettre à jour le statut dans le tableau local
+        seanceToUpdate.statut = newStatus;
+        
+        const statusText = newStatus === 'publié' ? 'publiée' : 'mise en brouillon';
+        this.notificationService.showSuccess(`Séance ${statusText} avec succès`);
+      },
+      error: (err: any) => {
+        console.error(`Erreur lors de la mise à jour du statut de la séance`, err);
+        this.notificationService.showError(`Erreur lors du changement de statut de la séance`);
+      }
+    });
+  }
+
+  previewSeance(seanceId: number): void {
+    // Ouvrir la prévisualisation dans un nouvel onglet
+    window.open(`/seance/${seanceId}/preview`, '_blank');
+  }
+
+  // Méthodes pour la gestion des utilisateurs
+  addUsersToSeance(seanceId: number): void {
+    this.selectedSeanceId = seanceId;
+    
+    // Pour l'instant, une version simplifiée car getSeanceUsers n'existe pas encore
+    this.selectedSeanceUsers = [];
+    
+    // Ouvrir le modal
+    const modal = new bootstrap.Modal(document.getElementById('usersModal'));
+    modal.show();
+  }
+
+  saveSeanceUsers(): void {
+    if (!this.selectedSeanceId) {
+      return;
+    }
+    
+    // Cette méthode sera implémentée ultérieurement
+    this.notificationService.showInfo('La gestion des utilisateurs est en cours de développement');
+    
+    // Fermer le modal
+    const closeButton = document.getElementById('usersModal')?.querySelector('.btn-close') as HTMLElement;
+    if (closeButton) closeButton.click();
+  }
+
+  // Méthodes pour gérer les activités d'une séance
+  openActivitesModal(seance: Seance): void {
+    this.selectedSeance = seance;
+    this.loadSeanceActivites(seance.id);
+    this.loadAllActivites();
+    this.loadActiviteTypes();
+    
+    // Ouvrir le modal
+    const modal = new bootstrap.Modal(document.getElementById('activitesModal'));
+    modal.show();
+  }
+
+  loadSeanceActivites(seanceId: number): void {
+    this.loadingActivites = true;
+    this.seanceActivites = [];
+    
+    this.activiteService.getActivitesBySeance(seanceId).subscribe({
+      next: (response: any) => {
+        this.seanceActivites = response.activites || [];
+        this.loadingActivites = false;
+      },
+      error: (err: any) => {
+        console.error('Erreur lors du chargement des activités de la séance', err);
+        this.notificationService.showError('Erreur lors du chargement des activités');
+        this.loadingActivites = false;
+      }
+    });
+  }
+
+  loadAllActivites(): void {
+    this.loadingAllActivites = true;
+    this.allActivites = [];
+    
+    this.activiteService.getAllActivites().subscribe({
+      next: (response: any) => {
+        this.allActivites = response.activites || [];
+        this.filterAvailableActivites();
+        this.loadingAllActivites = false;
+      },
+      error: (err: any) => {
+        console.error('Erreur lors du chargement de toutes les activités', err);
+        this.notificationService.showError('Erreur lors du chargement des activités disponibles');
+        this.loadingAllActivites = false;
+      }
+    });
+  }
+
+  loadActiviteTypes(): void {
+    this.activiteService.getTypeActivites().subscribe({
+      next: (response: any) => {
+        this.activiteTypes = response.types || [];
+      },
+      error: (err: any) => {
+        console.error('Erreur lors du chargement des types d\'activités', err);
+      }
+    });
+  }
+
+  filterAvailableActivites(): void {
+    // Filtrer les activités qui ne sont pas déjà attribuées à la séance
+    let availableActivites = this.allActivites.filter(activite => 
+      !this.seanceActivites.some(sa => sa.id === activite.id)
+    );
+    
+    // Appliquer les filtres de recherche
+    if (this.searchActiviteQuery.trim()) {
+      const query = this.searchActiviteQuery.trim().toLowerCase();
+      availableActivites = availableActivites.filter(activite => 
+        activite.titre.toLowerCase().includes(query) || 
+        (activite.description && activite.description.toLowerCase().includes(query))
+      );
+    }
+    
+    // Filtrer par type d'activité
+    if (this.filterActiviteType) {
+      availableActivites = availableActivites.filter(activite => 
+        activite.type === this.filterActiviteType
+      );
+    }
+    
+    this.filteredAvailableActivites = availableActivites;
+  }
+
+  addActiviteToSeance(activite: any): void {
+    if (!this.selectedSeance) return;
+    
+    // Ajouter l'activité à la séance
+    const seanceId = this.selectedSeance.id;
+    const activiteId = activite.id;
+    
+    // Appeler l'API pour ajouter l'activité à la séance
+    this.activiteService.addActiviteToSeance(seanceId, activiteId).subscribe({
+      next: () => {
+        // Ajouter l'activité à la liste locale
+        this.seanceActivites.push(activite);
+        
+        // Mettre à jour la liste des activités disponibles
+        this.filterAvailableActivites();
+        
+        this.notificationService.showSuccess('Activité ajoutée à la séance');
+      },
+      error: (err: any) => {
+        console.error('Erreur lors de l\'ajout de l\'activité à la séance', err);
+        this.notificationService.showError('Erreur lors de l\'ajout de l\'activité');
+      }
+    });
+  }
+
+  removeActiviteFromSeance(activite: any): void {
+    if (!this.selectedSeance) return;
+    
+    if (confirm('Êtes-vous sûr de vouloir retirer cette activité de la séance ?')) {
+      const seanceId = this.selectedSeance.id;
+      const activiteId = activite.id;
+      
+      // Appeler l'API pour retirer l'activité de la séance
+      this.activiteService.removeActiviteFromSeance(seanceId, activiteId).subscribe({
+        next: () => {
+          // Retirer l'activité de la liste locale
+          this.seanceActivites = this.seanceActivites.filter(a => a.id !== activiteId);
+          
+          // Mettre à jour la liste des activités disponibles
+          this.filterAvailableActivites();
+          
+          this.notificationService.showSuccess('Activité retirée de la séance');
+        },
+        error: (err: any) => {
+          console.error('Erreur lors du retrait de l\'activité de la séance', err);
+          this.notificationService.showError('Erreur lors du retrait de l\'activité');
+        }
+      });
+    }
+  }
+
+  submitActiviteForm(): void {
+    if (this.activiteForm.invalid) {
+      // Marquer tous les champs comme touchés pour afficher les erreurs
+      Object.keys(this.activiteForm.controls).forEach(key => {
+        const control = this.activiteForm.get(key);
+        control?.markAsTouched();
+      });
+      return;
+    }
+    
+    this.isSubmittingActivite = true;
+    const activiteData = this.activiteForm.value;
+    
+    // Créer une nouvelle activité
+    this.activiteService.createActivite(activiteData).subscribe({
+      next: (response: any) => {
+        const newActivite = response.activite;
+        
+        // Ajouter la nouvelle activité à la liste complète
+        this.allActivites.push(newActivite);
+        
+        // Ajouter automatiquement l'activité à la séance actuelle
+        if (this.selectedSeance) {
+          this.addActiviteToSeance(newActivite);
+        }
+        
+        // Réinitialiser le formulaire
+        this.activiteForm.reset({
+          duree: 30
+        });
+        
+        this.isSubmittingActivite = false;
+        this.notificationService.showSuccess('Activité créée avec succès');
+        
+        // Changer l'onglet pour afficher les activités attribuées
+        const assignedTab = document.getElementById('assigned-tab');
+        if (assignedTab) {
+          (assignedTab as HTMLElement).click();
+        }
+      },
+      error: (err: any) => {
+        console.error('Erreur lors de la création de l\'activité', err);
+        this.notificationService.showError('Erreur lors de la création de l\'activité');
+        this.isSubmittingActivite = false;
+      }
+    });
+  }
+
+  saveActivitesOrder(): void {
+    if (!this.selectedSeance) return;
+    
+    this.isSavingOrder = true;
+    
+    // Créer un tableau avec les IDs des activités dans le nouvel ordre
+    const orderedActiviteIds = this.seanceActivites.map(activite => activite.id);
+    
+    // Appeler l'API pour enregistrer le nouvel ordre
+    this.activiteService.reorderActivites(this.selectedSeance.id, orderedActiviteIds).subscribe({
+      next: () => {
+        this.isSavingOrder = false;
+        this.notificationService.showSuccess('Ordre des activités enregistré');
+        
+        // Fermer le modal
+        const closeButton = document.getElementById('activitesModal')?.querySelector('.btn-close') as HTMLElement;
+        if (closeButton) closeButton.click();
+        
+        // Recharger les séances pour avoir les données à jour
+        this.loadSeances();
+      },
+      error: (err: any) => {
+        console.error('Erreur lors de l\'enregistrement de l\'ordre des activités', err);
+        this.notificationService.showError('Erreur lors de l\'enregistrement de l\'ordre');
+        this.isSavingOrder = false;
+      }
+    });
+  }
+
+  drop(event: CdkDragDrop<any[]>): void {
+    moveItemInArray(this.seanceActivites, event.previousIndex, event.currentIndex);
+  }
+
+  previewActivite(activite: any): void {
+    // Afficher une prévisualisation de l'activité (peut être implémenté ultérieurement)
+    alert(`Prévisualisation de l'activité: ${activite.titre}\n\nType: ${activite.type}\nDescription: ${activite.description}`);
+  }
+
+  // Méthodes supplémentaires
+  getModuleName(moduleId: number): string {
+    const module = this.modules.find(m => m.id === moduleId);
+    return module ? module.titre : 'Non spécifié';
+  }
+  previewSeance(seance: Seance): void {
+    this.previewSeanceData = seance;
+    
+    // Ouvrir le modal de prévisualisation
+    const modal = new bootstrap.Modal(document.getElementById('previewModal'));
+    modal.show();
+  }
+
+  deleteSeance(seance: Seance): void {
+    this.seanceToDelete = seance;
+    
+    // Ouvrir le modal de confirmation
+    const modal = new bootstrap.Modal(document.getElementById('deleteConfirmModal'));
+    modal.show();
+  }
+  confirmDeleteSeance(): void {
+    if (!this.seanceToDelete) return;
+    
+    this.isDeleting = true;
+    
+    this.seanceService.deleteSeance(this.seanceToDelete.id).subscribe({
+      next: () => {
+        // Supprimer la séance du tableau local
+        this.seances = this.seances.filter(s => s.id !== this.seanceToDelete!.id);
+        
+        // Fermer le modal
+        const closeButton = document.getElementById('deleteConfirmModal')?.querySelector('.btn-close') as HTMLElement;
+        if (closeButton) closeButton.click();
+        
+        this.isDeleting = false;
+        this.seanceToDelete = null;
+        this.notificationService.showSuccess('Séance supprimée avec succès');
+      },
+      error: (err: any) => {
+        console.error('Erreur lors de la suppression de la séance', err);
+        this.notificationService.showError('Erreur lors de la suppression de la séance');
+        this.isDeleting = false;
+      }
+    });
+  }
+
+  submitSeanceForm(): void {
+    if (this.seanceForm.invalid) {
+      // Marquer tous les champs comme touchés pour afficher les erreurs
+      Object.keys(this.seanceForm.controls).forEach(key => {
+        const control = this.seanceForm.get(key);
+        control?.markAsTouched();
+      });
+      return;
+    }
+    
+    this.isSubmitting = true;
+    const seanceData = this.seanceForm.value;
+    
+    if (this.editingSeance) {
+      // Mise à jour d'une séance existante
+      this.seanceService.updateSeance(this.editingSeance.id, seanceData).subscribe({
+        next: (response: { seance: Seance }) => {
+          // Mettre à jour la séance dans le tableau local
+          const index = this.seances.findIndex(s => s.id === this.editingSeance!.id);
+          if (index !== -1) {
+            this.seances[index] = { ...this.seances[index], ...response.seance };
+          }
+          
+          // Fermer le modal
+          const closeButton = document.getElementById('seanceModal')?.querySelector('.btn-close') as HTMLElement;
+          if (closeButton) closeButton.click();
+          
+          this.isSubmitting = false;
+          this.notificationService.showSuccess('Séance mise à jour avec succès');
+          this.resetForm();
+        },
+        error: (err: any) => {
+          console.error('Erreur lors de la mise à jour de la séance', err);
+          this.notificationService.showError('Erreur lors de la mise à jour de la séance');
+          this.isSubmitting = false;
+        }
+      });
+    } else {
+      // Création d'une nouvelle séance
+      this.seanceService.createSeance(seanceData).subscribe({
+        next: (response: { seance: Seance }) => {
+          // Ajouter la nouvelle séance au tableau local
+          this.seances.unshift(response.seance);
+          
+          // Fermer le modal
+          const closeButton = document.getElementById('seanceModal')?.querySelector('.btn-close') as HTMLElement;
+          if (closeButton) closeButton.click();
+          
+          this.isSubmitting = false;
+          this.notificationService.showSuccess('Séance créée avec succès');
+          this.resetForm();
+        },
+        error: (err: any) => {
+          console.error('Erreur lors de la création de la séance', err);
+          this.notificationService.showError('Erreur lors de la création de la séance');
+          this.isSubmitting = false;
+        }
+      });
+    }
+  }
+}

@@ -1,0 +1,115 @@
+<div class="seance-container"><!-- Navigation supérieure -->
+  <div class="seance-nav fade-in">
+    <button class="back-button" (click)="returnToModule()" aria-label="Retour au module">
+      <i class="fas fa-arrow-left"></i> Retour au module
+    </button>
+    
+    <div class="seance-progress" *ngIf="activites.length > 0">
+      <span>Activité {{ currentActiviteIndex + 1 }} sur {{ activites.length }}</span>
+      <div class="progress-bar">
+        <div class="progress-fill" [style.width.%]="(currentActiviteIndex + 1) / activites.length * 100" aria-valuemin="0" aria-valuemax="100" [attr.aria-valuenow]="(currentActiviteIndex + 1) / activites.length * 100"></div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Chargement de la séance -->
+  <div *ngIf="loading.seance" class="loading-container">
+    <div class="spinner"></div>
+    <p>Chargement de la séance...</p>
+  </div>
+
+  <!-- Erreur de chargement de la séance -->
+  <div *ngIf="error.seance" class="error-container">
+    <p>{{ error.seance }}</p>
+    <button (click)="loadSeanceDetails()">Réessayer</button>
+  </div>  <!-- Contenu de la séance -->
+  <div *ngIf="!loading.seance && !error.seance && seance" class="seance-content fade-in">
+    <div class="seance-header">
+      <h1>{{ seance.titre }}</h1>
+      <p class="seance-description">{{ seance.description }}</p>
+    </div>
+
+    <!-- Chargement des activités -->
+    <div *ngIf="loading.activites" class="loading-container">
+      <div class="spinner" role="status" aria-label="Chargement"></div>
+      <p>Chargement des activités...</p>
+    </div>
+
+    <!-- Erreur de chargement des activités -->
+    <div *ngIf="error.activites" class="error-container">
+      <p>{{ error.activites }}</p>
+      <button class="btn-primary" (click)="loadActivites()" aria-label="Réessayer">Réessayer</button>
+    </div>
+
+    <!-- Activités de la séance -->
+    <div *ngIf="!loading.activites && !error.activites && activites.length > 0" class="activite-container slide-in-up">
+      <div class="activite-content">
+        <div [ngSwitch]="getCurrentActivite()?.type">          <!-- Activité de type LECTURE -->
+          <div *ngSwitchCase="'LECTURE'" class="slide-in-up">
+            <app-text-activite [activite]="getCurrentActivite()" (completed)="nextActivite()"></app-text-activite>
+          </div>
+
+          <!-- Activité de type VIDEO -->
+          <div *ngSwitchCase="'VIDEO'" class="slide-in-up">
+            <app-video-activite [activite]="getCurrentActivite()" (completed)="nextActivite()"></app-video-activite>
+          </div>
+
+          <!-- Activité de type QUIZ -->
+          <div *ngSwitchCase="'QUIZ'" class="activite-quiz fade-in">
+            <h2>{{ getCurrentActivite().titre }}</h2>
+            <div class="activite-texte" [innerHTML]="formatQuizContent(getCurrentActivite())"></div>
+            <form [formGroup]="reponseForm" (ngSubmit)="submitReponse()" class="quiz-form">
+              <div class="form-group">
+                <label for="reponse">Votre réponse:</label>
+                <textarea id="reponse" formControlName="reponse" rows="4" placeholder="Entrez votre réponse..." aria-required="true"></textarea>
+                <div *ngIf="reponseForm.get('reponse')?.invalid && reponseForm.get('reponse')?.touched" class="form-error" role="alert">
+                  Une réponse est requise.
+                </div>
+              </div>
+              <button type="submit" [disabled]="reponseForm.invalid" class="btn-primary submit-button" aria-label="Soumettre la réponse">
+                Soumettre
+              </button>
+            </form>
+          </div>          <!-- Activité de type Question-Réponse ou QCM -->
+          <div *ngSwitchCase="'Question-Réponse'" class="slide-in-up">
+            <app-question-activite [activite]="getCurrentActivite()" (completed)="nextActivite()"></app-question-activite>
+          </div>
+          
+          <div *ngSwitchCase="'QCM'" class="slide-in-up">
+            <app-question-activite [activite]="getCurrentActivite()" (completed)="nextActivite()"></app-question-activite>
+          </div>
+
+          <!-- Activité de type DOCUMENT -->
+          <div *ngSwitchCase="'DOCUMENT'" class="slide-in-up">
+            <app-document-activite [activite]="getCurrentActivite()" (completed)="nextActivite()"></app-document-activite>
+          </div>
+
+          <!-- Type d'activité non géré -->
+          <div *ngSwitchDefault class="activite-inconnue">
+            <h2>{{ getCurrentActivite()?.titre || 'Activité' }}</h2>
+            <p>Type d'activité non pris en charge.</p>
+          </div>
+        </div>
+      </div>      <!-- Navigation entre les activités -->
+      <div class="activite-navigation">
+        <button *ngIf="currentActiviteIndex > 0" class="btn-previous" (click)="previousActivite()" aria-label="Activité précédente">
+          <i class="fas fa-chevron-left"></i> Précédent
+        </button>
+        
+        <button *ngIf="currentActiviteIndex < activites.length - 1" class="btn-next" (click)="nextActivite()" aria-label="Activité suivante">
+          Suivant <i class="fas fa-chevron-right"></i>
+        </button>
+        
+        <button *ngIf="isLastActivite() && getCurrentActivite()?.type !== 'QUIZ'" class="btn-complete" (click)="completeSeance()" aria-label="Terminer la séance">
+          Terminer la séance <i class="fas fa-check"></i>
+        </button>
+      </div>
+    </div>    <!-- Aucune activité disponible -->
+    <div *ngIf="!loading.activites && !error.activites && activites.length === 0" class="empty-activites fade-in">
+      <p>Aucune activité n'est disponible pour cette séance.</p>
+      <button (click)="returnToModule()" class="btn-primary btn-return">
+        Retourner au module
+      </button>
+    </div>
+  </div>
+</div>

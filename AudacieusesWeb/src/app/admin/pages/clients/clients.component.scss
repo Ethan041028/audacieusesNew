@@ -1,0 +1,39 @@
+// Styles pour la page clients
+.search-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.progress {
+  height: 0.75rem;
+  border-radius: 1rem;
+}
+
+// Styles pour les badges
+.badge {
+  font-size: 0.85rem;
+  font-weight: 500;
+  padding: 0.35rem 0.65rem;
+}
+
+// Style d'action pour les boutons
+.btn-group .btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+}
+
+// Style pour la pagination
+.pagination {
+  margin-bottom: 0;
+}
+
+// Style pour le tableau
+.table {
+  vertical-align: middle;
+}
+
+// Animation pour les spinners
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+} 

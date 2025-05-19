@@ -1,0 +1,459 @@
+@use '../../../../styles/variables' as vars;
+
+.circular-chart {
+    display: block;
+    margin: auto;
+  }
+  .circle {
+    stroke-linecap: round;
+    stroke-dasharray: 50, 100;
+    transition: stroke-dasharray 0.5s ease;
+  }
+
+  h1, h4{
+    font-family: "fatfrank", sans-serif;
+    color: white;
+  }
+
+.dashboard-container {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+// En-tête du dashboard
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .user-welcome {
+    h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: var(--color-primary);
+    }
+    
+    p {
+      font-size: 1rem;
+      color: var(--text-secondary);
+    }
+  }
+}
+
+// Carte des statistiques
+.stats-card {
+  display: flex;
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  gap: 2rem;
+  
+  @media (max-width: 576px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .progress-circle {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: conic-gradient(
+      var(--color-primary) calc(var(--progress-percentage, 0) * 1%),
+      #e9ecef 0
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background-color: white;
+    }
+    
+    .progress-value {
+      position: relative;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--color-primary);
+    }
+    
+    .progress-label {
+      position: absolute;
+      bottom: 20px;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+    }
+  }
+  
+  .stats-details {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      
+      .stat-value {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: var(--color-primary);
+      }
+      
+      .stat-label {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        white-space: nowrap;
+      }
+    }
+  }
+}
+
+// Disposition principale du dashboard
+.dashboard-main {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// Style général des cartes du dashboard
+.dashboard-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  
+  .card-header {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    h2 {
+      font-size: 1.2rem;
+      margin: 0;
+      display: flex;
+      align-items: center;
+      
+      .badge {
+        margin-left: 0.5rem;
+        background-color: var(--color-accent);
+        color: white;
+        border-radius: 50%;
+        font-size: 0.7rem;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+    
+    .view-all-btn {
+      background: none;
+      border: none;
+      color: var(--color-primary);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s;
+      
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+  
+  .card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    
+    &.loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 200px;
+      
+      .spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid rgba(0, 0, 0, 0.1);
+        border-top-color: var(--color-primary);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 1rem;
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+    }
+    
+    .empty-state {
+      text-align: center;
+      color: var(--text-secondary);
+      padding: 2rem 0;
+    }
+  }
+}
+
+// Style spécifique pour la liste des modules
+.modules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  
+  .module-item {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #e9ecef;
+    transition: transform 0.3s, box-shadow 0.3s;
+    
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    .module-image {
+      position: relative;
+      width: 120px;
+      height: 120px;
+      flex-shrink: 0;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      
+      .module-progress {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        height: 4px;
+        background-color: var(--color-success);
+      }
+    }
+    
+    .module-info {
+      padding: 1rem;
+      flex-grow: 1;
+      
+      h3 {
+        margin: 0 0 0.5rem;
+        font-size: 1.1rem;
+      }
+      
+      .module-desc {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin-bottom: 0.5rem;
+      }
+      
+      .module-meta {
+        display: flex;
+        gap: 1rem;
+        
+        span {
+          font-size: 0.8rem;
+          color: var(--text-secondary);
+          padding: 0.2rem 0.5rem;
+          background-color: #f8f9fa;
+          border-radius: 4px;
+        }
+      }
+    }
+  }
+}
+
+// Style spécifique pour la liste des messages
+.messages-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  
+  .message-item {
+    display: flex;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    cursor: pointer;
+    
+    &:hover {
+      background-color: #f8f9fa;
+    }
+    
+    &.unread {
+      background-color: rgba(var(--color-primary-rgb), 0.05);
+    }
+    
+    .message-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-right: 1rem;
+      flex-shrink: 0;
+      
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+    
+    .message-info {
+      flex-grow: 1;
+      position: relative;
+      
+      .message-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.3rem;
+        
+        h3 {
+          margin: 0;
+          font-size: 1rem;
+        }
+        
+        .message-date {
+          font-size: 0.8rem;
+          color: var(--text-secondary);
+        }
+      }
+      
+      .message-preview {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        margin: 0;
+      }
+      
+      .unread-count {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background-color: var(--color-accent);
+        color: white;
+        border-radius: 50%;
+        font-size: 0.7rem;
+        width: 20px;
+        height: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+  }
+}
+
+// Style pour les prochaines séances
+.upcoming-sessions {
+  margin-top: 1rem;
+  
+  .session-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-bottom: 1px solid #e9ecef;
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .session-date {
+      min-width: 100px;
+      text-align: center;
+      padding-right: 1rem;
+      
+      .day {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: var(--color-primary);
+      }
+      
+      .month {
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+    }
+    
+    .session-info {
+      flex-grow: 1;
+      
+      h3 {
+        margin: 0 0 0.5rem;
+        font-size: 1.1rem;
+      }
+      
+      p {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+    }
+    
+    .session-actions {
+      display: flex;
+      gap: 0.5rem;
+      
+      button {
+        padding: 0.5rem 1rem;
+        border-radius: 4px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s;
+        
+        &.btn-primary {
+          background-color: var(--color-primary);
+          color: white;
+          border: none;
+          
+          &:hover {
+            background-color: #3040a0; /* Couleur plus foncée que var(--color-primary) */
+            filter: brightness(0.9); /* Alternative à darken() */
+          }
+        }
+        
+        &.btn-outline {
+          background-color: transparent;
+          border: 1px solid var(--color-primary);
+          color: var(--color-primary);
+          
+          &:hover {
+            background-color: var(--color-primary);
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
+

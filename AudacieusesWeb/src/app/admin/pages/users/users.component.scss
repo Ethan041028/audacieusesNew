@@ -1,0 +1,98 @@
+.search-bar input {
+    border-radius: 20px;
+    width: 1000px;
+}
+
+body {
+    background-color: #eb9478;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+  }
+  
+  h1 {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .search-container {
+    margin-bottom: 20px;
+  }
+  
+  .table-container {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  
+  .table {
+    margin-bottom: 0;
+  }
+  
+  .table th {
+    font-weight: normal;
+  }
+  
+  .progress-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: relative;
+    background-color: #f2f2f2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+  
+  .progress-circle.circle-outline {
+    border: 2px solid #eb9478;
+  }
+  
+  .client-id {
+    color: #4285f4;
+    font-weight: bold;
+  }
+  
+  .status-beneficiaire {
+    color: #eb9478;
+  }
+  
+  .status-utilisatrice {
+    color: #32a05f;
+  }
+  
+  .status-admin {
+    color: #eb9478;
+    opacity: 0.7;
+  }
+  
+  .arrow-icon {
+    color: #32a05f;
+  }
+  
+  .more-btn {
+    background-color: #32a05f;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+  }
+  
+  .search-input {
+    border-radius: 30px;
+    padding: 10px 15px;
+    border: none;
+  }
+
+  .search-container {
+    margin-bottom: 20px;
+    width: 40%; /* Prend 40% de la largeur du conteneur parent */
+  }
+  
+  /* Alternating row colors */
+  .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(235, 148, 120, 0.05);
+  }

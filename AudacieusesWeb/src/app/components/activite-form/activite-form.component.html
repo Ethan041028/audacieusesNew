@@ -1,0 +1,98 @@
+<div class="activite-form-container">
+  <h2>{{ activiteToEdit ? 'Modifier l\'activité - ' + (selectedType || '') : selectedType ? 'Nouvelle activité - ' + selectedType : 'Nouvelle activité' }}</h2>
+  
+  <form [formGroup]="activiteForm" (ngSubmit)="onSubmit()">
+    <!-- Champs communs à tous les types d'activités -->
+    <div class="form-group">
+      <label for="titre">Titre <span class="required">*</span></label>
+      <input type="text" id="titre" formControlName="titre" class="form-control" 
+             [ngClass]="{'is-invalid': activiteForm.get('titre')?.invalid && activiteForm.get('titre')?.touched}">
+      <div *ngIf="activiteForm.get('titre')?.invalid && activiteForm.get('titre')?.touched" class="invalid-feedback">
+        <div *ngIf="activiteForm.get('titre')?.errors?.['required']">Le titre est obligatoire.</div>
+        <div *ngIf="activiteForm.get('titre')?.errors?.['maxlength']">Le titre ne doit pas dépasser 255 caractères.</div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea id="description" formControlName="description" class="form-control" rows="3"></textarea>
+    </div>
+      <div class="form-group">
+      <label for="type_activite_id">Type d'activité <span class="required">*</span></label>
+      <select id="type_activite_id" formControlName="type_activite_id" class="form-control"
+              [ngClass]="{'is-invalid': activiteForm.get('type_activite_id')?.invalid && activiteForm.get('type_activite_id')?.touched}">
+        <option value="">Sélectionnez un type</option>
+        <option *ngFor="let type of typesActivite" [value]="type.id">{{ type.type_activite }}</option>
+      </select>
+      <div *ngIf="activiteForm.get('type_activite_id')?.invalid && activiteForm.get('type_activite_id')?.touched" class="invalid-feedback">
+        <div *ngIf="activiteForm.get('type_activite_id')?.errors?.['required']">Le type d'activité est obligatoire.</div>
+      </div>
+    </div>
+    
+    <!-- Séance facultative (champ masqué si l'activité est créée pour une séance spécifique) -->
+    <div class="form-group" *ngIf="!seanceId">
+      <label for="seance_id">Séance (facultatif)</label>
+      <select id="seance_id" formControlName="seance_id" class="form-control">
+        <option value="">Aucune séance (créer uniquement l'activité)</option>
+        <option *ngFor="let seance of seances" [value]="seance.id">{{ seance.titre }}</option>
+      </select>
+      <small class="form-text text-muted">Si aucune séance n'est sélectionnée, l'activité sera créée sans être associée à une séance.</small>
+    </div>
+    
+    <div class="form-group">
+      <label for="duree">Durée (minutes)</label>
+      <input type="number" id="duree" formControlName="duree" class="form-control" min="1">
+    </div>
+    
+    <!-- Champs spécifiques au type d'activité -->
+    <div *ngIf="selectedType" class="type-specific-form mt-4">
+      
+      <!-- Formulaire pour Vidéo -->
+      <div *ngIf="isVideoType" class="video-form">
+        <h3>Détails de la vidéo</h3>
+        <div class="form-group">
+          <label for="lien_video">Lien de la vidéo <span class="required">*</span></label>
+          <input type="text" id="lien_video" formControlName="lien_video" class="form-control"
+                 [ngClass]="{'is-invalid': activiteForm.get('lien_video')?.invalid && activiteForm.get('lien_video')?.touched}">
+          <div *ngIf="activiteForm.get('lien_video')?.invalid && activiteForm.get('lien_video')?.touched" class="invalid-feedback">
+            <div *ngIf="activiteForm.get('lien_video')?.errors?.['required']">Le lien de la vidéo est obligatoire.</div>
+          </div>
+          <small class="form-text text-muted">Entrez l'URL d'une vidéo YouTube ou Vimeo.</small>
+        </div>
+      </div>
+      
+      <!-- Formulaire pour QCM/QUIZ -->
+      <div *ngIf="isQcmType" class="qcm-form">
+        <h3>Questions à choix multiples</h3>
+        <app-qcm-form [parentForm]="activiteForm"></app-qcm-form>
+      </div>
+      
+      <!-- Formulaire pour Question-Réponse/EXERCICE -->
+      <div *ngIf="isQuestionReponseType" class="question-reponse-form">
+        <h3>Questions libres</h3>
+        <app-question-reponse-form [parentForm]="activiteForm"></app-question-reponse-form>
+      </div>
+      
+      <!-- Formulaire pour LECTURE/DISCUSSION/Texte -->
+      <div *ngIf="isTexteType || selectedType == 'LECTURE' || selectedType == 'DISCUSSION'" class="texte-form">
+        <h3>Contenu textuel</h3>
+        <div class="form-group">
+          <label for="contenu">Contenu <span class="required">*</span></label>
+          <textarea id="contenu" formControlName="contenu" class="form-control" rows="6"
+                   [ngClass]="{'is-invalid': activiteForm.get('contenu')?.invalid && activiteForm.get('contenu')?.touched}"></textarea>
+          <div *ngIf="activiteForm.get('contenu')?.invalid && activiteForm.get('contenu')?.touched" class="invalid-feedback">
+            <div *ngIf="activiteForm.get('contenu')?.errors?.['required']">Le contenu est obligatoire.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+      <!-- Boutons d'action -->
+    <div class="form-actions mt-4">
+      <button type="button" class="btn btn-secondary mr-2" (click)="onCancel()">Annuler</button>
+      <button type="submit" class="btn btn-primary" [disabled]="activiteForm.invalid || isLoading">
+        <span *ngIf="isLoading" class="spinner-border spinner-border-sm mr-1" role="status" aria-hidden="true"></span>
+        {{ activiteToEdit ? 'Mettre à jour' : 'Enregistrer' }}
+      </button>
+    </div>
+  </form>
+</div> 

@@ -1,0 +1,151 @@
+<div class="container-fluid py-4">
+  <div class="card shadow-sm">
+    <div class="card-header bg-white">
+      <h5 class="card-title mb-0">Mon Calendrier Personnel</h5>
+    </div>
+    <div class="card-body">
+      <!-- Affichage du chargement -->
+      <div *ngIf="loading.events" class="text-center my-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Chargement...</span>
+        </div>
+        <p class="mt-2">Chargement de votre calendrier...</p>
+      </div>
+
+      <!-- Message d'erreur -->
+      <div *ngIf="error.events" class="alert alert-danger">
+        {{ error.events }}
+      </div>
+
+      <!-- Affichage du calendrier -->
+      <div *ngIf="!loading.events && !error.events" class="calendar-container">
+        <full-calendar [options]="calendarOptions"></full-calendar>
+      </div>
+    </div>
+  </div>
+
+  <!-- Panneau des rappels à venir -->
+  <div class="card shadow-sm mt-4">
+    <div class="card-header bg-white">
+      <h5 class="card-title mb-0">Rappels à venir</h5>
+    </div>
+    <div class="card-body">
+      <!-- Liste des rappels prochains -->
+      <app-client-rappels></app-client-rappels>
+    </div>
+  </div>
+</div>
+
+<!-- Modal d'événement -->
+<ng-template #eventModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">{{ selectedEvent ? 'Modifier l\'événement' : 'Nouvel événement' }}</h5>
+    <button type="button" class="btn-close" aria-label="Fermer" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="eventForm">
+      <!-- Message d'erreur -->
+      <div *ngIf="error.saving" class="alert alert-danger mb-3">
+        {{ error.saving }}
+      </div>
+
+      <!-- Titre -->
+      <div class="mb-3">
+        <label for="titre" class="form-label">Titre *</label>
+        <input type="text" class="form-control" id="titre" formControlName="titre" [readonly]="!canEdit()">
+        <div *ngIf="eventForm.get('titre')?.invalid && eventForm.get('titre')?.touched" class="text-danger mt-1">
+          <small *ngIf="eventForm.get('titre')?.errors?.['required']">Le titre est requis.</small>
+          <small *ngIf="eventForm.get('titre')?.errors?.['maxlength']">Le titre ne doit pas dépasser 100 caractères.</small>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea class="form-control" id="description" rows="3" formControlName="description" [readonly]="!canEdit()"></textarea>
+      </div>
+
+      <!-- Dates -->
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="date_debut" class="form-label">Date de début *</label>
+          <input type="datetime-local" class="form-control" id="date_debut" formControlName="date_debut" [readonly]="!canEdit()">
+          <div *ngIf="eventForm.get('date_debut')?.invalid && eventForm.get('date_debut')?.touched" class="text-danger mt-1">
+            <small>La date de début est requise.</small>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="date_fin" class="form-label">Date de fin *</label>
+          <input type="datetime-local" class="form-control" id="date_fin" formControlName="date_fin" [readonly]="!canEdit()">
+          <div *ngIf="eventForm.get('date_fin')?.invalid && eventForm.get('date_fin')?.touched" class="text-danger mt-1">
+            <small>La date de fin est requise.</small>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lieu -->
+      <div class="mb-3">
+        <label for="lieu" class="form-label">Lieu</label>
+        <input type="text" class="form-control" id="lieu" formControlName="lieu" [readonly]="!canEdit()">
+      </div>
+
+      <!-- Type -->
+      <div class="mb-3">
+        <label for="type" class="form-label">Type d'événement *</label>
+        <select class="form-select" id="type" formControlName="type" [disabled]="!canEdit()">
+          <option value="evenement">Événement</option>
+          <option value="rendez-vous">Rendez-vous</option>
+          <option value="rappel">Rappel</option>
+          <option value="seance">Séance</option>
+        </select>
+      </div>
+
+      <!-- Rappel -->
+      <div class="mb-3 form-check">
+        <input type="checkbox" class="form-check-input" id="rappel" formControlName="rappel" [disabled]="!canEdit()">
+        <label class="form-check-label" for="rappel">Activer le rappel</label>
+      </div>
+
+      <!-- Temps de rappel -->
+      <div class="mb-3" *ngIf="eventForm.get('rappel')?.value">
+        <label for="temps_rappel" class="form-label">Rappel avant l'événement (minutes)</label>
+        <input type="number" class="form-control" id="temps_rappel" formControlName="temps_rappel" [readonly]="!canEdit()">
+      </div>
+
+      <!-- Couleur -->
+      <div class="mb-3">
+        <label for="couleur" class="form-label">Couleur</label>
+        <input type="color" class="form-control form-control-color" id="couleur" formControlName="couleur" [disabled]="!canEdit()">
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger me-auto" *ngIf="selectedEvent && isCreator()" (click)="confirmDelete()">Supprimer</button>
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Annuler</button>
+    <button type="button" class="btn btn-primary" [disabled]="eventForm.invalid || loading.saving || !canEdit()" (click)="saveEvent()">
+      <span *ngIf="loading.saving" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+      {{ selectedEvent ? 'Mettre à jour' : 'Créer' }}
+    </button>
+  </div>
+</ng-template>
+
+<!-- Modal de confirmation de suppression -->
+<ng-template #confirmDeleteModal let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Confirmer la suppression</h5>
+    <button type="button" class="btn-close" aria-label="Fermer" (click)="modal.dismiss()"></button>
+  </div>
+  <div class="modal-body">
+    <p>Êtes-vous sûr de vouloir supprimer cet événement ? Cette action est irréversible.</p>
+    <div *ngIf="error.deleting" class="alert alert-danger mt-3">
+      {{ error.deleting }}
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.dismiss()">Annuler</button>
+    <button type="button" class="btn btn-danger" [disabled]="loading.deleting" (click)="deleteEvent()">
+      <span *ngIf="loading.deleting" class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+      Supprimer
+    </button>
+  </div>
+</ng-template>

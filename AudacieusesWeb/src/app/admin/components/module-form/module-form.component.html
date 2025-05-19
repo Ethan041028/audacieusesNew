@@ -1,0 +1,132 @@
+<div class="module-form-container">
+  <div class="form-header">
+    <h1>{{ isEditMode ? 'Modifier' : 'Ajouter' }} un module</h1>
+    <button class="btn-back" routerLink="/admin/modules">
+      <i class="fas fa-arrow-left"></i> Retour à la liste
+    </button>
+  </div>
+
+  <!-- Chargement des données du module -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Chargement des données du module...</p>
+  </div>
+
+  <!-- Erreur de chargement -->
+  <div *ngIf="error" class="error-container">
+    <p>{{ error }}</p>
+    <button *ngIf="isEditMode" (click)="loadModuleDetails()">Réessayer</button>
+  </div>
+
+  <!-- Formulaire du module -->
+  <form [formGroup]="moduleForm" (ngSubmit)="onSubmit()" *ngIf="!loading" class="module-form">
+    <!-- Informations de base -->
+    <div class="form-section">
+      <h2>Informations de base</h2>
+      
+      <div class="form-group">
+        <label for="titre">Titre du module <span class="required">*</span></label>
+        <input type="text" id="titre" formControlName="titre" placeholder="Entrez le titre du module">        <div *ngIf="moduleForm.get('titre')?.touched && moduleForm.get('titre')?.invalid" class="form-error">
+          <span *ngIf="moduleForm.get('titre')?.errors?.['required']">Le titre est requis.</span>
+          <span *ngIf="moduleForm.get('titre')?.errors?.['minlength']">Le titre doit contenir au moins 3 caractères.</span>
+          <span *ngIf="moduleForm.get('titre')?.errors?.['maxlength']">Le titre ne peut pas dépasser 100 caractères.</span>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="description">Description <span class="required">*</span></label>
+        <textarea id="description" formControlName="description" rows="4" placeholder="Décrivez le contenu du module"></textarea>        <div *ngIf="moduleForm.get('description')?.touched && moduleForm.get('description')?.invalid" class="form-error">
+          <span *ngIf="moduleForm.get('description')?.errors?.['required']">La description est requise.</span>
+          <span *ngIf="moduleForm.get('description')?.errors?.['minlength']">La description doit contenir au moins 10 caractères.</span>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="niveau">Niveau <span class="required">*</span></label>
+          <select id="niveau" formControlName="niveau">
+            <option *ngFor="let niveau of niveauxModules" [value]="niveau">{{ niveau }}</option>
+          </select>          <div *ngIf="moduleForm.get('niveau')?.touched && moduleForm.get('niveau')?.invalid" class="form-error">
+            <span *ngIf="moduleForm.get('niveau')?.errors?.['required']">Le niveau est requis.</span>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="duree">Durée (heures) <span class="required">*</span></label>
+          <input type="number" id="duree" formControlName="duree" min="1" max="100">          <div *ngIf="moduleForm.get('duree')?.touched && moduleForm.get('duree')?.invalid" class="form-error">
+            <span *ngIf="moduleForm.get('duree')?.errors?.['required']">La durée est requise.</span>
+            <span *ngIf="moduleForm.get('duree')?.errors?.['min']">La durée minimale est de 1 heure.</span>
+            <span *ngIf="moduleForm.get('duree')?.errors?.['max']">La durée maximale est de 100 heures.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Image du module -->
+    <div class="form-section">
+      <h2>Image du module</h2>
+      
+      <div class="form-group image-upload">
+        <label for="image">Image de couverture</label>
+        
+        <div class="image-preview" *ngIf="imagePreview">
+          <img [src]="imagePreview" alt="Aperçu de l'image">
+        </div>
+        
+        <div class="upload-controls">
+          <label for="image-upload" class="btn-upload">
+            <i class="fas fa-upload"></i> {{ imagePreview ? 'Changer l\'image' : 'Ajouter une image' }}
+          </label>
+          <input type="file" id="image-upload" (change)="onFileSelected($event)" accept="image/*" style="display:none">
+          
+          <button type="button" *ngIf="imagePreview" class="btn-remove-image" (click)="imagePreview = null; moduleForm.patchValue({image: null})">
+            <i class="fas fa-trash-alt"></i> Supprimer
+          </button>
+        </div>
+        
+        <p class="image-help">Format recommandé: JPG, PNG. Taille maximum: 5 MB.</p>
+      </div>
+    </div>
+    
+    <!-- Objectifs du module -->
+    <div class="form-section">
+      <h2>Objectifs d'apprentissage</h2>
+      
+      <div formArrayName="objectifs">
+        <div *ngFor="let objectif of objectifs.controls; let i = index" class="objectif-item">
+          <div [formGroupName]="i" class="form-group objectif-group">
+            <label [for]="'objectif-' + i">Objectif {{ i + 1 }} <span class="required">*</span></label>
+            <div class="objectif-row">
+              <input type="text" [id]="'objectif-' + i" formControlName="description" placeholder="Décrivez un objectif d'apprentissage">
+              <button type="button" class="btn-remove" (click)="removeObjectif(i)" [disabled]="objectifs.length === 1">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>            <div *ngIf="objectifs.at(i).get('description')?.touched && objectifs.at(i).get('description')?.invalid" class="form-error">
+              <span *ngIf="objectifs.at(i).get('description')?.errors?.['required']">L'objectif est requis.</span>
+            </div>
+          </div>
+        </div>
+        
+        <button type="button" class="btn-add-objectif" (click)="addObjectif()">
+          <i class="fas fa-plus"></i> Ajouter un objectif
+        </button>
+      </div>
+    </div>
+    
+    <!-- Actions du formulaire -->
+    <div class="form-actions">
+      <button type="button" class="btn-cancel" routerLink="/admin/modules">Annuler</button>
+      <button type="submit" class="btn-submit" [disabled]="submitting">
+        <span *ngIf="!submitting">{{ isEditMode ? 'Mettre à jour' : 'Créer' }} le module</span>
+        <span *ngIf="submitting">
+          <div class="spinner-button"></div> {{ isEditMode ? 'Mise à jour' : 'Création' }} en cours...
+        </span>
+      </button>
+    </div>
+    
+    <!-- Message de succès -->
+    <div *ngIf="success" class="success-message">
+      <i class="fas fa-check-circle"></i> {{ success }}
+    </div>
+  </form>
+</div>

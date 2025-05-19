@@ -1,0 +1,108 @@
+<!-- Modal pour créer/éditer une séance -->
+<div class="modal fade" id="seanceModal" tabindex="-1" aria-labelledby="seanceModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="seanceModalLabel">{{ editingSeance ? 'Modifier la séance' : 'Créer une nouvelle séance' }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="seanceForm" (ngSubmit)="onSubmitSeanceForm()">
+          <div class="mb-3">
+            <label for="titre" class="form-label">Titre <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="titre" formControlName="titre" placeholder="Titre de la séance">
+            <div *ngIf="seanceForm.get('titre')?.invalid && seanceForm.get('titre')?.touched" class="text-danger mt-1 small">
+              <div *ngIf="seanceForm.get('titre')?.errors?.['required']">Le titre est requis.</div>
+              <div *ngIf="seanceForm.get('titre')?.errors?.['maxlength']">Le titre ne doit pas dépasser 100 caractères.</div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea class="form-control" id="description" formControlName="description" rows="2" placeholder="Brève description de la séance"></textarea>
+            <div *ngIf="seanceForm.get('description')?.invalid && seanceForm.get('description')?.touched" class="text-danger mt-1 small">
+              <div *ngIf="seanceForm.get('description')?.errors?.['maxlength']">La description ne doit pas dépasser 500 caractères.</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4 mb-3">
+              <label for="duree" class="form-label">Durée (minutes) <span class="text-danger">*</span></label>
+              <input type="number" class="form-control" id="duree" formControlName="duree" placeholder="60" min="15">
+              <div *ngIf="seanceForm.get('duree')?.invalid && seanceForm.get('duree')?.touched" class="text-danger mt-1 small">
+                <div *ngIf="seanceForm.get('duree')?.errors?.['required']">La durée est requise.</div>
+                <div *ngIf="seanceForm.get('duree')?.errors?.['min']">La durée doit être d'au moins 15 minutes.</div>
+              </div>
+            </div>
+            
+            <div class="col-md-4 mb-3">
+              <label for="type" class="form-label">Type <span class="text-danger">*</span></label>
+              <select class="form-select" id="type" formControlName="type">
+                <option value="individuelle">Individuelle</option>
+                <option value="groupe">Groupe</option>
+              </select>
+            </div>
+            
+            <div class="col-md-4 mb-3">
+              <label for="statut" class="form-label">Statut <span class="text-danger">*</span></label>
+              <select class="form-select" id="statut" formControlName="statut">
+                <option value="brouillon">Brouillon</option>
+                <option value="publié">Publié</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="module_id" class="form-label">Module <span class="text-danger">*</span></label>
+            <select class="form-select" id="module_id" formControlName="module_id">
+              <option value="">Sélectionner un module</option>
+              <option *ngFor="let module of modules" [value]="module.id">{{ module.titre }}</option>
+            </select>
+            <div *ngIf="seanceForm.get('module_id')?.invalid && seanceForm.get('module_id')?.touched" class="text-danger mt-1 small">
+              <div *ngIf="seanceForm.get('module_id')?.errors?.['required']">Le module est requis.</div>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="contenu" class="form-label">Contenu</label>
+            <textarea class="form-control" id="contenu" formControlName="contenu" rows="5" placeholder="Contenu détaillé de la séance"></textarea>
+            <div *ngIf="seanceForm.get('contenu')?.invalid && seanceForm.get('contenu')?.touched" class="text-danger mt-1 small">
+              <div *ngIf="seanceForm.get('contenu')?.errors?.['maxlength']">Le contenu ne doit pas dépasser 2000 caractères.</div>
+            </div>
+          </div>
+          
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary" [disabled]="seanceForm.invalid">
+              {{ editingSeance ? 'Enregistrer les modifications' : 'Créer la séance' }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour ajouter des utilisateurs à une séance -->
+<div class="modal fade" id="usersModal" tabindex="-1" aria-labelledby="usersModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="usersModalLabel">Ajouter des utilisateurs à la séance</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted mb-3">Sélectionnez les utilisateurs à ajouter à cette séance</p>
+        
+        <!-- Interface à implémenter pour la gestion des utilisateurs -->
+        <div class="alert alert-info">
+          <i class="fas fa-info-circle me-2"></i> Fonctionnalité en cours de développement
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" (click)="saveSeanceUsers()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>

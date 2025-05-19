@@ -1,0 +1,120 @@
+<div class="module-detail-container">
+  <!-- Bouton retour -->
+  <button class="back-button" (click)="goBack()">
+    <i class="fas fa-arrow-left"></i> Retour aux modules
+  </button>
+
+  <!-- Chargement du module -->
+  <div *ngIf="loading.module" class="loading-container">
+    <div class="spinner"></div>
+    <p>Chargement du module...</p>
+  </div>
+
+  <!-- Erreur de chargement du module -->
+  <div *ngIf="error.module" class="error-container">
+    <p>{{ error.module }}</p>
+    <button (click)="loadModuleDetails()">Réessayer</button>
+  </div>
+
+  <!-- Détails du module -->
+  <div *ngIf="!loading.module && !error.module && module" class="module-detail">
+    <!-- En-tête du module -->
+    <div class="module-header">
+      <div class="module-cover">
+        <img [src]="getModuleImageFullUrl(module.image_url)" [alt]="module.titre">
+      </div>
+
+      <div class="module-info">
+        <h1>{{ module.titre }}</h1>
+        
+        <div class="module-meta">
+          <span class="module-level" [ngClass]="module.niveau.toLowerCase()">
+            {{ module.niveau }}
+          </span>
+          <span class="module-duration">
+            <i class="far fa-clock"></i> {{ module.duree }} heures
+          </span>
+          <span class="module-status" [ngClass]="getStatusClass()">
+            {{ getModuleStatus() }}
+          </span>
+        </div>
+
+        <div class="module-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="progressPercent"></div>
+          </div>
+          <span class="progress-text">{{ progressPercent }}% complété</span>
+        </div>
+
+        <p class="module-description">{{ module.description }}</p>
+
+        <button *ngIf="progressPercent === 0" class="start-button" (click)="startModule()">
+          <i class="fas fa-play"></i> Démarrer le module
+        </button>
+
+        <button *ngIf="progressPercent > 0 && progressPercent < 100" class="continue-button" (click)="startModule()">
+          <i class="fas fa-play"></i> Continuer le module
+        </button>
+
+        <div *ngIf="progressPercent === 100" class="completion-badge">
+          <i class="fas fa-check-circle"></i> Module terminé
+        </div>
+      </div>
+    </div>
+
+    <!-- Liste des séances -->
+    <div class="seances-section">
+      <h2>Séances de ce module</h2>
+
+      <!-- Chargement des séances -->
+      <div *ngIf="loading.seances" class="loading-container">
+        <div class="spinner"></div>
+        <p>Chargement des séances...</p>
+      </div>
+
+      <!-- Erreur de chargement des séances -->
+      <div *ngIf="error.seances" class="error-container">
+        <p>{{ error.seances }}</p>
+        <button (click)="loadModuleSeances()">Réessayer</button>
+      </div>
+
+      <!-- Liste des séances -->
+      <div *ngIf="!loading.seances && !error.seances" class="seances-list">
+        <div *ngIf="seances.length === 0" class="empty-state">
+          <p>Aucune séance disponible pour ce module.</p>
+        </div>
+
+        <div *ngFor="let seance of seances; let i = index" 
+             [ngClass]="{'seance-item': true, 'unlocked': true, 'completed': isSeanceCompleted(seance)}"
+             (click)="goToSeance(seance)">
+          <div class="seance-order">
+            <span>{{ seance.ordre }}</span>
+          </div>
+          
+          <div class="seance-info">
+            <h3>{{ seance.titre }}</h3>
+            <p>{{ seance.description | slice:0:100 }}{{ seance.description.length > 100 ? '...' : '' }}</p>
+            
+            <div class="seance-meta">
+              <span class="seance-duration">
+                <i class="far fa-clock"></i> {{ seance.duree }} minutes
+              </span>
+              <span *ngIf="!isSeanceCompleted(seance)" class="seance-available">
+                <i class="fas fa-unlock"></i> Disponible
+              </span>
+              <span *ngIf="isSeanceCompleted(seance)" class="seance-completed">
+                <i class="fas fa-check-circle"></i> Terminée
+              </span>
+            </div>
+          </div>
+          
+          <div class="seance-action">
+            <button class="btn-primary">
+              {{ isSeanceCompleted(seance) ? 'Revoir' : 'Commencer' }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,129 @@
+<div class="page-header">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="fw-bold mb-0">Gestion des Séances</h1>
+      <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#seanceModal">
+        <i class="fas fa-plus me-2"></i> Créer une séance
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-4">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="search-container">
+        <div class="input-group">
+          <input type="text" class="form-control search-input" placeholder="Rechercher une séance..." 
+                 [(ngModel)]="searchQuery" (keyup.enter)="searchSeances()">
+          <button class="btn btn-primary" type="button" (click)="searchSeances()">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="action-bar d-flex justify-content-between align-items-center">
+        <ul class="nav nav-tabs border-0">
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="filter === 'all'" (click)="filterSeances('all')" href="javascript:void(0)">
+              Toutes les séances
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="filter === 'individual'" (click)="filterSeances('individual')" href="javascript:void(0)">
+              Individuelles
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="filter === 'group'" (click)="filterSeances('group')" href="javascript:void(0)">
+              Groupe
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Indicateur de chargement -->
+  <div *ngIf="loading" class="text-center py-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement des séances...</p>
+  </div>
+  
+  <!-- Message d'erreur -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+    <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadSeances()">Réessayer</button>
+  </div>
+
+  <!-- Liste des séances -->
+  <div *ngIf="!loading && !error" class="row">
+    <div *ngIf="getFilteredSeances().length === 0" class="col-12 text-center py-5">
+      <p class="text-muted">Aucune séance trouvée</p>
+    </div>
+
+    <!-- Boucle sur les séances -->
+    <div *ngFor="let seance of getFilteredSeances()" class="col-5-cards mb-4">
+      <div class="card h-100">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <div>
+            <span class="badge me-1" [ngClass]="{
+              'bg-success': seance.type === 'individuelle',
+              'bg-info': seance.type === 'groupe'
+            }">{{ seance.type === 'individuelle' ? 'Individuelle' : 'Groupe' }}</span>
+            <span class="badge bg-secondary">{{ seance.duree }} min</span>
+          </div>
+          
+          <div class="dropdown">
+            <button class="btn btn-sm btn-light" type="button" id="dropdownMenuButton{{seance.id}}" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" [attr.aria-labelledby]="'dropdownMenuButton' + seance.id">
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="editSeance(seance)"><i class="fas fa-edit"></i> Modifier</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="duplicateSeance(seance.id); $event.stopPropagation()">
+                <i class="fas fa-copy"></i> Dupliquer
+              </a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="previewSeance(seance); $event.stopPropagation()">
+                <i class="fas fa-eye"></i> Prévisualiser
+              </a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="addUsersToSeance(seance.id); $event.stopPropagation()">
+                <i class="fas fa-user-plus"></i> Ajouter des utilisateurs
+              </a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li *ngIf="seance.statut === 'brouillon'">
+                <a class="dropdown-item text-success" href="javascript:void(0)" (click)="changeSeanceStatus(seance.id, 'publié'); $event.stopPropagation()">
+                  <i class="fas fa-check-circle"></i> Publier
+                </a>
+              </li>
+              <li *ngIf="seance.statut === 'publié'">
+                <a class="dropdown-item text-warning" href="javascript:void(0)" (click)="changeSeanceStatus(seance.id, 'brouillon'); $event.stopPropagation()">
+                  <i class="fas fa-file"></i> Mettre en brouillon
+                </a>
+              </li>
+              <li><a class="dropdown-item text-danger" href="javascript:void(0)" (click)="deleteSeance(seance); $event.stopPropagation()">
+                <i class="fas fa-trash-alt"></i> Supprimer
+              </a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ seance.titre }}</h5>
+          <p class="card-text text-muted small">{{ seance.description }}</p>
+          <div class="mt-2">
+            <small class="text-muted">Module: {{ getModuleName(seance.module_id) }}</small>
+          </div>
+          <div class="mt-1" *ngIf="seance.statut">
+            <span class="badge" [ngClass]="seance.statut === 'publié' ? 'badge-published' : 'badge-draft'">
+              {{ seance.statut === 'publié' ? 'Publié' : 'Brouillon' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

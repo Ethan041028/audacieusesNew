@@ -1,0 +1,117 @@
+<div class="admin-dashboard">
+  <div class="dashboard-header">
+    <h1>Tableau de bord administrateur</h1>
+    <p>Gérez votre plateforme d'apprentissage</p>
+  </div>
+
+  <!-- Chargement des statistiques -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Chargement des statistiques...</p>
+  </div>
+
+  <!-- Erreur de chargement -->
+  <div *ngIf="error" class="error-container">
+    <p>{{ error }}</p>
+    <button (click)="loadDashboardStats()">Réessayer</button>
+  </div>
+
+  <!-- Contenu du dashboard -->
+  <div *ngIf="!loading && !error" class="dashboard-content">
+    <!-- Cartes de statistiques -->
+    <div class="stats-cards">
+      <div class="stats-card">
+        <div class="stats-icon users-icon">
+          <i class="fas fa-users"></i>
+        </div>
+        <div class="stats-info">
+          <h3>Utilisateurs</h3>
+          <div class="stats-number">{{ stats.totalUsers }}</div>
+          <div class="stats-subtitle">{{ stats.activeUsers }} actifs</div>
+        </div>
+      </div>
+
+      <div class="stats-card">
+        <div class="stats-icon modules-icon">
+          <i class="fas fa-book"></i>
+        </div>
+        <div class="stats-info">
+          <h3>Modules</h3>
+          <div class="stats-number">{{ stats.totalModules }}</div>
+          <div class="stats-subtitle">de formation</div>
+        </div>
+      </div>
+
+      <div class="stats-card">
+        <div class="stats-icon seances-icon">
+          <i class="fas fa-chalkboard-teacher"></i>
+        </div>
+        <div class="stats-info">
+          <h3>Séances</h3>
+          <div class="stats-number">{{ stats.totalSeances }}</div>
+          <div class="stats-subtitle">d'apprentissage</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sections du dashboard -->
+    <div class="dashboard-sections">
+      <!-- Activité récente -->
+      <div class="dashboard-section">
+        <div class="section-header">
+          <h2>Activité récente</h2>
+          <button class="btn-view-all" routerLink="/admin/activity">Voir tout</button>        </div>
+        <div class="section-content">
+          <div *ngIf="!stats.recentActivity || stats.recentActivity.length === 0" class="empty-state">
+            <p>Aucune activité récente à afficher</p>
+          </div>
+
+          <div *ngFor="let activity of stats.recentActivity || []" class="activity-item">
+            <div class="activity-avatar">
+              <img [src]="activity.user?.avatar || '/assets/images/avatar.jpg'" [alt]="activity.user?.nom">
+            </div>
+            <div class="activity-info">
+              <div class="activity-header">
+                <span class="user-name">{{ activity.user?.prenom }} {{ activity.user?.nom }}</span>
+                <span class="activity-time">{{ formatDate(activity.date) }}</span>
+              </div>
+              <p class="activity-description">{{ activity.description }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Actions rapides -->
+      <div class="dashboard-section">
+        <div class="section-header">
+          <h2>Actions rapides</h2>
+        </div>
+        <div class="section-content">
+          <div class="quick-actions">
+            <a routerLink="/admin/users/new" class="quick-action-card">
+              <div class="quick-action-icon">
+                <i class="fas fa-user-plus"></i>
+              </div>
+              <div class="quick-action-title">Nouvel utilisateur</div>
+            </a>
+
+            <a routerLink="/admin/modules/new" class="quick-action-card">
+              <div class="quick-action-icon">
+                <i class="fas fa-plus-circle"></i>
+              </div>
+              <div class="quick-action-title">Nouveau module</div>
+            </a>
+
+            <a routerLink="/admin/seances/new" class="quick-action-card">
+              <div class="quick-action-icon">
+                <i class="fas fa-calendar-plus"></i>
+              </div>
+              <div class="quick-action-title">Nouvelle séance</div>
+            </a>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,535 @@
+<div class="page-header">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="fw-bold mb-0">Gestion des Séances</h1>
+      <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#seanceModal">
+        <i class="fas fa-plus me-2"></i> Créer une séance
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-4">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="search-container">
+        <div class="input-group">
+          <input type="text" class="form-control search-input" placeholder="Rechercher une séance..." 
+                 [(ngModel)]="searchQuery" (keyup.enter)="searchSeances()">
+          <button class="btn btn-primary" type="button" (click)="searchSeances()">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="action-bar d-flex justify-content-between align-items-center">
+        <ul class="nav nav-tabs border-0">
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="filter === 'all'" (click)="filterSeances('all')" href="javascript:void(0)">
+              Toutes les séances
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="filter === 'published'" (click)="filterSeances('published')" href="javascript:void(0)">
+              Publiées
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="filter === 'draft'" (click)="filterSeances('draft')" href="javascript:void(0)">
+              Brouillons
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- Indicateur de chargement -->
+  <div *ngIf="loading" class="text-center py-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement des séances...</p>
+  </div>
+    <!-- Message d'erreur -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+    <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadSeances()">Réessayer</button>
+  </div>
+
+<!-- Modal pour créer/éditer une séance -->
+<div class="modal fade" id="seanceModal" tabindex="-1" aria-labelledby="seanceModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="seanceModalLabel">{{ editingSeance ? 'Modifier la séance' : 'Créer une nouvelle séance' }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="seanceForm" (ngSubmit)="submitSeanceForm()">
+          <div class="row mb-3">
+            <div class="col-md-8">
+              <div class="form-group mb-3">
+                <label for="titre" class="form-label">Titre <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="titre" formControlName="titre" placeholder="Titre de la séance" required>
+                <div *ngIf="seanceForm.get('titre')?.invalid && seanceForm.get('titre')?.touched" class="text-danger small">
+                  Le titre est requis
+                </div>
+              </div>
+              
+              <div class="form-group mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" formControlName="description" rows="3" placeholder="Description de la séance"></textarea>
+              </div>
+              
+              <div class="form-group mb-3">
+                <label for="module_id" class="form-label">Module associé <span class="text-danger">*</span></label>
+                <select class="form-control" id="module_id" formControlName="module_id" required>
+                  <option value="">Sélectionnez un module</option>
+                  <option *ngFor="let module of modules" [value]="module.id">{{ module.titre }}</option>
+                </select>
+                <div *ngIf="seanceForm.get('module_id')?.invalid && seanceForm.get('module_id')?.touched" class="text-danger small">
+                  Veuillez sélectionner un module
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-md-4">
+              <div class="form-group mb-3">
+                <label for="duree" class="form-label">Durée (minutes) <span class="text-danger">*</span></label>
+                <input type="number" class="form-control" id="duree" formControlName="duree" min="1" placeholder="Durée" required>
+                <div *ngIf="seanceForm.get('duree')?.invalid && seanceForm.get('duree')?.touched" class="text-danger small">
+                  La durée est requise
+                </div>
+              </div>
+              
+              <div class="form-group mb-3">
+                <label for="ordre" class="form-label">Ordre</label>
+                <input type="number" class="form-control" id="ordre" formControlName="ordre" min="1" placeholder="Ordre d'affichage">
+              </div>
+              
+              <div class="form-group mb-3">
+                <label for="statut" class="form-label">Statut</label>
+                <select class="form-control" id="statut" formControlName="statut">
+                  <option value="brouillon">Brouillon</option>
+                  <option value="publié">Publié</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          
+          <div class="form-group mb-3">
+            <label for="contenu" class="form-label">Contenu</label>
+            <textarea class="form-control" id="contenu" formControlName="contenu" rows="5" placeholder="Contenu détaillé de la séance"></textarea>
+          </div>
+          
+          <div class="d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary" [disabled]="seanceForm.invalid || isSubmitting">
+              {{ isSubmitting ? 'Sauvegarde en cours...' : (editingSeance ? 'Mettre à jour' : 'Créer') }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour prévisualiser une séance -->
+<div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="previewModalLabel">Prévisualisation de la séance</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngIf="previewSeanceData">
+        <div class="preview-header mb-4">
+          <h3 class="preview-title">{{ previewSeanceData.titre }}</h3>
+          <div class="preview-meta d-flex flex-wrap text-muted small mb-2">
+            <span class="me-3"><i class="fas fa-clock me-1"></i> {{ previewSeanceData.duree }} minutes</span>
+            <span class="me-3"><i class="fas fa-layer-group me-1"></i> Module: {{ getModuleName(previewSeanceData.module_id) }}</span>
+            <span><i class="fas fa-tag me-1"></i> {{ previewSeanceData.statut === 'publié' ? 'Publiée' : 'Brouillon' }}</span>
+          </div>
+          <p class="preview-description">{{ previewSeanceData.description }}</p>
+        </div>
+        
+        <div class="preview-content mb-4">
+          <h4 class="preview-section-title">Contenu de la séance</h4>
+          <div class="preview-content-text">
+            <p>{{ previewSeanceData.contenu }}</p>
+          </div>
+        </div>
+        
+        <div class="preview-activites">
+          <h4 class="preview-section-title">Activités ({{ previewSeanceData.activites?.length || 0 }})</h4>
+          
+          <div class="preview-empty-state" *ngIf="!previewSeanceData.activites || previewSeanceData.activites.length === 0">
+            <p class="text-muted fst-italic">Aucune activité n'a été attribuée à cette séance.</p>
+          </div>
+          
+          <div class="preview-activites-list" *ngIf="previewSeanceData.activites && previewSeanceData.activites.length > 0">
+            <div class="row">
+              <div *ngFor="let activite of previewSeanceData.activites; let i = index" class="col-md-6 mb-3">
+                <div class="card h-100">
+                  <div class="card-header d-flex align-items-center">
+                    <span class="badge rounded-pill me-2" [ngClass]="{'bg-info': activite.type === 'question-reponse', 'bg-success': activite.type === 'reflexion', 'bg-warning': activite.type === 'qcm', 'bg-primary': activite.type === 'lecture'}">
+                      {{ activite.type }}
+                    </span>
+                    <h6 class="mb-0">{{ i + 1 }}. {{ activite.titre }}</h6>
+                  </div>
+                  <div class="card-body">
+                    <p class="card-text">{{ activite.description }}</p>
+                    <div class="card-text small text-muted">
+                      <span><i class="fas fa-clock me-1"></i> {{ activite.duree || 'Non spécifié' }} minutes</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" (click)="editSeance(previewSeanceData)" data-bs-dismiss="modal">Modifier</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour gérer les activités d'une séance -->
+<div class="modal fade" id="activitesModal" tabindex="-1" aria-labelledby="activitesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="activitesModalLabel">Activités de la séance: {{ selectedSeance?.titre }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Onglets -->
+        <ul class="nav nav-tabs mb-3" id="activitesTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="assigned-tab" data-bs-toggle="tab" data-bs-target="#assigned" type="button" role="tab" aria-controls="assigned" aria-selected="true">
+              Activités attribuées
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="available-tab" data-bs-toggle="tab" data-bs-target="#available" type="button" role="tab" aria-controls="available" aria-selected="false">
+              Activités disponibles
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" id="new-tab" data-bs-toggle="tab" data-bs-target="#new" type="button" role="tab" aria-controls="new" aria-selected="false">
+              Nouvelle activité
+            </button>
+          </li>
+        </ul>
+        
+        <!-- Contenu des onglets -->
+        <div class="tab-content" id="activitesTabContent">
+          <!-- Activités attribuées -->
+          <div class="tab-pane fade show active" id="assigned" role="tabpanel" aria-labelledby="assigned-tab">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="mb-0">Activités attribuées à cette séance</h6>
+              <div class="text-muted small">Glissez-déposez pour réorganiser</div>
+            </div>
+            
+            <div *ngIf="loadingActivites" class="text-center py-4">
+              <div class="spinner-border spinner-border-sm text-primary" role="status">
+                <span class="visually-hidden">Chargement...</span>
+              </div>
+              <p class="mt-2">Chargement des activités...</p>
+            </div>
+            
+            <div *ngIf="!loadingActivites && seanceActivites.length === 0" class="text-center py-4">
+              <p class="text-muted mb-0">Aucune activité n'est attribuée à cette séance</p>
+              <p class="small text-muted">Utilisez l'onglet "Activités disponibles" pour en ajouter</p>
+            </div>
+            
+            <div cdkDropList (cdkDropListDropped)="drop($event)" class="activites-list" *ngIf="!loadingActivites && seanceActivites.length > 0">
+              <div *ngFor="let activite of seanceActivites; let i = index" cdkDrag class="activite-item card mb-2">
+                <div class="card-body py-2">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                      <div class="drag-handle me-2" cdkDragHandle>
+                        <i class="fas fa-grip-vertical text-muted"></i>
+                      </div>
+                      <div>
+                        <h6 class="mb-0">{{ i + 1 }}. {{ activite.titre }}</h6>
+                        <div class="d-flex align-items-center text-muted small">
+                          <span class="badge me-2" [ngClass]="{'bg-info': activite.type === 'question-reponse', 'bg-success': activite.type === 'reflexion', 'bg-warning': activite.type === 'qcm', 'bg-primary': activite.type === 'lecture'}">
+                            {{ activite.type }}
+                          </span>
+                          <span *ngIf="activite.duree">{{ activite.duree }} min</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <button class="btn btn-sm btn-outline-primary me-1" (click)="previewActivite(activite)">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger" (click)="removeActiviteFromSeance(activite)">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Activités disponibles -->
+          <div class="tab-pane fade" id="available" role="tabpanel" aria-labelledby="available-tab">
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <div class="input-group">
+                  <input type="text" class="form-control" placeholder="Rechercher une activité..." 
+                         [(ngModel)]="searchActiviteQuery" (keyup)="filterAvailableActivites()">
+                  <button class="btn btn-outline-secondary" type="button">
+                    <i class="fas fa-search"></i>
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <select class="form-control" [(ngModel)]="filterActiviteType" (change)="filterAvailableActivites()">
+                  <option value="">Tous les types</option>
+                  <option *ngFor="let type of activiteTypes" [value]="type.code">{{ type.libelle }}</option>
+                </select>
+              </div>
+            </div>
+            
+            <div *ngIf="loadingAllActivites" class="text-center py-4">
+              <div class="spinner-border spinner-border-sm text-primary" role="status">
+                <span class="visually-hidden">Chargement...</span>
+              </div>
+              <p class="mt-2">Chargement des activités disponibles...</p>
+            </div>
+            
+            <div *ngIf="!loadingAllActivites && filteredAvailableActivites.length === 0" class="text-center py-4">
+              <p class="text-muted mb-0">Aucune activité disponible</p>
+              <p class="small text-muted">Utilisez l'onglet "Nouvelle activité" pour en créer une</p>
+            </div>
+            
+            <div class="row" *ngIf="!loadingAllActivites && filteredAvailableActivites.length > 0">
+              <div *ngFor="let activite of filteredAvailableActivites" class="col-md-6 mb-3">
+                <div class="card h-100">
+                  <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <div>
+                        <span class="badge mb-2" [ngClass]="{'bg-info': activite.type === 'question-reponse', 'bg-success': activite.type === 'reflexion', 'bg-warning': activite.type === 'qcm', 'bg-primary': activite.type === 'lecture'}">
+                          {{ activite.type }}
+                        </span>
+                        <h6 class="card-title">{{ activite.titre }}</h6>
+                        <p class="card-text small">{{ activite.description }}</p>
+                      </div>
+                      <button class="btn btn-sm btn-success" (click)="addActiviteToSeance(activite)">
+                        <i class="fas fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Nouvelle activité -->
+          <div class="tab-pane fade" id="new" role="tabpanel" aria-labelledby="new-tab">
+            <form [formGroup]="activiteForm" (ngSubmit)="submitActiviteForm()">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label for="activite-titre" class="form-label">Titre <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="activite-titre" formControlName="titre" placeholder="Titre de l'activité" required>
+                    <div *ngIf="activiteForm.get('titre')?.invalid && activiteForm.get('titre')?.touched" class="text-danger small">
+                      Le titre est requis
+                    </div>
+                  </div>
+                  
+                  <div class="form-group mb-3">
+                    <label for="activite-description" class="form-label">Description</label>
+                    <textarea class="form-control" id="activite-description" formControlName="description" rows="3" placeholder="Description de l'activité"></textarea>
+                  </div>
+                  
+                  <div class="form-group mb-3">
+                    <label for="activite-type" class="form-label">Type d'activité <span class="text-danger">*</span></label>
+                    <select class="form-control" id="activite-type" formControlName="type" required>
+                      <option value="">Sélectionnez un type</option>
+                      <option *ngFor="let type of activiteTypes" [value]="type.code">{{ type.libelle }}</option>
+                    </select>
+                    <div *ngIf="activiteForm.get('type')?.invalid && activiteForm.get('type')?.touched" class="text-danger small">
+                      Le type d'activité est requis
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="col-md-6">
+                  <div class="form-group mb-3">
+                    <label for="activite-duree" class="form-label">Durée (minutes)</label>
+                    <input type="number" class="form-control" id="activite-duree" formControlName="duree" min="1" placeholder="Durée">
+                  </div>
+                  
+                  <div class="form-group mb-3">
+                    <label for="activite-contenu" class="form-label">Contenu <span class="text-danger">*</span></label>
+                    <textarea class="form-control" id="activite-contenu" formControlName="contenu" rows="6" placeholder="Contenu de l'activité" required></textarea>
+                    <div *ngIf="activiteForm.get('contenu')?.invalid && activiteForm.get('contenu')?.touched" class="text-danger small">
+                      Le contenu est requis
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" [disabled]="activiteForm.invalid || isSubmittingActivite">
+                  {{ isSubmittingActivite ? 'Création en cours...' : 'Créer et ajouter à la séance' }}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" (click)="saveActivitesOrder()" [disabled]="isSavingOrder">
+          {{ isSavingOrder ? 'Sauvegarde en cours...' : 'Enregistrer les modifications' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmation de suppression -->
+<div class="modal fade" id="deleteConfirmModal" tabindex="-1" aria-labelledby="deleteConfirmModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteConfirmModalLabel">Confirmer la suppression</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngIf="seanceToDelete">
+        <p>Êtes-vous sûr de vouloir supprimer la séance <strong>{{ seanceToDelete.titre }}</strong> ?</p>
+        <p class="text-danger">Cette action est irréversible.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-danger" (click)="confirmDeleteSeance()" [disabled]="isDeleting">
+          {{ isDeleting ? 'Suppression...' : 'Supprimer' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+    <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadSeances()">Réessayer</button>
+  </div>
+
+  <!-- Liste des séances -->
+  <div *ngIf="!loading && !error" class="row">
+    <div *ngIf="getFilteredSeances().length === 0" class="col-12 text-center py-5">
+      <p class="text-muted">Aucune séance trouvée</p>
+    </div>
+
+    <!-- Boucle sur les séances -->
+    <div *ngFor="let seance of getFilteredSeances()" class="col-5-cards mb-4">
+      <div class="card h-100">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <div>
+            <span class="badge me-1" [ngClass]="{
+              'bg-success': seance.type === 'individuelle',
+              'bg-info': seance.type === 'groupe'
+            }">{{ seance.type === 'individuelle' ? 'Individuelle' : 'Groupe' }}</span>
+            <span class="badge bg-secondary">{{ seance.duree }} min</span>
+          </div>
+          
+          <div class="dropdown">
+            <button class="btn btn-sm btn-light" type="button" id="dropdownMenuButton{{seance.id}}" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" [attr.aria-labelledby]="'dropdownMenuButton' + seance.id">
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="editSeance(seance)"><i class="fas fa-edit"></i> Modifier</a></li>              <li><a class="dropdown-item" href="javascript:void(0)" (click)="duplicateSeance(seance.id); $event.stopPropagation()">
+                <i class="fas fa-copy"></i> Dupliquer
+              </a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="previewSeance(seance); $event.stopPropagation()">
+                <i class="fas fa-eye"></i> Prévisualiser
+              </a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="addUsersToSeance(seance.id); $event.stopPropagation()">
+                <i class="fas fa-user-plus"></i> Ajouter des utilisateurs
+              </a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li *ngIf="seance.statut === 'brouillon'">
+                <a class="dropdown-item text-success" href="javascript:void(0)" (click)="changeSeanceStatus(seance.id, 'publié'); $event.stopPropagation()">
+                  <i class="fas fa-check-circle"></i> Publier
+                </a>
+              </li>
+              <li *ngIf="seance.statut === 'publié'">
+                <a class="dropdown-item text-warning" href="javascript:void(0)" (click)="changeSeanceStatus(seance.id, 'brouillon'); $event.stopPropagation()">
+                  <i class="fas fa-file"></i> Mettre en brouillon
+                </a>
+              </li>              <li><a class="dropdown-item text-danger" href="javascript:void(0)" (click)="deleteSeance(seance); $event.stopPropagation()">
+                <i class="fas fa-trash-alt"></i> Supprimer
+              </a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">{{ seance.titre }}</h5>
+          <p class="card-text text-muted small">{{ seance.description }}</p>
+          <div class="mt-2">
+            <small class="text-muted">Module: {{ seance.module_id ? 'Module #' + seance.module_id : 'Non assigné' }}</small>
+          </div>
+          <div class="mt-1" *ngIf="seance.statut">
+            <span class="badge" [ngClass]="seance.statut === 'publié' ? 'badge-published' : 'badge-draft'">
+              {{ seance.statut === 'publié' ? 'Publié' : 'Brouillon' }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal pour ajouter des utilisateurs à une séance -->
+<div class="modal fade" id="usersModal" tabindex="-1" aria-labelledby="usersModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="usersModalLabel">Ajouter des utilisateurs à la séance</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p class="text-muted mb-3">Sélectionnez les utilisateurs à ajouter à cette séance</p>
+        
+        <!-- Interface à implémenter pour la gestion des utilisateurs -->
+        <div class="alert alert-info">
+          <i class="fas fa-info-circle me-2"></i> Fonctionnalité en cours de développement
+        </div>
+        
+        <!-- Futures fonctionnalités:
+        <div class="input-group mb-3">
+          <input type="text" class="form-control" placeholder="Rechercher un utilisateur..." [(ngModel)]="userSearchQuery">
+          <button class="btn btn-outline-secondary" type="button"><i class="fas fa-search"></i></button>
+        </div>
+        
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let user of users">
+            <div>
+              <img [src]="user.avatar || 'assets/default-avatar.png'" class="avatar-sm me-2" alt="{{ user.name }}">
+              {{ user.name }}
+            </div>
+            <div class="form-check form-switch">
+              <input class="form-check-input" type="checkbox" [(ngModel)]="user.selected">
+            </div>
+          </li>
+        </ul>
+        -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" (click)="saveSeanceUsers()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>

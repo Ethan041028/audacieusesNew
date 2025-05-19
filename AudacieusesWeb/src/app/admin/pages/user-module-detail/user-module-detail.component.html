@@ -1,0 +1,188 @@
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <!-- En-tête avec nom du client et du module -->
+    <h1 *ngIf="user && module" class="display-6">
+      <i class="fas fa-tasks text-primary me-2"></i>
+      {{ user.prenom }} {{ user.nom }} | {{ module.titre }}
+    </h1>
+    <h1 *ngIf="!user || !module" class="display-6">
+      <i class="fas fa-tasks text-primary me-2"></i>
+      Détail des activités
+    </h1>
+    
+    <!-- Bouton retour -->
+    <button class="btn btn-outline-secondary" (click)="goBack()">
+      <i class="fas fa-arrow-left me-1"></i> Retour
+    </button>
+  </div>
+  
+  <!-- Indicateurs de chargement -->
+  <div *ngIf="loading.user || loading.module || loading.activites" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2 text-muted">Chargement des informations...</p>
+  </div>
+  
+  <!-- Messages d'erreur -->
+  <div *ngIf="error.user || error.module || error.activites" class="alert alert-danger">
+    <div *ngIf="error.user">
+      <i class="fas fa-exclamation-triangle me-2"></i> {{ error.user }}
+      <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadUserDetails()">
+        <i class="fas fa-sync-alt me-1"></i> Réessayer
+      </button>
+    </div>
+    <div *ngIf="error.module">
+      <i class="fas fa-exclamation-triangle me-2"></i> {{ error.module }}
+      <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadModuleDetails()">
+        <i class="fas fa-sync-alt me-1"></i> Réessayer
+      </button>
+    </div>
+    <div *ngIf="error.activites">
+      <i class="fas fa-exclamation-triangle me-2"></i> {{ error.activites }}
+      <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadUserActivites()">
+        <i class="fas fa-sync-alt me-1"></i> Réessayer
+      </button>
+    </div>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div *ngIf="!loading.user && !loading.module && !loading.activites && user && module" class="row">
+    <!-- Informations sur le client et le module -->
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <!-- Informations du client -->
+          <div class="text-center mb-4">
+            <h5 class="mb-1">{{ user.prenom }} {{ user.nom }}</h5>
+            <p class="text-muted">{{ user.email }}</p>
+            <span class="badge" [ngClass]="{
+              'bg-danger': user.role?.nom === 'admin_plus',
+              'bg-warning text-dark': user.role?.nom === 'admin',
+              'bg-info text-dark': user.role?.nom === 'coach',
+              'bg-success': user.role?.nom === 'client'
+            }">
+              {{ user.role?.nom || 'client' }}
+            </span>
+          </div>
+          
+          <!-- Informations du module -->
+          <div class="module-info">
+            <h6 class="border-bottom pb-2 mb-3">Informations du module</h6>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Titre:</span>
+              <span class="fw-bold">{{ module.titre }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Statut:</span>
+              <span class="badge" [ngClass]="module.statut === 'publié' ? 'bg-success' : 'bg-secondary'">
+                {{ module.statut }}
+              </span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Nombre d'activités:</span>
+              <span class="fw-bold">{{ activites.length }}</span>
+            </div>
+            <div class="d-flex justify-content-between mb-2">
+              <span class="text-muted">Progression:</span>
+              <span class="fw-bold">{{ module.progression?.percentage || 0 }}%</span>
+            </div>
+            <div class="progress mt-2 mb-3">
+              <div class="progress-bar" role="progressbar" 
+                   [style.width]="(module.progression?.percentage || 0) + '%'" 
+                   [attr.aria-valuenow]="module.progression?.percentage || 0" 
+                   aria-valuemin="0" aria-valuemax="100">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Liste des activités avec les réponses -->
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-header bg-white">
+          <h5 class="mb-0">Activités et réponses</h5>
+        </div>
+        <div class="card-body">
+          <!-- Pas d'activités -->
+          <div *ngIf="activites.length === 0" class="text-center py-4">
+            <i class="fas fa-info-circle text-muted mb-3" style="font-size: 3rem;"></i>
+            <p class="text-muted">Aucune activité trouvée pour ce module.</p>
+          </div>
+          
+          <!-- Liste des activités -->
+          <div *ngIf="activites.length > 0" class="accordion" id="activitesAccordion">
+            <div *ngFor="let activite of activites; let i = index" class="accordion-item mb-3 border">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                        [attr.data-bs-target]="'#collapse' + i" aria-expanded="false" [attr.aria-controls]="'collapse' + i">
+                  <div class="d-flex justify-content-between align-items-center w-100 me-3">
+                    <span>
+                      <span class="fw-bold">{{ activite.titre }}</span>
+                      <span class="text-muted ms-2">({{ activite.type_activite }})</span>
+                    </span>
+                    <span class="badge" [ngClass]="getStatusClass(activite)">
+                      {{ getActiviteStatus(activite) }}
+                    </span>
+                  </div>
+                </button>
+              </h2>
+              <div [id]="'collapse' + i" class="accordion-collapse collapse" data-bs-parent="#activitesAccordion">
+                <div class="accordion-body">
+                  <!-- Description de l'activité -->
+                  <div class="mb-3">
+                    <h6>Description:</h6>
+                    <p>{{ activite.description || 'Aucune description disponible.' }}</p>
+                  </div>
+                  
+                  <!-- Détail du suivi -->
+                  <div class="mb-3" *ngIf="activite.suivi">
+                    <h6>Suivi:</h6>
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="text-muted">Date de début:</span>
+                      <span>{{ activite.suivi.date_debut | date: 'dd/MM/yyyy HH:mm' }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2" *ngIf="activite.suivi.date_fin">
+                      <span class="text-muted">Date de fin:</span>
+                      <span>{{ activite.suivi.date_fin | date: 'dd/MM/yyyy HH:mm' }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-2">
+                      <span class="text-muted">Durée totale:</span>
+                      <span>{{ activite.suivi.duree_totale || 'N/A' }}</span>
+                    </div>
+                  </div>
+                  
+                  <!-- Réponses aux exercices -->
+                  <div class="mb-3" *ngIf="activite.reponses && activite.reponses.length > 0">
+                    <h6 class="border-bottom pb-2 mb-3">Réponses:</h6>
+                    <div *ngFor="let reponse of activite.reponses" class="mb-3 p-3 border rounded">
+                      <div class="mb-2">
+                        <strong>Question:</strong>
+                        <div class="question-content" [innerHTML]="reponse.question"></div>
+                      </div>
+                      <div class="mb-2">
+                        <strong>Réponse:</strong>
+                        <div class="response-content" [innerHTML]="reponse.reponse"></div>
+                      </div>
+                      <div *ngIf="reponse.feedback" class="p-2 bg-light rounded">
+                        <strong>Feedback du coach:</strong>
+                        <p>{{ reponse.feedback }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <!-- Aucune réponse -->
+                  <div *ngIf="!activite.reponses || activite.reponses.length === 0" class="alert alert-info">
+                    Aucune réponse enregistrée pour cette activité.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div> 

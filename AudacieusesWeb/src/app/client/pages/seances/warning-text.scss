@@ -1,0 +1,8 @@
+.warning-text {
+  color: $color-warning;
+  background-color: transparentize($color-warning, 0.9);
+  padding: 0.75rem;
+  border-radius: $border-radius;
+  margin-bottom: 1rem;
+  font-weight: 500;
+}

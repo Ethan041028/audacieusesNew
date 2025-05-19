@@ -1,0 +1,91 @@
+<!-- Dashboard principal du client -->
+<div class="dashboard-container">
+  
+  <!-- En-tête avec statistiques de progression -->
+  <div class="dashboard-header">
+    <div class="user-welcome">
+      <h1>Bonjour, {{ user?.prenom }} !</h1>
+      <p>Bienvenue sur votre espace personnel</p>
+    </div>
+    
+    <div class="stats-card">
+      <div class="progress-circle">
+        <div class="progress-value">{{ getProgressPercentage() }}%</div>
+        <div class="progress-label">Progression</div>
+      </div>
+      
+      <div class="stats-details">
+        <div class="stat-item">
+          <span class="stat-value">{{ stats.completedModules }}</span>
+          <span class="stat-label">Modules terminés</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ stats.inProgressModules }}</span>
+          <span class="stat-label">Modules en cours</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-value">{{ stats.completedSeances }}/{{ stats.totalSeances }}</span>
+          <span class="stat-label">Séances terminées</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Sections principales du dashboard -->
+  <div class="dashboard-main">
+    <!-- Modules récents -->
+    <div class="dashboard-card modules-card">
+      <div class="card-header">
+        <h2>Mes modules</h2>
+        <button class="view-all-btn" (click)="goToModules()">Voir tout</button>
+      </div>
+      
+      <div class="card-content" *ngIf="!loading.modules">
+        <div *ngIf="modulesList.length === 0" class="empty-state">
+          <p>Vous n'avez pas encore de modules assignés.</p>
+        </div>
+        
+        <div *ngIf="modulesList.length > 0" class="modules-list">
+          <div *ngFor="let module of modulesList.slice(0, 3)" class="module-item">
+            <div class="module-image">
+              <img [src]="getModuleImageFullUrl(module.image_url)" [alt]="module.titre">
+              <div class="module-progress" 
+                   [ngStyle]="{'width': getModuleProgressWidth(module)}">
+              </div>
+            </div>
+            <div class="module-info">
+              <h3>{{ module.titre }}</h3>
+              <p class="module-desc">{{ module.description | slice:0:100 }}{{ module.description.length > 100 ? '...' : '' }}</p>
+              <div class="module-meta">
+                <span class="module-level">{{ module.niveau }}</span>
+                <span class="module-duration">{{ module.duree }} heures</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="card-content loading" *ngIf="loading.modules">
+        <div class="spinner"></div>
+        <p>Chargement de vos modules...</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Prochaines séances -->
+  <div class="dashboard-card upcoming-sessions">
+    <div class="card-header">
+      <h2>Mes prochaines séances</h2>
+    </div>
+    
+    <div class="card-content">
+      <!-- Ici, vous pouvez ajouter le code pour afficher les prochaines séances -->
+      <p>Vous n'avez pas de séances prévues prochainement.</p>
+      <!-- À implémenter dans une prochaine version -->
+    </div>
+  </div>
+</div>
+
+
+
+

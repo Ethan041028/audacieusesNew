@@ -1,0 +1,380 @@
+// _custom-components.scss
+// Ce fichier contient des styles personnalisés pour remplacer Angular Material
+
+// Boutons
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  font-weight: $font-weight-medium;
+  border-radius: $border-radius;
+  border: none;
+  cursor: pointer;
+  transition: $transition-base;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: $font-size-base;
+  
+  &:focus {
+    outline: none;
+  }
+  
+  // Variantes de boutons
+  &-primary {
+    background-color: $color-primary;
+    color: white;
+    
+    &:hover {
+      background-color: darken($color-primary, 10%);
+    }
+    
+    &:disabled {
+      background-color: lighten($color-primary, 25%);
+      cursor: not-allowed;
+    }
+  }
+  
+  &-secondary {
+    background-color: $color-secondary;
+    color: white;
+    
+    &:hover {
+      background-color: darken($color-secondary, 10%);
+    }
+    
+    &:disabled {
+      background-color: lighten($color-secondary, 25%);
+      cursor: not-allowed;
+    }
+  }
+  
+  &-outline-primary {
+    background-color: transparent;
+    border: 1px solid $color-primary;
+    color: $color-primary;
+    
+    &:hover {
+      background-color: $color-primary;
+      color: white;
+    }
+  }
+  
+  &-outline-secondary {
+    background-color: transparent;
+    border: 1px solid $color-secondary;
+    color: $color-secondary;
+    
+    &:hover {
+      background-color: $color-secondary;
+      color: white;
+    }
+  }
+  
+  &-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: $font-size-sm;
+  }
+  
+  &-lg {
+    padding: 0.75rem 1.5rem;
+    font-size: $font-size-lg;
+  }
+}
+
+// Formulaires
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  font-size: $font-size-base;
+  line-height: 1.5;
+  color: $text-primary;
+  background-color: white;
+  background-clip: padding-box;
+  border: 1px solid $text-hint;
+  border-radius: $border-radius;
+  transition: $transition-base;
+    &:focus {
+    border-color: $color-primary;
+    outline: 0;
+    box-shadow: 0 0 0 3px rgba-color($color-primary-rgb, 0.2);
+  }
+  
+  &::placeholder {
+    color: $text-hint;
+  }
+  
+  &.is-invalid {
+    border-color: $color-danger;
+    
+  &:focus {
+      box-shadow: 0 0 0 3px rgba-color($color-danger-rgb, 0.2);
+    }
+  }
+  
+  &:disabled {
+    background-color: $background-tertiary;
+    cursor: not-allowed;
+  }
+}
+
+// Cards
+.card {
+  background-color: white;
+  border-radius: $border-radius;
+  box-shadow: $shadow-soft;
+  overflow: hidden;
+  
+  &-header {
+    padding: 1rem;
+    border-bottom: 1px solid $background-tertiary;
+    font-weight: $font-weight-medium;
+  }
+  
+  &-body {
+    padding: 1rem;
+  }
+  
+  &-footer {
+    padding: 1rem;
+    border-top: 1px solid $background-tertiary;
+  }
+}
+
+// Alerts
+.alert {
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-radius: $border-radius;
+  
+  &-success {
+    background-color: lighten($color-success, 45%);
+    color: darken($color-success, 15%);
+    border: 1px solid lighten($color-success, 35%);
+  }
+  
+  &-danger {
+    background-color: lighten($color-danger, 45%);
+    color: darken($color-danger, 15%);
+    border: 1px solid lighten($color-danger, 35%);
+  }
+  
+  &-warning {
+    background-color: lighten($color-warning, 45%);
+    color: darken($color-warning, 15%);
+    border: 1px solid lighten($color-warning, 35%);
+  }
+  
+  &-info {
+    background-color: lighten($color-info, 45%);
+    color: darken($color-info, 15%);
+    border: 1px solid lighten($color-info, 35%);
+  }
+}
+
+// Badges
+.badge {
+  display: inline-block;
+  padding: 0.25em 0.5em;
+  font-size: 0.75em;
+  font-weight: $font-weight-semibold;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 10rem;
+  
+  &-primary {
+    background-color: $color-primary;
+    color: white;
+  }
+  
+  &-secondary {
+    background-color: $color-secondary;
+    color: white;
+  }
+  
+  &-success {
+    background-color: $color-success;
+    color: white;
+  }
+  
+  &-danger {
+    background-color: $color-danger;
+    color: white;
+  }
+  
+  &-warning {
+    background-color: $color-warning;
+    color: white;
+  }
+  
+  &-info {
+    background-color: $color-info;
+    color: white;
+  }
+}
+
+// Liste items
+.list-group {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  border-radius: $border-radius;
+  overflow: hidden;
+}
+
+.list-item {
+  position: relative;
+  display: block;
+  padding: 0.75rem 1.25rem;
+  background-color: white;
+  border: 1px solid $background-tertiary;
+  border-top-width: 0;
+  
+  &:first-child {
+    border-top-width: 1px;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+  }
+  
+  &:last-child {
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
+  }
+  
+  &:hover {
+    background-color: $background-secondary;
+  }
+  
+  &.active {
+    background-color: $color-primary;
+    color: white;
+    border-color: $color-primary;
+  }
+}
+
+// Tabs
+.tabs {
+  display: flex;
+  border-bottom: 1px solid $background-tertiary;
+  
+  .tab-item {
+    padding: 0.75rem 1rem;
+    margin-bottom: -1px;
+    font-weight: $font-weight-medium;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    
+    &.active {
+      border-bottom-color: $color-primary;
+      color: $color-primary;
+    }
+    
+    &:hover:not(.active) {
+      border-bottom-color: $background-tertiary;
+    }
+  }
+}
+
+.tab-content {
+  padding: 1rem 0;
+}
+
+// Modals
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $z-index-modal-backdrop;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $z-index-modal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  outline: 0;
+  
+  &-dialog {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 1.75rem auto;
+    pointer-events: none;
+  }
+  
+  &-content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    pointer-events: auto;
+    background-color: white;
+    background-clip: padding-box;
+    border-radius: $border-radius;
+    outline: 0;
+    box-shadow: $shadow-medium;
+  }
+  
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid $background-tertiary;
+    
+    .close {
+      font-size: 1.5rem;
+      font-weight: bold;
+      line-height: 1;
+      color: $text-secondary;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0.25rem;
+      margin: -0.25rem;
+    }
+  }
+  
+  &-body {
+    position: relative;
+    flex: 1 1 auto;
+    padding: 1rem;
+  }
+  
+  &-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 1rem;
+    border-top: 1px solid $background-tertiary;
+    
+    > * {
+      margin-left: 0.5rem;
+    }
+  }
+}

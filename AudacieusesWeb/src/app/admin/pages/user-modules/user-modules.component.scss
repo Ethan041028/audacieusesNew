@@ -1,0 +1,139 @@
+// Styles pour la page de gestion des modules utilisateur
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.progress {
+  height: 10px;
+  border-radius: 5px;
+  background-color: #f0f0f0;
+  overflow: hidden;
+  
+  .progress-bar {
+    transition: width 0.6s ease;
+    background-image: linear-gradient(to right, #5c9ce6, #4285f4);
+  }
+}
+
+.list-group-item {
+  transition: all 0.2s ease-in-out;
+  border-left: 4px solid transparent;
+  
+  &:hover {
+    background-color: #f8f9fa;
+    border-left-color: #4285f4;
+  }
+  
+  .btn {
+    opacity: 0.85;
+    transition: opacity 0.2s ease;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.nav-tabs {
+  border-bottom: none;
+  
+  .nav-link {
+    border: none;
+    color: #6c757d;
+    position: relative;
+    padding: 0.75rem 1.25rem;
+    
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: #4285f4;
+      transition: width 0.3s ease;
+    }
+    
+    &.active {
+      color: #4285f4;
+      font-weight: 500;
+      background-color: transparent;
+      
+      &:after {
+        width: 100%;
+      }
+    }
+    
+    &:hover:not(.active):after {
+      width: 40%;
+    }
+  }
+}
+
+.tab-content {
+  padding-top: 1.5rem;
+}
+
+// Style pour les badges
+.badge {
+  font-weight: 500;
+  font-size: 0.75rem;
+  padding: 0.35em 0.65em;
+  border-radius: 10px;
+}
+
+// Styles pour la barre de recherche
+input[type="text"] {
+  border-radius: 20px;
+  padding-left: 1rem;
+  transition: all 0.3s ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%236c757d' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: 10px center;
+  padding-left: 35px;
+  
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgba(66, 133, 244, 0.15);
+    border-color: #4285f4;
+  }
+}
+
+// Style pour les boutons dans la liste
+.btn-group .btn {
+  margin-left: 5px;
+  border-radius: 6px;
+}
+
+// Style pour les états vides
+.text-muted {
+  color: #6c757d !important;
+}
+
+// Animation pour les actions sur les modules
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.list-group-item {
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+// Style spécifique pour la progression des modules
+.small-progress {
+  height: 6px;
+  border-radius: 3px;
+}
+
+// Style pour les cartes utilisateur
+.user-avatar {
+  border: 3px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+} 

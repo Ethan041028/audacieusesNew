@@ -1,0 +1,63 @@
+<div class="video-activite-container">
+  <div class="card">
+    <div class="card-header">
+      <h2>{{ activite.titre }}</h2>
+    </div>
+    <div class="card-body">
+      <p *ngIf="activite.description" class="activite-description">{{ activite.description }}</p>
+        <div class="video-content fade-in">        <div class="video-wrapper">
+          <video 
+            *ngIf="videoUrl"
+            [src]="videoUrl" 
+            controls 
+            (loadeddata)="onVideoLoaded()" 
+            (error)="onVideoError($event)"
+            (timeupdate)="onVideoTimeUpdate($event)"
+            (ended)="onVideoEnded()"
+            [poster]="activite.contenu?.poster || ''"
+            aria-label="Vidéo de la formation">
+          </video>
+          
+          <div *ngIf="!isVideoLoaded && !videoError" class="video-loading">
+            <div class="spinner"></div>
+            <p>Chargement de la vidéo...</p>
+          </div>
+            <div *ngIf="videoError" class="video-error">
+            <p>{{ videoError }}</p>
+            <div *ngIf="activite.contenu?.type === 'texte'">
+              <!-- Si c'est un contenu de type texte, montrer directement le contenu texte -->
+              <div class="content-message">
+                <p>Ce contenu est au format texte. Veuillez lire ci-dessous:</p>
+              </div>
+              <div *ngIf="activite.contenu?.texte" class="texte-content" [innerHTML]="activite.contenu.texte"></div>
+              <button class="btn btn-outline-primary" (click)="continueToNext()">
+                Continuer
+              </button>
+            </div>
+            <button *ngIf="activite.contenu?.type !== 'texte'" class="btn btn-primary" (click)="prepareVideoUrl()">Réessayer</button>
+          </div>
+        </div>
+        
+        <div class="video-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="videoProgress"></div>
+          </div>
+          <span class="progress-text">{{ videoProgress }}%</span>
+        </div>
+        
+        <div *ngIf="isVideoCompleted" class="video-completed fade-in">
+          <div class="completion-message">
+            <i class="fas fa-check-circle"></i>
+            <h3>Vidéo terminée !</h3>
+          </div>
+          <button class="btn btn-outline-primary" (click)="continueToNext()">
+            Continuer
+          </button>
+        </div>
+      </div>      <!-- Content for text type is now handled in the error section for better visibility -->
+      <div *ngIf="activite.contenu?.texte && !videoError" class="video-description fade-in">
+        <div [innerHTML]="activite.contenu.texte"></div>
+      </div>
+    </div>
+  </div>
+</div>

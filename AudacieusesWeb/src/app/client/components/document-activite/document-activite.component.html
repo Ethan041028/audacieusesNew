@@ -1,0 +1,41 @@
+<div class="document-activite-container">
+  <div class="card">
+    <div class="card-header">
+      <h2>{{ activite.titre }}</h2>
+    </div>
+    <div class="card-body">
+      <p *ngIf="activite.description" class="activite-description">{{ activite.description }}</p>
+      
+      <div class="document-content fade-in">
+        <div class="document-info">
+          <i class="fas fa-file-alt document-icon"></i>
+          <div class="document-details">
+            <h3>{{ activite.titre }}</h3>
+            <p *ngIf="documentDescription">{{ documentDescription }}</p>
+          </div>
+        </div>
+        
+        <div class="document-actions" *ngIf="!isCompleted">
+          <a [href]="documentUrl" download class="btn btn-primary" (click)="downloadDocument()">
+            <i class="fas fa-download"></i> Télécharger le document
+          </a>
+        </div>
+        
+        <div *ngIf="isCompleted" class="document-completed fade-in">
+          <div class="completion-message">
+            <i class="fas fa-check-circle"></i>
+            <h3>Document téléchargé !</h3>
+          </div>
+          <div class="document-redownload">
+            <a [href]="documentUrl" download class="btn btn-secondary">
+              <i class="fas fa-download"></i> Télécharger à nouveau
+            </a>
+          </div>
+          <button class="btn btn-outline-primary continue-button" (click)="continueToNext()">
+            Continuer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="rappels-container">
+  <!-- Affichage du chargement -->
+  <div *ngIf="loading" class="text-center py-3">
+    <div class="spinner-border spinner-border-sm text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <span class="ms-2">Chargement des rappels...</span>
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+  </div>
+
+  <!-- Message si aucun rappel -->
+  <div *ngIf="!loading && !error && rappels.length === 0" class="text-center py-3">
+    <i class="fas fa-calendar-check fs-4 text-muted mb-2"></i>
+    <p class="mb-0">Vous n'avez aucun rappel à venir.</p>
+  </div>
+
+  <!-- Liste des rappels -->
+  <div *ngIf="!loading && !error && rappels.length > 0" class="rappels-list">
+    <div class="rappel-item" *ngFor="let rappel of rappels">
+      <div class="rappel-icon">
+        <i [class]="getEventIcon(rappel.type)"></i>
+      </div>
+      <div class="rappel-content">
+        <h6 class="rappel-title">{{ rappel.titre }}</h6>
+        <p class="rappel-date">{{ formatDate(rappel.date_debut) }}</p>
+        <p class="rappel-countdown" [ngClass]="getTimeClass(rappel.date_debut)">
+          <i class="fas fa-clock me-1"></i> {{ getTimeRemaining(rappel.date_debut) }}
+        </p>
+        <p class="rappel-description" *ngIf="rappel.description">{{ rappel.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bouton pour rafraîchir -->
+  <div class="text-center mt-3">
+    <button class="btn btn-sm btn-outline-secondary" (click)="loadRappels()">
+      <i class="fas fa-sync-alt me-1"></i> Rafraîchir
+    </button>
+  </div>
+</div>

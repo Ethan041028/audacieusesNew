@@ -1,0 +1,137 @@
+<div class="question-reponse-container">
+  <div class="page-header">
+    <h1>Gestion des Questions-Réponses</h1>
+    <button mat-raised-button color="primary" (click)="openCreateForm()" *ngIf="!isCreating && !isEditing">
+      <mat-icon>add</mat-icon> Nouvelle Question
+    </button>
+  </div>
+
+  <!-- Formulaire de création/édition -->
+  <mat-card *ngIf="isCreating || isEditing" class="form-card">
+    <mat-card-header>
+      <mat-card-title>{{ isCreating ? 'Créer une nouvelle question' : 'Modifier la question' }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="questionForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Titre de la question</mat-label>
+            <input matInput formControlName="titre" placeholder="Saisissez votre question ici">
+            <mat-error *ngIf="questionForm.get('titre')?.hasError('required')">Le titre est requis</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" placeholder="Description ou contexte de la question" rows="2"></textarea>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Contenu / Réponse attendue</mat-label>
+            <textarea matInput formControlName="contenu" placeholder="Réponse attendue ou options de réponse (texte libre ou format JSON)" rows="5"></textarea>
+            <mat-hint>Pour les questions à choix multiple, utilisez un format JSON avec les options et la bonne réponse.</mat-hint>
+            <mat-error *ngIf="questionForm.get('contenu')?.hasError('required')">Le contenu est requis</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row two-columns">
+          <mat-form-field appearance="outline">
+            <mat-label>Type de question</mat-label>
+            <mat-select formControlName="type_activite_id">
+              <mat-option *ngFor="let type of questionTypes" [value]="type.id">
+                {{ type.type_activite }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="questionForm.get('type_activite_id')?.hasError('required')">Le type de question est requis</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Séance</mat-label>
+            <mat-select formControlName="seance_id">
+              <mat-option *ngFor="let seance of seances" [value]="seance.id">
+                {{ seance.titre }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="questionForm.get('seance_id')?.hasError('required')">La séance est requise</mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row two-columns">
+          <mat-form-field appearance="outline">
+            <mat-label>Ordre</mat-label>
+            <input matInput type="number" formControlName="ordre" min="0">
+            <mat-hint>Position de la question dans la séance</mat-hint>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Durée estimée (minutes)</mat-label>
+            <input matInput type="number" formControlName="duree" min="0">
+            <mat-hint>Temps estimé pour répondre à la question</mat-hint>
+          </mat-form-field>
+        </div>
+
+        <div class="form-actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="questionForm.invalid">
+            {{ isCreating ? 'Créer' : 'Mettre à jour' }}
+          </button>
+          <button mat-button type="button" (click)="cancelForm()">Annuler</button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- Indicateur de chargement -->
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner diameter="40"></mat-spinner>
+    <p>Chargement des questions...</p>
+  </div>
+
+  <!-- Liste des questions -->
+  <div class="questions-list" *ngIf="!isLoading && !isCreating && !isEditing">
+    <div *ngIf="questions.length === 0" class="no-data">
+      <p>Aucune question trouvée.</p>
+      <button mat-raised-button color="primary" (click)="openCreateForm()">
+        <mat-icon>add</mat-icon> Créer une question
+      </button>
+    </div>
+
+    <mat-card *ngFor="let question of questions" class="question-card">
+      <mat-card-header>
+        <div mat-card-avatar class="question-avatar" [style.background-color]="question.typeActivite?.couleur || '#3f51b5'">
+          <mat-icon>help</mat-icon>
+        </div>
+        <mat-card-title>{{ question.titre }}</mat-card-title>
+        <mat-card-subtitle>
+          Séance: {{ question.seance?.titre || 'Non assigné' }} | 
+          Type: {{ question.typeActivite?.type_activite || 'Non défini' }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      
+      <mat-card-content>
+        <p *ngIf="question.description">{{ question.description }}</p>
+        
+        <div class="contenu-section">
+          <h3>Contenu / Réponse attendue:</h3>
+          <pre class="content-preview">{{ formatContenu(question.contenu) }}</pre>
+        </div>
+        
+        <div class="meta-info">
+          <span class="meta-item"><mat-icon>swap_vert</mat-icon> Ordre: {{ question.ordre }}</span>
+          <span class="meta-item" *ngIf="question.duree"><mat-icon>schedule</mat-icon> Durée: {{ question.duree }} min</span>
+        </div>
+      </mat-card-content>
+      
+      <mat-card-actions align="end">
+        <button mat-button color="primary" (click)="openEditForm(question)">
+          <mat-icon>edit</mat-icon> Modifier
+        </button>
+        <button mat-button color="warn" (click)="deleteQuestion(question.id)">
+          <mat-icon>delete</mat-icon> Supprimer
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

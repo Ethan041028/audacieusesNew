@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Simple d'Image</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .image-container {
+            margin: 20px 0;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test Simple d'Accès aux Images</h1>
+    <p>Test d'accès direct à l'image sans utiliser JavaScript:</p>
+    
+    <div class="image-container">
+        <h3>Image 1</h3>
+        <img src="http://localhost:3000/uploads/modules/module-1747594819837-351579203.jpg" alt="Module Image 1">
+    </div>
+    
+    <div class="image-container">
+        <h3>Image 2</h3>
+        <img src="http://localhost:3000/uploads/modules/module-1747214290746-386426245.jpg" alt="Module Image 2">
+    </div>
+    
+    <div class="image-container">
+        <h3>Image avec chemin relatif</h3>
+        <img src="AudacieusesAPI/uploads/modules/module-1747594819837-351579203.jpg" alt="Module Image Relative Path">
+    </div>
+</body>
+</html>

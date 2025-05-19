@@ -1,0 +1,92 @@
+<div class="modules-page">
+  <div class="page-header">
+    <h1>Mes Modules d'Apprentissage</h1>
+    <p>Découvrez et progressez dans vos modules de formation</p>
+  </div>
+
+  <!-- Filtres -->
+  <div class="filters-bar">
+    <div class="search-bar">
+      <input type="text" 
+             placeholder="Rechercher un module..." 
+             [(ngModel)]="filterOptions.searchText" 
+             (input)="applyFilters()">
+      <i class="fas fa-search"></i>
+    </div>
+
+    <div class="filter-options">
+      <div class="filter-group">
+        <label for="niveau">Niveau:</label>
+        <select id="niveau" [(ngModel)]="filterOptions.niveau" (change)="applyFilters()">
+          <option value="tous">Tous les niveaux</option>
+          <option *ngFor="let niveau of niveauxModules" [value]="niveau">{{niveau}}</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <label for="statut">Statut:</label>
+        <select id="statut" [(ngModel)]="filterOptions.statut" (change)="applyFilters()">
+          <option value="tous">Tous les statuts</option>
+          <option *ngFor="let statut of statutsModules" [value]="statut">{{statut}}</option>
+        </select>
+      </div>
+
+      <button class="btn-reset" (click)="resetFilters()">Réinitialiser</button>
+    </div>
+  </div>
+
+  <!-- État de chargement -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="spinner"></div>
+    <p>Chargement des modules...</p>
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="error" class="error-message">
+    <p>{{ error }}</p>
+    <button (click)="loadModules()">Réessayer</button>
+  </div>
+
+  <!-- Liste des modules -->
+  <div *ngIf="!loading && !error" class="modules-grid">
+    <div *ngIf="filteredModules.length === 0" class="empty-state">
+      <p>Aucun module ne correspond à vos critères de recherche.</p>
+      <button (click)="resetFilters()" class="btn-primary">Voir tous les modules</button>
+    </div>
+
+    <div *ngFor="let module of filteredModules" class="module-card" (click)="viewModuleDetails(module.id)">
+      <div class="module-cover">
+        <img [src]="getModuleImageFullUrl(module.image_url)" [alt]="module.titre">
+        <div class="module-status" [ngClass]="module.statut.toLowerCase().replace(' ', '-')">
+          {{ module.statut }}
+        </div>
+      </div>
+
+      <div class="module-info">
+        <h3>{{ module.titre }}</h3>
+        <p class="module-description">{{ module.description | slice:0:120 }}{{ module.description.length > 120 ? '...' : '' }}</p>
+        
+        <div class="module-meta">
+          <span class="module-level" [ngClass]="module.niveau.toLowerCase()">
+            {{ module.niveau }}
+          </span>
+          <span class="module-duration">
+            <i class="far fa-clock"></i> {{ module.duree }} heures
+          </span>
+        </div>
+
+        <div class="module-progress">
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="module.progressPercent"></div>
+          </div>
+          <span class="progress-text">{{ module.progressPercent }}%</span>
+        </div>
+
+        <div class="module-seances-info">
+          <span>{{ module.seances ? module.seances.length : 0 }} séances</span>
+          <span>{{ module.seances ? getCompletedSeancesCount(module) : 0 }} terminées</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

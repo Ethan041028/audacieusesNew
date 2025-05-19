@@ -1,0 +1,256 @@
+﻿<div class="activites-container">
+  <div class="page-header">
+    <h1>
+      <span *ngIf="!currentSeance">Gestion des activités</span>
+      <span *ngIf="currentSeance">Activités de la séance: {{ currentSeance.titre }}</span>
+    </h1>
+    <button class="btn btn-primary" (click)="openCreateForm()" *ngIf="!isCreating && !isEditing">
+      <i class="fas fa-plus"></i> Nouvelle activité
+    </button>
+    <a class="btn btn-secondary" [routerLink]="['/admin/seances']" *ngIf="currentSeance">
+      <i class="fas fa-arrow-left"></i> Retour aux séances
+    </a>
+  </div>
+
+  <!-- Nouveau formulaire dynamique d'activité -->
+  <div class="card form-card" *ngIf="(isCreating || isEditing) && useNewForm">
+    <div class="card-header">
+      <h2>{{ isCreating ? 'Créer une nouvelle activité' : 'Modifier l\'activité' }}</h2>
+    </div>
+    <div class="card-body">
+      <app-activite-form 
+        [seanceId]="seanceId || 0" 
+        [activiteToEdit]="currentActivite"
+        (activiteCreated)="handleActiviteCreated($event)"
+        (activiteUpdated)="handleActiviteUpdated($event)"
+        (cancel)="handleFormCancel()">
+      </app-activite-form>
+    </div>
+  </div>
+
+  <!-- Ancien formulaire (conservé au cas où) -->
+  <div class="card form-card" *ngIf="(isCreating || isEditing) && !useNewForm">
+    <div class="card-header">
+      <h2>{{ isCreating ? 'Créer une nouvelle activité' : 'Modifier l\'activité' }}</h2>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="activiteForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="titre">Titre</label>
+            <input type="text" id="titre" formControlName="titre" class="form-control" placeholder="Titre de l'activité">
+            <div class="error-message" *ngIf="activiteForm.get('titre')?.hasError('required')">Le titre est requis</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="description">Description</label>
+            <textarea id="description" formControlName="description" class="form-control" rows="3" placeholder="Description de l'activité"></textarea>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group full-width">
+            <label for="contenu">Contenu</label>
+            <textarea id="contenu" formControlName="contenu" class="form-control" rows="5" placeholder="Contenu de l'activité"></textarea>
+            <div class="error-message" *ngIf="activiteForm.get('contenu')?.hasError('required')">Le contenu est requis</div>
+          </div>
+        </div>
+
+        <div class="form-row two-columns">
+          <div class="form-group">
+            <label for="type_activite">Type d'activité</label>
+            <select id="type_activite" formControlName="type_activite_id" class="form-control">
+              <option value="">Sélectionner un type</option>
+              <option *ngFor="let type of typeActivites" [value]="type.id">
+                {{ type.type_activite }}
+              </option>
+            </select>
+            <div class="error-message" *ngIf="activiteForm.get('type_activite_id')?.hasError('required')">Le type d'activité est requis</div>
+          </div>
+
+          <div class="form-group">
+            <label for="seance">Séance</label>
+            <select id="seance" formControlName="seance_id" class="form-control" [disabled]="!!seanceId">
+              <option value="">Sélectionner une séance</option>
+              <option *ngFor="let seance of seances" [value]="seance.id">
+                {{ seance.titre }}
+              </option>
+            </select>
+            <div class="error-message" *ngIf="activiteForm.get('seance_id')?.hasError('required')">La séance est requise</div>
+          </div>
+        </div>
+
+        <div class="form-row two-columns">
+          <div class="form-group">
+            <label for="duree">Durée (minutes)</label>
+            <input type="number" id="duree" formControlName="duree" class="form-control" min="0">
+          </div>
+
+          <div class="form-group">
+            <label for="ordre">Ordre</label>
+            <input type="number" id="ordre" formControlName="ordre" class="form-control" min="0">
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary" [disabled]="!activiteForm.valid">
+            {{ isCreating ? 'Créer' : 'Mettre à jour' }}
+          </button>
+          <button type="button" class="btn btn-secondary" (click)="cancelForm()">Annuler</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="activites-list" *ngIf="!isLoading">
+    <div *ngIf="activites.length === 0" class="no-data">
+      <p>Aucune activité trouvée.</p>
+    </div>
+
+    <div cdkDropList (cdkDropListDropped)="drop($event)" *ngIf="seanceId && activites.length > 0">
+      <div *ngFor="let activite of activites" class="card activite-card" cdkDrag>
+        <div class="drag-handle" cdkDragHandle *ngIf="seanceId">
+          <i class="fas fa-grip-vertical"></i>
+        </div>
+        <div class="card-header">
+          <h3 class="card-title">{{ activite.titre }}</h3>
+          <div class="card-subtitle">
+            <span class="type-badge" [style.background-color]="activite.typeActivite?.couleur || '#3f51b5'">
+              {{ activite.typeActivite?.type_activite }}
+            </span>
+            <!-- Badge indiquant le nombre de séances où cette activité est utilisée -->
+            <span *ngIf="activite.seances && activite.seances.length > 1" class="multiple-seances-badge">
+              <i class="fas fa-link"></i> Utilisée dans {{ activite.seances.length }} séances
+            </span>
+          </div>
+        </div>
+        <div class="card-body">
+          <p *ngIf="activite.description">{{ activite.description }}</p>
+          <p class="contenu-preview" *ngIf="activite.contenu">
+            <span *ngIf="isValidJson(activite.contenu)">
+              {{ getActiviteType(activite) === 'Vidéo' ? 'Vidéo: ' + parseContenu(activite.contenu).lien : 
+                 getActiviteType(activite) === 'QCM' ? 'QCM avec ' + (parseContenu(activite.contenu).questions?.length || 0) + ' question(s)' :
+                 getActiviteType(activite) === 'Question-Réponse' ? 'Questions libres: ' + (parseContenu(activite.contenu).questions?.length || 0) + ' question(s)' :
+                 parseContenu(activite.contenu).contenu ? 
+                   (parseContenu(activite.contenu).contenu.substring(0, 150) + (parseContenu(activite.contenu).contenu.length > 150 ? '...' : '')) :
+                   'Contenu structuré'
+              }}
+            </span>
+            <span *ngIf="!isValidJson(activite.contenu)">
+              {{ typeof activite.contenu === 'string' ? 
+                (activite.contenu.substring(0, 150) + (activite.contenu.length > 150 ? '...' : '')) : 
+                'Contenu non affichable' }}
+            </span>
+          </p>
+          <div class="activite-info">
+            <span *ngIf="activite.duree">Durée: {{ activite.duree }} min</span>
+            <span>Ordre: {{ activite.ordre }}</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-icon" (click)="openEditForm(activite)" title="Modifier">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="btn btn-icon btn-danger" (click)="removeActiviteFromCurrentSeance(activite.id)" title="Retirer de la séance">
+            <i class="fas fa-unlink"></i>
+          </button>
+          <button class="btn btn-icon btn-danger" (click)="deleteActivite(activite.id)" title="Supprimer complètement">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!seanceId && activites.length > 0">
+      <!-- UI pour sélectionner une séance à laquelle ajouter des activités existantes -->
+      <div class="seance-selector-card" *ngIf="!isCreating && !isEditing">
+        <div class="card">
+          <div class="card-header">
+            <h3>Ajouter des activités à une séance</h3>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="seance-selector">Sélectionner une séance</label>
+                <select id="seance-selector" [(ngModel)]="selectedSeanceId" class="form-control">
+                  <option [ngValue]="null">Sélectionner une séance</option>
+                  <option *ngFor="let seance of seances" [ngValue]="seance.id">{{ seance.titre }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Liste des activités -->
+      <div *ngFor="let activite of activites" class="card activite-card">
+        <div class="card-header">
+          <h3 class="card-title">{{ activite.titre }}</h3>
+          <div class="card-subtitle">
+            <span class="type-badge" [style.background-color]="activite.typeActivite?.couleur || '#3f51b5'">
+              {{ activite.typeActivite?.type_activite }}
+            </span>
+            <!-- Affichage des séances associées -->
+            <div class="seances-list" *ngIf="activite.seances && activite.seances.length > 0">
+              <strong>Séances: </strong>
+              <div class="seance-badges">
+                <span *ngFor="let seance of activite.seances" class="seance-badge">
+                  {{ seance.titre }}
+                </span>
+              </div>
+            </div>
+            <div *ngIf="!activite.seances || activite.seances.length === 0" class="no-seances">
+              <span>Non assignée à une séance</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <p *ngIf="activite.description">{{ activite.description }}</p>
+          <p class="contenu-preview" *ngIf="activite.contenu">
+            <span *ngIf="isValidJson(activite.contenu)">
+              {{ getActiviteType(activite) === 'Vidéo' ? 'Vidéo: ' + parseContenu(activite.contenu).lien : 
+                 getActiviteType(activite) === 'QCM' ? 'QCM avec ' + (parseContenu(activite.contenu).questions?.length || 0) + ' question(s)' :
+                 getActiviteType(activite) === 'Question-Réponse' ? 'Questions libres: ' + (parseContenu(activite.contenu).questions?.length || 0) + ' question(s)' :
+                 parseContenu(activite.contenu).contenu ? 
+                   (parseContenu(activite.contenu).contenu.substring(0, 150) + (parseContenu(activite.contenu).contenu.length > 150 ? '...' : '')) :
+                   'Contenu structuré'
+              }}
+            </span>
+            <span *ngIf="!isValidJson(activite.contenu)">
+              {{ typeof activite.contenu === 'string' ? 
+                (activite.contenu.substring(0, 150) + (activite.contenu.length > 150 ? '...' : '')) : 
+                'Contenu non affichable' }}
+            </span>
+          </p>
+          <div class="activite-info">
+            <span *ngIf="activite.duree">Durée: {{ activite.duree }} min</span>
+          </div>
+        </div>
+        <div class="card-actions">
+          <!-- Bouton pour ajouter à la séance sélectionnée -->
+          <button 
+            *ngIf="selectedSeanceId && (!activite.seances || !activiteInSeance(activite, selectedSeanceId))" 
+            class="btn btn-icon btn-success" 
+            (click)="addActiviteToSeance(selectedSeanceId, activite.id)" 
+            title="Ajouter à la séance sélectionnée">
+            <i class="fas fa-link"></i>
+          </button>
+          <button class="btn btn-icon" (click)="openEditForm(activite)" title="Modifier">
+            <i class="fas fa-edit"></i>
+          </button>
+          <button class="btn btn-icon btn-danger" (click)="deleteActivite(activite.id)" title="Supprimer">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loader -->
+  <div class="loading-container" *ngIf="isLoading">
+    <div class="spinner"></div>
+    <p>Chargement des activités...</p>
+  </div>
+</div>

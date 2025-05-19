@@ -1,0 +1,78 @@
+<div class="qcm-container">
+  <!-- Liste des questions -->
+  <div class="questions-list" [formGroup]="parentForm">
+    <div formArrayName="questions">
+      <div *ngFor="let question of questionsArray.controls; let i = index" class="question-item">
+        <div [formGroupName]="i" class="question-form">
+          <div class="question-header">
+            <h4>Question {{i + 1}}</h4>
+            <button type="button" class="btn btn-sm btn-danger" 
+                    (click)="removeQuestion(i)" 
+                    [disabled]="questionsArray.length <= 1"
+                    title="Supprimer cette question">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          
+          <div class="form-group">
+            <label [for]="'question-' + i">Texte de la question <span class="required">*</span></label>
+            <input type="text" [id]="'question-' + i" formControlName="texte" class="form-control"
+                   [ngClass]="{'is-invalid': question.get('texte')?.invalid && question.get('texte')?.touched}">
+            <div *ngIf="question.get('texte')?.invalid && question.get('texte')?.touched" class="invalid-feedback">
+              <div *ngIf="question.get('texte')?.errors?.['required']">Le texte de la question est obligatoire.</div>
+            </div>
+          </div>
+          
+          <!-- Options de réponse -->
+          <div class="options-container">
+            <label>Options de réponse <span class="required">*</span></label>
+            
+            <!-- Liste des options -->
+            <div formArrayName="options">
+              <div *ngFor="let option of getOptionsArray(i).controls; let j = index" class="option-item">
+                <div class="option-input-group">
+                  <div class="option-radio">
+                    <input type="radio" [id]="'option-' + i + '-' + j" [name]="'reponse_correcte-' + i" 
+                           [value]="j" [checked]="isCorrectAnswer(i, j)" (change)="setCorrectAnswer(i, j)">
+                  </div>
+                  <div class="option-text">
+                    <input type="text" [id]="'option-text-' + i + '-' + j" [formControlName]="j" class="form-control"
+                           [ngClass]="{'is-invalid': getOptionsArray(i).at(j).invalid && getOptionsArray(i).at(j).touched}"
+                           placeholder="Option {{j + 1}}">
+                  </div>
+                  <div class="option-actions">
+                    <button type="button" class="btn btn-sm btn-outline-danger" 
+                            (click)="removeOption(i, j)" 
+                            [disabled]="getOptionsArray(i).length <= 1"
+                            title="Supprimer cette option">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="getOptionsArray(i).at(j).invalid && getOptionsArray(i).at(j).touched" class="invalid-feedback d-block">
+                  <div *ngIf="getOptionsArray(i).at(j).errors?.['required']">L'option est obligatoire.</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Champ caché pour stocker la réponse correcte -->
+            <input type="hidden" formControlName="reponse_correcte">
+            
+            <div class="add-option-btn">
+              <button type="button" class="btn btn-sm btn-outline-primary" (click)="addOption(i)">
+                <i class="fas fa-plus"></i> Ajouter une option
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Bouton pour ajouter une nouvelle question -->
+    <div class="add-question-btn">
+      <button type="button" class="btn btn-outline-primary" (click)="addQuestion()">
+        <i class="fas fa-plus"></i> Ajouter une question
+      </button>
+    </div>
+  </div>
+</div> 

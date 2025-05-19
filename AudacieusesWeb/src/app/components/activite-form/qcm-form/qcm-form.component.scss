@@ -1,0 +1,131 @@
+.qcm-container {
+  margin-top: 15px;
+}
+
+.question-item {
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.question-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 10px;
+}
+
+h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  color: #495057;
+}
+
+.options-container {
+  margin-top: 15px;
+}
+
+.option-item {
+  margin-bottom: 10px;
+}
+
+.option-input-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.option-radio {
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.option-text {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.option-actions {
+  width: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.add-option-btn {
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.add-question-btn {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Style pour les boutons */
+.btn-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.btn-outline-primary {
+  color: #3498db;
+  border-color: #3498db;
+  background-color: transparent;
+}
+
+.btn-outline-primary:hover {
+  color: #fff;
+  background-color: #3498db;
+  border-color: #3498db;
+}
+
+.btn-outline-danger {
+  color: #e74c3c;
+  border-color: #e74c3c;
+  background-color: transparent;
+}
+
+.btn-outline-danger:hover {
+  color: #fff;
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.btn-danger {
+  color: #fff;
+  background-color: #e74c3c;
+  border-color: #e74c3c;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+  border-color: #c0392b;
+}
+
+/* Style pour les champs invalides */
+.is-invalid {
+  border-color: #e74c3c;
+}
+
+.invalid-feedback {
+  color: #e74c3c;
+  font-size: 0.85rem;
+  margin-top: 5px;
+}
+
+.d-block {
+  display: block;
+}
+
+/* Style pour les champs requis */
+.required {
+  color: #e74c3c;
+} 

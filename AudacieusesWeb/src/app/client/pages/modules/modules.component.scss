@@ -1,0 +1,10 @@
+h1, h4{
+    font-family: "fatfrank", sans-serif;
+    color: white;
+}
+
+// Ajustement de la hauteur du conteneur pour supprimer l'espace
+.container {
+  min-height: 0;
+  padding-bottom: 0;
+}

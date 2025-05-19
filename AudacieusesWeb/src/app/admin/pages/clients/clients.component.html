@@ -1,0 +1,329 @@
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1>Gestion des Clients</h1>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newClientModal">
+      <i class="fas fa-plus me-2"></i> Ajouter un client
+    </button>
+  </div>
+  
+  <!-- Filtres et recherche -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <div class="search-container">
+        <div class="input-group">
+          <input type="text" class="form-control search-input" placeholder="Rechercher par nom, prénom ou email" 
+                 [(ngModel)]="searchQuery" (keyup.enter)="search()">
+          <button class="btn btn-outline-primary" type="button" (click)="search()">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 text-end">
+      <div class="btn-group">
+        <button type="button" class="btn" [class.btn-primary]="selectedFilter === 'all'" 
+                [class.btn-outline-primary]="selectedFilter !== 'all'" (click)="applyFilter('all')">
+          Tous
+        </button>
+        <button type="button" class="btn" [class.btn-primary]="selectedFilter === 'client'" 
+                [class.btn-outline-primary]="selectedFilter !== 'client'" (click)="applyFilter('client')">
+          Clients
+        </button>
+        <button type="button" class="btn" [class.btn-primary]="selectedFilter === 'admin'" 
+                [class.btn-outline-primary]="selectedFilter !== 'admin'" (click)="applyFilter('admin')">
+          Admin
+        </button>
+        <button type="button" class="btn" [class.btn-primary]="selectedFilter === 'admin_plus'" 
+                [class.btn-outline-primary]="selectedFilter !== 'admin_plus'" (click)="applyFilter('admin_plus')">
+          Admin+
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Indicateur de chargement -->
+  <div *ngIf="loading" class="text-center py-4">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2">Chargement des clients...</p>
+  </div>
+  
+  <!-- Message d'erreur -->
+  <div *ngIf="error" class="alert alert-danger">
+    {{ error }}
+    <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadUsers()">Réessayer</button>
+  </div>
+  
+  <!-- Tableau des clients -->
+  <div class="table-responsive" *ngIf="!loading && !error">
+    <table class="table table-hover">
+      <thead class="table-light">
+        <tr>
+          <th width="5%">ID</th>
+          <th width="15%">Nom</th>
+          <th width="15%">Email</th>
+          <th width="10%">Rôle</th>
+          <th width="10%">Progression Modules</th>
+          <th width="15%">Dernière connexion</th>
+          <th width="30%">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="users.length === 0">
+          <td colspan="7" class="text-center py-3">Aucun client trouvé</td>
+        </tr>
+        
+        <!-- Liste des clients -->
+        <tr *ngFor="let user of users">
+          <td><span class="badge bg-secondary">#{{ user.id }}</span></td>
+          <td>{{ user.prenom }} {{ user.nom }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <span class="badge" [ngClass]="{
+              'bg-danger': user.role.nom === 'admin_plus',
+              'bg-warning text-dark': user.role.nom === 'admin',
+              'bg-info text-dark': user.role.nom === 'coach',
+              'bg-success': user.role.nom === 'client'
+            }">
+              {{ user.role.nom || 'Aucun rôle' }}
+            </span>
+          </td>
+          <td *ngIf="user.role.nom === 'client'">
+            <div class="d-flex align-items-center">
+              <div class="progress flex-grow-1 me-2">
+                <div class="progress-bar" role="progressbar" [style.width]="(user.progression || 0) + '%'" 
+                     [attr.aria-valuenow]="user.progression || 0" aria-valuemin="0" aria-valuemax="100">
+                  {{ user.progression || 0 }}%
+                </div>
+              </div>
+              <button class="btn btn-sm btn-outline-info" (click)="viewUserModules(user.id)" title="Détails des modules">
+                <i class="fas fa-info-circle"></i>
+              </button>
+            </div>
+          </td>
+          <td *ngIf="user.role.nom !== 'client'">-</td>
+          <td>{{ user.derniere_connexion ? (user.derniere_connexion | date:'dd/MM/yyyy HH:mm') : 'Jamais' }}</td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-sm btn-outline-primary me-1" [routerLink]="['/admin/clients', user.id]" title="Voir le profil">
+                <i class="fas fa-eye"></i> Profil
+              </button>
+              <button class="btn btn-sm btn-outline-success me-1" (click)="editUser(user)" title="Modifier">
+                <i class="fas fa-edit"></i> Modifier
+              </button>
+              <button class="btn btn-sm btn-outline-warning me-1" *ngIf="user.role.nom === 'client'" 
+                      (click)="viewUserModules(user.id)" title="Gérer les modules">
+                <i class="fas fa-book"></i> Modules
+              </button>
+              <button class="btn btn-sm btn-outline-secondary me-1" (click)="resetPassword(user.id)" title="Réinitialiser le mot de passe">
+                <i class="fas fa-key"></i> Mot de passe
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Pagination -->
+  <div class="d-flex justify-content-between align-items-center mt-3" *ngIf="users.length > 0">
+    <div>
+      <span class="text-muted">Affichage de {{ users.length }} client(s)</span>
+    </div>
+    <div>
+      <nav aria-label="Pagination">
+        <ul class="pagination">
+          <li class="page-item" [class.disabled]="currentPage <= 1">
+            <a class="page-link" href="javascript:void(0)" (click)="goToPage(currentPage - 1)">Précédent</a>
+          </li>
+          <li class="page-item" *ngFor="let page of getPageNumbers()" [class.active]="page === currentPage">
+            <a class="page-link" href="javascript:void(0)" (click)="goToPage(page)">{{ page }}</a>
+          </li>
+          <li class="page-item" [class.disabled]="currentPage >= totalPages">
+            <a class="page-link" href="javascript:void(0)" (click)="goToPage(currentPage + 1)">Suivant</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour éditer un client -->
+<div class="modal fade" id="editClientModal" tabindex="-1" aria-labelledby="editClientModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editClientModalLabel">Modifier le client</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" *ngIf="editingUser">
+        <form [formGroup]="userForm">
+          <div class="mb-3">
+            <label for="prenom" class="form-label">Prénom</label>
+            <input type="text" class="form-control" id="prenom" formControlName="prenom">
+            <div *ngIf="userForm.get('prenom')?.invalid && userForm.get('prenom')?.touched" class="text-danger">
+              Le prénom est requis
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="nom" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="nom" formControlName="nom">
+            <div *ngIf="userForm.get('nom')?.invalid && userForm.get('nom')?.touched" class="text-danger">
+              Le nom est requis
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" formControlName="email">
+            <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" class="text-danger">
+              Email invalide
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="role" class="form-label">Rôle</label>
+            <select class="form-select" id="role" formControlName="role_id">
+              <option [ngValue]="null">Sélectionner un rôle</option>
+              <option *ngFor="let role of roles" [value]="role.id">{{ role.nom }}</option>
+            </select>
+            <div *ngIf="userForm.get('role_id')?.invalid && userForm.get('role_id')?.touched" class="text-danger">
+              Le rôle est requis
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" [disabled]="userForm.invalid" (click)="saveUser()">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour ajouter un client -->
+<div class="modal fade" id="newClientModal" tabindex="-1" aria-labelledby="newClientModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newClientModalLabel">Ajouter un client</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="newUserForm">
+          <div class="mb-3">
+            <label for="newPrenom" class="form-label">Prénom</label>
+            <input type="text" class="form-control" id="newPrenom" formControlName="prenom">
+            <div *ngIf="newUserForm.get('prenom')?.invalid && newUserForm.get('prenom')?.touched" class="text-danger">
+              Le prénom est requis
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="newNom" class="form-label">Nom</label>
+            <input type="text" class="form-control" id="newNom" formControlName="nom">
+            <div *ngIf="newUserForm.get('nom')?.invalid && newUserForm.get('nom')?.touched" class="text-danger">
+              Le nom est requis
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="newEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="newEmail" formControlName="email">
+            <div *ngIf="newUserForm.get('email')?.invalid && newUserForm.get('email')?.touched" class="text-danger">
+              Email invalide
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="newRole" class="form-label">Rôle</label>
+            <select class="form-select" id="newRole" formControlName="role_id">
+              <option [ngValue]="null">Sélectionner un rôle</option>
+              <option *ngFor="let role of roles" [value]="role.id">{{ role.nom }}</option>
+            </select>
+            <div *ngIf="newUserForm.get('role_id')?.invalid && newUserForm.get('role_id')?.touched" class="text-danger">
+              Le rôle est requis
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="newPassword" class="form-label">Mot de passe</label>
+            <input type="password" class="form-control" id="newPassword" formControlName="password">
+            <div *ngIf="newUserForm.get('password')?.invalid && newUserForm.get('password')?.touched" class="text-danger">
+              Le mot de passe doit contenir au moins 8 caractères
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" [disabled]="newUserForm.invalid" (click)="createUser()">Créer</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour visualiser les modules d'un client -->
+<div class="modal fade" id="userModulesModal" tabindex="-1" aria-labelledby="userModulesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="userModulesModalLabel" *ngIf="selectedUserForModules">
+          Modules de {{ selectedUserForModules.prenom }} {{ selectedUserForModules.nom }}
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="loadingModules" class="text-center py-4">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Chargement...</span>
+          </div>
+          <p class="mt-2">Chargement des modules...</p>
+        </div>
+        
+        <div *ngIf="moduleError" class="alert alert-danger">
+          {{ moduleError }}
+        </div>
+        
+        <div *ngIf="!loadingModules && !moduleError">
+          <div *ngIf="userModules && userModules.length === 0" class="alert alert-info">
+            Ce client n'a pas encore de modules assignés.
+          </div>
+          
+          <div *ngIf="userModules && userModules.length > 0">
+            <div class="list-group">
+              <div *ngFor="let module of userModules" class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between align-items-center">
+                  <div>
+                    <h5 class="mb-1">{{ module.nom }}</h5>
+                    <p class="mb-1 text-muted">{{ module.description }}</p>
+                  </div>
+                  <div class="text-end">
+                    <span class="badge bg-info">Progression: {{ module.progression || 0 }}%</span>
+                    <div class="progress mt-2" style="width: 150px;">
+                      <div class="progress-bar" role="progressbar" [style.width]="(module.progression || 0) + '%'" 
+                           [attr.aria-valuenow]="module.progression || 0" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="mt-2">
+                  <small>
+                    Dernière activité: {{ module.derniere_activite ? (module.derniere_activite | date:'dd/MM/yyyy HH:mm') : 'Jamais' }}
+                  </small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+        <button type="button" class="btn btn-primary" (click)="assignModule()" *ngIf="selectedUserForModules">
+          Assigner un module
+        </button>
+      </div>
+    </div>
+  </div>
+</div> 

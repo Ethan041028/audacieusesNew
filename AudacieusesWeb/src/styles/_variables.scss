@@ -1,0 +1,201 @@
+// Import des modules Sass nécessaires
+@use 'sass:color';
+
+// Variables de couleurs primaires
+$color-primary: #3f51b5;
+$color-primary-rgb: (63, 81, 181);
+$color-primary-light: #7986cb;
+$color-primary-dark: #303f9f;
+
+// Function to handle rgba with rgb tuples
+@function rgba-color($color, $opacity) {
+  @return rgba(nth($color, 1), nth($color, 2), nth($color, 3), $opacity);
+}
+
+$color-secondary: #ff4081;
+$color-secondary-rgb: 255, 64, 129;
+$color-secondary-light: #ff80ab;
+$color-secondary-dark: #c51162;
+
+$color-tertiary: #009688;
+$color-tertiary-rgb: 0, 150, 136;
+
+// Couleurs sémantiques
+$color-success: #4caf50;
+$color-success-rgb: 76, 175, 80;
+$color-info: #2196f3;
+$color-info-rgb: 33, 150, 243;
+$color-warning: #ff9800;
+$color-warning-rgb: 255, 152, 0;
+$color-danger: #f44336;
+$color-danger-rgb: 244, 67, 54;
+
+// Couleur d'accent - ajouté pour corriger l'erreur du thème
+$color-accent: #ff4081; // Même que $color-secondary pour maintenir la cohérence
+
+// Couleurs de texte
+$text-primary: #212121;
+$text-secondary: #616161;
+$text-disabled: #9e9e9e;
+$text-hint: #bdbdbd;
+$text-color: #424242; // Added for backward compatibility
+
+// Couleurs de fond
+$background-primary: #ffffff;
+$background-secondary: #f5f7fa;
+$background-tertiary: #e0e0e0;
+
+// Ombres
+$shadow-soft: 0 2px 10px rgba(0, 0, 0, 0.08);
+$shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.12);
+$shadow-hard: 0 8px 20px rgba(0, 0, 0, 0.15);
+
+// Breakpoints
+$breakpoint-xs: 0;
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+$breakpoint-xxl: 1400px;
+
+// Border radius
+$border-radius-sm: 4px;
+$border-radius: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+$border-radius-circle: 50%;
+
+// Espacements
+$spacing-xs: 0.25rem;  // 4px
+$spacing-sm: 0.5rem;   // 8px
+$spacing-md: 1rem;     // 16px
+$spacing-lg: 1.5rem;   // 24px
+$spacing-xl: 2rem;     // 32px
+$spacing-xxl: 3rem;    // 48px
+
+// Polices
+$font-family-base: 'Poppins', sans-serif;
+$font-size-base: 1rem;
+$font-size-sm: 0.875rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-xxl: 1.5rem;
+$font-size-h1: 2rem;
+$font-size-h2: 1.75rem;
+$font-size-h3: 1.5rem;
+$font-size-h4: 1.25rem;
+$font-size-h5: 1.125rem;
+$font-size-h6: 1rem;
+
+// Font weights
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-semibold: 600;
+$font-weight-bold: 700;
+
+// Z-index
+$z-index-dropdown: 1000;
+$z-index-sticky: 1020;
+$z-index-fixed: 1030;
+$z-index-modal-backdrop: 1040;
+$z-index-modal: 1050;
+$z-index-popover: 1060;
+$z-index-tooltip: 1070;
+
+// Transitions
+$transition-base: all 0.2s ease-in-out;
+$transition-slow: all 0.3s ease-in-out;
+$transition-fast: all 0.15s ease-in-out;
+
+// Niveau des modules
+$niveau-debutant-color: #8bc34a;
+$niveau-intermediaire-color: #ff9800;
+$niveau-avance-color: #f44336;
+
+// Status des modules
+$status-publie-color: #4caf50;
+$status-brouillon-color: #9e9e9e;
+
+// Status d'activité
+$status-termine-color: #4caf50;
+$status-en-cours-color: #2196f3;
+$status-non-commence-color: #9e9e9e;
+
+// Exporter les variables CSS pour usage avec var()
+:root {
+  --color-primary: #{$color-primary};
+  --color-primary-rgb: #{$color-primary-rgb};
+  --color-primary-light: #{$color-primary-light};
+  --color-primary-dark: #{$color-primary-dark};
+  --color-secondary: #{$color-secondary};
+  --color-secondary-rgb: #{$color-secondary-rgb};
+  --color-secondary-light: #{$color-secondary-light};
+  --color-secondary-dark: #{$color-secondary-dark};
+  --color-tertiary: #{$color-tertiary};
+  --color-tertiary-rgb: #{$color-tertiary-rgb};
+  --color-success: #{$color-success};
+  --color-success-rgb: #{$color-success-rgb};
+  --color-info: #{$color-info};
+  --color-info-rgb: #{$color-info-rgb};
+  --color-warning: #{$color-warning};
+  --color-warning-rgb: #{$color-warning-rgb};
+  --color-danger: #{$color-danger};
+  --color-danger-rgb: #{$color-danger-rgb};
+  --text-primary: #{$text-primary};
+  --text-secondary: #{$text-secondary};
+  --text-disabled: #{$text-disabled};
+  --text-hint: #{$text-hint};
+  --background-primary: #{$background-primary};
+  --background-secondary: #{$background-secondary};
+  --background-tertiary: #{$background-tertiary};
+  --shadow-soft: #{$shadow-soft};
+  --shadow-medium: #{$shadow-medium};
+  --shadow-hard: #{$shadow-hard};
+  --border-radius-sm: #{$border-radius-sm};
+  --border-radius: #{$border-radius};
+  --border-radius-lg: #{$border-radius-lg};
+  --border-radius-xl: #{$border-radius-xl};
+  --border-radius-circle: #{$border-radius-circle};
+  --spacing-xs: #{$spacing-xs};
+  --spacing-sm: #{$spacing-sm};
+  --spacing-md: #{$spacing-md};
+  --spacing-lg: #{$spacing-lg};
+  --spacing-xl: #{$spacing-xl};
+  --spacing-xxl: #{$spacing-xxl};
+  --font-family-base: #{$font-family-base};
+  --font-size-base: #{$font-size-base};
+  --font-size-sm: #{$font-size-sm};
+  --font-size-lg: #{$font-size-lg};
+  --font-size-xl: #{$font-size-xl};
+  --font-size-xxl: #{$font-size-xxl};
+  --font-size-h1: #{$font-size-h1};
+  --font-size-h2: #{$font-size-h2};
+  --font-size-h3: #{$font-size-h3};
+  --font-size-h4: #{$font-size-h4};
+  --font-size-h5: #{$font-size-h5};
+  --font-size-h6: #{$font-size-h6};
+  --font-weight-light: #{$font-weight-light};
+  --font-weight-normal: #{$font-weight-normal};
+  --font-weight-medium: #{$font-weight-medium};
+  --font-weight-semibold: #{$font-weight-semibold};
+  --font-weight-bold: #{$font-weight-bold};
+  --z-index-dropdown: #{$z-index-dropdown};
+  --z-index-sticky: #{$z-index-sticky};
+  --z-index-fixed: #{$z-index-fixed};
+  --z-index-modal-backdrop: #{$z-index-modal-backdrop};
+  --z-index-modal: #{$z-index-modal};
+  --z-index-popover: #{$z-index-popover};
+  --z-index-tooltip: #{$z-index-tooltip};
+  --transition-base: #{$transition-base};
+  --transition-slow: #{$transition-slow};
+  --transition-fast: #{$transition-fast};
+  --niveau-debutant-color: #{$niveau-debutant-color};
+  --niveau-intermediaire-color: #{$niveau-intermediaire-color};
+  --niveau-avance-color: #{$niveau-avance-color};
+  --status-publie-color: #{$status-publie-color};
+  --status-brouillon-color: #{$status-brouillon-color};
+  --status-termine-color: #{$status-termine-color};
+  --status-en-cours-color: #{$status-en-cours-color};
+  --status-non-commence-color: #{$status-non-commence-color};
+}

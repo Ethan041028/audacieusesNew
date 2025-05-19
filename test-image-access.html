@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Image Access</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .image-test {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+        }
+        .success {
+            color: green;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test d'accès aux images des modules</h1>
+    <p>Cette page teste l'accès direct aux images des modules pour diagnostiquer les problèmes CORS.</p>
+    
+    <div class="image-test">
+        <h2>Test 1: Accès direct à l'image du module</h2>
+        <p>URL: <code>http://localhost:3000/uploads/modules/module-1747594819837-351579203.jpg</code></p>
+        <img src="http://localhost:3000/uploads/modules/module-1747594819837-351579203.jpg" alt="Image du module test 1">
+        <p class="status">Statut: <span id="status1">Chargement...</span></p>
+    </div>
+
+    <div class="image-test">
+        <h2>Test 2: Accès direct à une autre image du module</h2>
+        <p>URL: <code>http://localhost:3000/uploads/modules/module-1747214290746-386426245.jpg</code></p>
+        <img src="http://localhost:3000/uploads/modules/module-1747214290746-386426245.jpg" alt="Image du module test 2">
+        <p class="status">Statut: <span id="status2">Chargement...</span></p>
+    </div>    <script>
+        // Fonction pour vérifier le chargement des images
+        function checkImageLoaded(imgElement, statusElement) {
+            if (imgElement) {
+                imgElement.onload = function() {
+                    statusElement.textContent = "Chargée avec succès!";
+                    statusElement.className = "success";
+                };
+                imgElement.onerror = function() {
+                    statusElement.textContent = "Erreur de chargement";
+                    statusElement.className = "error";
+                };
+            } else {
+                console.error("Image element not found");
+                statusElement.textContent = "Élément d'image introuvable";
+                statusElement.className = "error";
+            }
+        }
+
+        // Surveiller le chargement des images
+        window.onload = function() {
+            const img1 = document.querySelector('.image-test:nth-of-type(1) img');
+            const status1 = document.getElementById('status1');
+            checkImageLoaded(img1, status1);
+
+            const img2 = document.querySelector('.image-test:nth-of-type(2) img');
+            const status2 = document.getElementById('status2');
+            checkImageLoaded(img2, status2);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+.rappels-container {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.list-group-item {
+  transition: all 0.2s ease;
+}
+
+.list-group-item:hover {
+  background-color: #f8f9fa;
+}
+
+/* Styles pour les badges de type d'événement */
+.bg-purple {
+  background-color: #6f42c1;
+  color: white;
+}
+
+.bg-teal {
+  background-color: #20c997;
+  color: white;
+}
+
+/* Ajustement des icônes */
+.bi {
+  vertical-align: text-bottom;
+}
+
+/* Limite la hauteur des rappels pour éviter qu'ils ne prennent trop de place */
+.list-group {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* Style pour le bouton de rafraîchissement */
+.btn-outline-primary {
+  border-color: #47689e;
+  color: #47689e;
+}
+
+.btn-outline-primary:hover {
+  background-color: #47689e;
+  color: white;
+}

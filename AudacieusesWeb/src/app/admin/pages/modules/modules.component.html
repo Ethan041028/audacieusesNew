@@ -1,0 +1,535 @@
+<div class="page-header">
+  <div class="container">
+    <div class="d-flex justify-content-between align-items-center">
+      <h1 class="fw-bold mb-0">Gestion des Modules</h1>
+      <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#newModuleModal">
+        <i class="fas fa-plus me-2"></i> Créer un module
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-4">
+  <div class="row">
+    <div class="col-md-4">
+      <div class="search-container">
+        <div class="input-group">
+          <input type="text" class="form-control search-input" placeholder="Rechercher un module..." 
+                 [(ngModel)]="searchQuery" (keyup.enter)="searchModules()">
+          <button class="btn btn-primary" type="button" (click)="searchModules()">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="action-bar d-flex justify-content-between align-items-center">
+        <ul class="nav nav-tabs border-0">
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="filter === 'all'" (click)="filterModules('all')" href="javascript:void(0)">Tous les modules</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="filter === 'publié'" (click)="filterModules('published')" href="javascript:void(0)">Publiés</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" [class.active]="filter === 'brouillon'" (click)="filterModules('draft')" href="javascript:void(0)">Brouillons</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center">
+          <button *ngIf="directFetchModules.length > 0" 
+                  class="btn btn-sm me-2" 
+                  [class.btn-info]="useDirectFetch" 
+                  [class.btn-outline-info]="!useDirectFetch"
+                  (click)="toggleDirectFetch()">
+            <i class="fas fa-sync-alt me-1"></i>
+            {{ useDirectFetch ? 'Mode direct' : 'API directe' }}
+            <span *ngIf="useDirectFetch" class="badge bg-light text-dark ms-1">{{ directFetchModules.length }}</span>
+          </button>
+          <div class="dropdown">
+            <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-filter me-1"></i> Filtrer
+            </button>
+            <ul class="dropdown-menu" [attr.aria-labelledby]="'dropdownMenuButton'">
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="sortModules('date_creation')">Par date de création</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="sortModules('titre')">Par titre</a></li>
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="sortModules('nb_seances')">Par nombre de séances</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- État de chargement -->
+  <div *ngIf="loading" class="text-center my-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2 text-muted">Chargement des modules...</p>
+  </div>
+
+  <!-- Message d'erreur -->
+  <div *ngIf="error && !loading" class="alert alert-danger">
+    {{ error }}
+    <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadModules()">Réessayer</button>
+  </div>
+
+  <!-- Pas de modules -->
+  <div *ngIf="!loading && !error && modules.length === 0" class="text-center my-5">
+    <div class="empty-state">
+      <i class="fas fa-folder-open display-1 text-muted mb-3"></i>
+      <h3>Aucun module trouvé</h3>
+      <p class="text-muted">Commencez par créer un nouveau module</p>
+      <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#newModuleModal">
+        <i class="fas fa-plus me-2"></i> Créer un module
+      </button>
+    </div>
+  </div>
+
+  <!-- Liste des modules -->
+  <div *ngIf="!loading && !error && modules.length > 0" class="row">
+    <div *ngFor="let moduleItem of modules" class="col-md-6 col-lg-4 mb-4">
+      <div class="card h-100 module-card">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+          <span class="badge" [ngClass]="moduleItem.statut === 'publié' ? 'badge-published' : 'badge-draft'">
+            {{ moduleItem.statut === 'publié' ? 'Publié' : 'Brouillon' }}
+          </span>
+          
+          <div class="dropdown">
+            <button class="btn btn-sm btn-light" type="button" id="dropdownMenuButton{{moduleItem.id}}" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" [attr.aria-labelledby]="'dropdownMenuButton' + moduleItem.id">
+              <li><a class="dropdown-item" href="javascript:void(0)" (click)="editModule(moduleItem.id)"><i class="fas fa-edit"></i> Modifier</a></li>
+              <li><a class="dropdown-item" [routerLink]="['/admin/modules', moduleItem.id, 'clients']"><i class="fas fa-users"></i> Gérer les clients</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item text-success" href="javascript:void(0)" (click)="changeModuleStatus(moduleItem.id, 'publié'); $event.stopPropagation()" *ngIf="moduleItem.statut !== 'publié'"><i class="fas fa-check-circle"></i> Publier</a></li>
+              <li><a class="dropdown-item text-warning" href="javascript:void(0)" (click)="changeModuleStatus(moduleItem.id, 'brouillon'); $event.stopPropagation()" *ngIf="moduleItem.statut !== 'brouillon'"><i class="fas fa-edit"></i> Mettre en brouillon</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item text-danger" href="javascript:void(0)" (click)="deleteModule(moduleItem.id); $event.stopPropagation()"><i class="fas fa-trash-alt"></i> Supprimer</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="card-body">
+          <h5 class="card-title">{{ moduleItem.titre }}</h5>
+          
+          <div class="mb-3">
+            <span class="badge badge-module me-1">{{ moduleItem.seances?.length || 0 }} séances</span>
+            <span class="badge badge-client">{{ moduleItem.users?.length || 0 }} clients</span>
+          </div>
+          
+          <p class="card-text text-muted small">{{ moduleItem.description }}</p>
+          
+          <div class="session-list mt-3">
+            <div *ngFor="let seance of moduleItem.seances?.slice(0, 2)" class="session-item">
+              <div class="d-flex justify-content-between">
+                <div>
+                  <strong>{{ seance.titre }}</strong>
+                  <div class="text-muted small">{{ seance.duree }} min</div>
+                </div>
+                <div>
+                  <span class="badge badge-seance">{{ seance.type === 'individuelle' ? 'Individuelle' : 'Groupe' }}</span>
+                </div>
+              </div>
+            </div>
+            <div *ngIf="moduleItem.seances?.length === 0" class="text-center py-2">
+              <small class="text-muted">Aucune séance</small>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer bg-white border-0 pt-0">
+          <button class="btn btn-success btn-sm w-100" (click)="addSeanceToModule(moduleItem.id)">
+            <i class="fas fa-cog me-1"></i> Gérer les séances
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour créer un nouveau module -->
+<div class="modal fade" id="newModuleModal" tabindex="-1" aria-labelledby="newModuleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newModuleModalLabel">Créer un nouveau module</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="moduleForm" (ngSubmit)="onSubmitModuleForm()">
+          <div class="mb-3">
+            <label for="moduleTitle" class="form-label">Titre du module</label>
+            <input type="text" class="form-control" id="moduleTitle" formControlName="titre" placeholder="Ex: Développement personnel">
+            <div *ngIf="moduleForm.get('titre')?.invalid && moduleForm.get('titre')?.touched" class="text-danger small mt-1">
+              Le titre est requis et doit faire moins de 100 caractères.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="moduleDescription" class="form-label">Description</label>
+            <textarea class="form-control" id="moduleDescription" rows="3" formControlName="description" placeholder="Décrivez l'objectif de ce module..."></textarea>
+            <div *ngIf="moduleForm.get('description')?.invalid && moduleForm.get('description')?.touched" class="text-danger small mt-1">
+              La description ne doit pas dépasser 500 caractères.
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="moduleStatus" class="form-label">Statut</label>
+              <select class="form-select" id="moduleStatus" formControlName="statut">
+                <option value="brouillon">Brouillon</option>
+                <option value="publié">Publié</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="moduleCategory" class="form-label">Catégorie</label>
+              <select class="form-select" id="moduleCategory" formControlName="categorie_id">
+                <option *ngFor="let categorie of categories" [value]="categorie.id">{{ categorie.nom }}</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- Niveau et Durée -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="moduleNiveau" class="form-label">Niveau</label>
+              <select class="form-select" id="moduleNiveau" formControlName="niveau">
+                <option value="Débutant">Débutant</option>
+                <option value="Intermédiaire">Intermédiaire</option>
+                <option value="Avancé">Avancé</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="moduleDuree" class="form-label">Durée (heures)</label>
+              <input type="number" class="form-control" id="moduleDuree" formControlName="duree" min="1" max="100">
+              <div *ngIf="moduleForm.get('duree')?.invalid && moduleForm.get('duree')?.touched" class="text-danger small mt-1">
+                La durée doit être entre 1 et 100 heures.
+              </div>
+            </div>
+          </div>
+          
+          <!-- Image du module -->
+          <div class="mb-3">
+            <label for="moduleImage" class="form-label">Image du module</label>
+            <div class="input-group">
+              <input type="file" class="form-control" id="moduleImage" (change)="onFileSelected($event)" accept="image/*">
+              <button *ngIf="selectedFile" class="btn btn-outline-secondary" type="button" (click)="removeImage()">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div *ngIf="imagePreview" class="mt-2">
+              <img [src]="imagePreview" class="img-thumbnail" style="max-height: 150px;" alt="Prévisualisation de l'image">
+            </div>
+          </div>
+            <!-- Objectifs -->
+          <div class="mb-3">
+            <label class="form-label">Objectifs d'apprentissage</label>
+            <div formArrayName="objectifs">
+              <div *ngFor="let objectif of objectifs.controls; let i = index" class="input-group mb-2">
+                <div [formGroupName]="i" class="d-flex w-100">
+                  <input type="text" class="form-control" formControlName="description" placeholder="Ex: Comprendre les bases...">
+                </div>
+                <button class="btn btn-outline-danger" type="button" (click)="removeObjectif(i)" *ngIf="objectifs.length > 1">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <button type="button" class="btn btn-outline-primary btn-sm mt-1" (click)="addObjectif()">
+                <i class="fas fa-plus me-1"></i> Ajouter un objectif
+              </button>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label">Type de séance par défaut</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="type_seance_defaut" id="individualSession" value="individuelle">
+              <label class="form-check-label" for="individualSession">
+                Individuelle
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="type_seance_defaut" id="groupSession" value="groupe">
+              <label class="form-check-label" for="groupSession">
+                Groupe
+              </label>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="sessionDuration" class="form-label">Durée par défaut des séances (minutes)</label>
+            <input type="number" class="form-control" id="sessionDuration" formControlName="duree_seance_defaut" min="15" step="15">
+            <div *ngIf="moduleForm.get('duree_seance_defaut')?.invalid && moduleForm.get('duree_seance_defaut')?.touched" class="text-danger small mt-1">
+              La durée minimale est de 15 minutes.
+            </div>
+          </div>
+          
+          <div class="modal-footer px-0 pb-0">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary" [disabled]="moduleForm.invalid">Créer le module</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour modifier un module existant -->
+<div class="modal fade" id="editModuleModal" tabindex="-1" aria-labelledby="editModuleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModuleModalLabel">Modifier le module</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="moduleForm" (ngSubmit)="onSubmitEditModuleForm()">
+          <div class="mb-3">
+            <label for="moduleTitle" class="form-label">Titre du module</label>
+            <input type="text" class="form-control" id="moduleTitle" formControlName="titre" placeholder="Ex: Développement personnel">
+            <div *ngIf="moduleForm.get('titre')?.invalid && moduleForm.get('titre')?.touched" class="text-danger small mt-1">
+              Le titre est requis et doit faire moins de 100 caractères.
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="moduleDescription" class="form-label">Description</label>
+            <textarea class="form-control" id="moduleDescription" rows="3" formControlName="description" placeholder="Décrivez l'objectif de ce module..."></textarea>
+            <div *ngIf="moduleForm.get('description')?.invalid && moduleForm.get('description')?.touched" class="text-danger small mt-1">
+              La description ne doit pas dépasser 500 caractères.
+            </div>
+          </div>
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="moduleStatus" class="form-label">Statut</label>
+              <select class="form-select" id="moduleStatus" formControlName="statut">
+                <option value="brouillon">Brouillon</option>
+                <option value="publié">Publié</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="moduleCategory" class="form-label">Catégorie</label>
+              <select class="form-select" id="moduleCategory" formControlName="categorie_id">
+                <option *ngFor="let categorie of categories" [value]="categorie.id">{{ categorie.nom }}</option>
+              </select>
+            </div>
+          </div>
+          
+          <!-- Niveau et Durée -->
+          <div class="row mb-3">
+            <div class="col-md-6">
+              <label for="moduleNiveau" class="form-label">Niveau</label>
+              <select class="form-select" id="moduleNiveau" formControlName="niveau">
+                <option value="Débutant">Débutant</option>
+                <option value="Intermédiaire">Intermédiaire</option>
+                <option value="Avancé">Avancé</option>
+              </select>
+            </div>
+            <div class="col-md-6">
+              <label for="moduleDuree" class="form-label">Durée (heures)</label>
+              <input type="number" class="form-control" id="moduleDuree" formControlName="duree" min="1" max="100">
+              <div *ngIf="moduleForm.get('duree')?.invalid && moduleForm.get('duree')?.touched" class="text-danger small mt-1">
+                La durée doit être entre 1 et 100 heures.
+              </div>
+            </div>
+          </div>
+          
+          <!-- Image du module -->
+          <div class="mb-3">
+            <label for="moduleEditImage" class="form-label">Image du module</label>
+            <div *ngIf="currentModuleImageUrl" class="mb-2">
+              <img [src]="currentModuleImageUrl" class="img-thumbnail" style="max-height: 150px;" alt="Image actuelle du module">
+              <p class="small text-muted">Image actuelle du module</p>
+            </div>
+            <div class="input-group">
+              <input type="file" class="form-control" id="moduleEditImage" (change)="onFileSelected($event)" accept="image/*">
+              <button *ngIf="selectedFile" class="btn btn-outline-secondary" type="button" (click)="removeImage()">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+            <div *ngIf="imagePreview" class="mt-2">
+              <img [src]="imagePreview" class="img-thumbnail" style="max-height: 150px;" alt="Nouvelle image du module">
+              <p class="small text-muted">Nouvelle image sélectionnée</p>
+            </div>
+          </div>
+          
+          <!-- Objectifs -->
+          <div class="mb-3">
+            <label class="form-label">Objectifs d'apprentissage</label>
+            <div formArrayName="objectifs">
+              <div *ngFor="let objectif of objectifs.controls; let i = index" class="input-group mb-2">
+                <div [formGroupName]="i" class="d-flex w-100">
+                  <input type="text" class="form-control" formControlName="description" placeholder="Ex: Comprendre les bases...">
+                </div>
+                <button class="btn btn-outline-danger" type="button" (click)="removeObjectif(i)" *ngIf="objectifs.length > 1">
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+              <button type="button" class="btn btn-outline-primary btn-sm mt-1" (click)="addObjectif()">
+                <i class="fas fa-plus me-1"></i> Ajouter un objectif
+              </button>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label class="form-label">Type de séance par défaut</label>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="type_seance_defaut" id="individualEditSession" value="individuelle">
+              <label class="form-check-label" for="individualEditSession">
+                Individuelle
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" formControlName="type_seance_defaut" id="groupEditSession" value="groupe">
+              <label class="form-check-label" for="groupEditSession">
+                Groupe
+              </label>
+            </div>
+          </div>
+          
+          <div class="mb-3">
+            <label for="sessionEditDuration" class="form-label">Durée par défaut des séances (minutes)</label>
+            <input type="number" class="form-control" id="sessionEditDuration" formControlName="duree_seance_defaut" min="15" step="15">
+            <div *ngIf="moduleForm.get('duree_seance_defaut')?.invalid && moduleForm.get('duree_seance_defaut')?.touched" class="text-danger small mt-1">
+              La durée minimale est de 15 minutes.
+            </div>
+          </div>
+          
+          <div class="modal-footer px-0 pb-0">
+            <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+            <button type="submit" class="btn btn-primary" [disabled]="moduleForm.invalid">Enregistrer les modifications</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal pour gérer les séances d'un module -->
+<div class="modal fade" id="addSeancesModal" tabindex="-1" aria-labelledby="addSeancesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addSeancesModalLabel">Gérer les séances du module</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <!-- Navigation par onglets -->
+        <ul class="nav nav-tabs mb-3" id="seancesTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" [class.active]="activeTab === 'current'" id="current-tab" (click)="setActiveTab('current')" 
+                    type="button" role="tab" aria-controls="current" aria-selected="true">
+              Séances actuelles
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button class="nav-link" [class.active]="activeTab === 'available'" id="available-tab" (click)="setActiveTab('available')" 
+                    type="button" role="tab" aria-controls="available" aria-selected="false">
+              Ajouter des séances
+            </button>
+          </li>
+        </ul>
+        
+        <!-- Contenu des onglets -->
+        <div class="tab-content" id="seancesTabContent">
+          <!-- Onglet des séances actuelles -->
+          <div [class.d-none]="activeTab !== 'current'" id="current" role="tabpanel" aria-labelledby="current-tab">
+            <div *ngIf="loadingSeances" class="text-center my-3">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Chargement...</span>
+              </div>
+              <p class="mt-2">Chargement des séances...</p>
+            </div>
+            
+            <div *ngIf="!loadingSeances && moduleSeances.length === 0" class="alert alert-info">
+              Ce module ne contient aucune séance. Allez dans l'onglet "Ajouter des séances" pour en ajouter.
+            </div>
+            
+            <div *ngIf="!loadingSeances && moduleSeances.length > 0" class="list-group mb-3">
+              <div *ngFor="let seance of moduleSeances" class="list-group-item d-flex justify-content-between align-items-center">
+                <div class="d-flex flex-column">
+                  <h6 class="mb-1">{{ seance.titre }}</h6>
+                  <p class="mb-1 small" *ngIf="seance.description">{{ seance.description | slice:0:100 }}{{ seance.description.length > 100 ? '...' : '' }}</p>
+                  <div class="d-flex align-items-center small text-muted">
+                    <span class="me-3"><i class="fas fa-clock me-1"></i> {{ seance.duree }} min</span>
+                    <span class="me-3">
+                      <i class="fas fa-users me-1" *ngIf="seance.type === 'groupe'"></i>
+                      <i class="fas fa-user me-1" *ngIf="seance.type === 'individuelle'"></i>
+                      {{ seance.type === 'groupe' ? 'Groupe' : 'Individuelle' }}
+                    </span>
+                  </div>
+                </div>
+                <button class="btn btn-outline-danger btn-sm" (click)="currentModuleId && removeSeanceFromModule(currentModuleId, seance.id)">
+                  <i class="fas fa-trash-alt"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Onglet pour ajouter des séances -->
+          <div [class.d-none]="activeTab !== 'available'" id="available" role="tabpanel" aria-labelledby="available-tab">
+            <div class="mb-3">
+              <label for="seanceSearch" class="form-label">Rechercher des séances</label>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="seanceSearch" [(ngModel)]="seanceSearchQuery" placeholder="Recherche par titre ou description...">
+                <button class="btn btn-outline-secondary" type="button">
+                  <i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+            
+            <div *ngIf="loadingSeances" class="text-center my-3">
+              <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Chargement...</span>
+              </div>
+              <p class="mt-2">Chargement des séances...</p>
+            </div>
+            
+            <div *ngIf="!loadingSeances && getFilteredAvailableSeances().length === 0" class="alert alert-info">
+              Aucune séance ne correspond à votre recherche.
+            </div>
+            
+            <div *ngIf="!loadingSeances && getFilteredAvailableSeances().length > 0" class="list-group mb-3">
+              <div *ngFor="let seance of getFilteredAvailableSeances()" 
+                  class="list-group-item list-group-item-action d-flex align-items-center"
+                  [class.active]="isSeanceSelected(seance.id)"
+                  (click)="toggleSeanceSelection(seance.id)">
+                <div class="form-check">
+                  <input class="form-check-input" type="checkbox" [checked]="isSeanceSelected(seance.id)" 
+                         (click)="$event.stopPropagation();" (change)="toggleSeanceSelection(seance.id)">
+                </div>
+                <div class="ms-2 flex-grow-1">
+                  <h6 class="mb-1">{{ seance.titre }}</h6>
+                  <p class="mb-1 small" *ngIf="seance.description">{{ seance.description | slice:0:100 }}{{ seance.description.length > 100 ? '...' : '' }}</p>
+                  <div class="d-flex align-items-center small text-muted">
+                    <span class="me-3"><i class="fas fa-clock me-1"></i> {{ seance.duree }} min</span>
+                    <span class="me-3">
+                      <i class="fas fa-users me-1" *ngIf="seance.type === 'groupe'"></i>
+                      <i class="fas fa-user me-1" *ngIf="seance.type === 'individuelle'"></i>
+                      {{ seance.type === 'groupe' ? 'Groupe' : 'Individuelle' }}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="alert alert-primary" *ngIf="selectedSeances.length > 0">
+              {{ selectedSeances.length }} séance(s) sélectionnée(s)
+            </div>
+            
+            <div class="d-flex justify-content-end mt-2">
+              <button type="button" class="btn btn-success" [disabled]="selectedSeances.length === 0" (click)="saveSelectedSeances()">
+                <i class="fas fa-plus me-1"></i> Ajouter les séances sélectionnées
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Fermer</button>
+      </div>
+    </div>
+  </div>
+</div>

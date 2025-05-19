@@ -1,0 +1,235 @@
+<div class="container-fluid">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 *ngIf="user" class="display-6">
+      <i class="fas fa-book-reader text-primary me-2"></i>
+      Modules de {{ user.prenom }} {{ user.nom }}
+    </h1>
+    <h1 *ngIf="!user" class="display-6">
+      <i class="fas fa-book-reader text-primary me-2"></i>
+      Gestion des modules utilisateur
+    </h1>
+    <div>
+      <button class="btn btn-primary me-2" [routerLink]="['/admin/modules']">
+        <i class="fas fa-th-list me-1"></i> Tous les modules
+      </button>
+      <button class="btn btn-outline-secondary" [routerLink]="['/admin/users', userId]">
+        <i class="fas fa-arrow-left me-1"></i> Retour au profil
+      </button>
+    </div>
+  </div>
+  
+  <!-- Indicateurs de chargement -->
+  <div *ngIf="loading.user || loading.modules" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Chargement...</span>
+    </div>
+    <p class="mt-2 text-muted">Chargement des informations...</p>
+  </div>
+  
+  <!-- Messages d'erreur -->
+  <div *ngIf="error.user" class="alert alert-danger">
+    <i class="fas fa-exclamation-triangle me-2"></i> {{ error.user }}
+    <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadUserDetails()">
+      <i class="fas fa-sync-alt me-1"></i> Réessayer
+    </button>
+  </div>
+  
+  <div *ngIf="error.modules" class="alert alert-danger">
+    <i class="fas fa-exclamation-triangle me-2"></i> {{ error.modules }}
+    <button class="btn btn-sm btn-outline-danger ms-2" (click)="loadUserModules()">
+      <i class="fas fa-sync-alt me-1"></i> Réessayer
+    </button>
+  </div>
+  
+  <!-- Contenu principal -->
+  <div *ngIf="!loading.user && !loading.modules && user" class="row">
+    <!-- Informations de l'utilisateur -->
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="mb-1">{{ user.prenom }} {{ user.nom }}</h5>
+          <p class="text-muted">{{ user.email }}</p>
+          <span class="badge" [ngClass]="{
+            'bg-danger': user.role.nom === 'admin_plus',
+            'bg-warning text-dark': user.role.nom === 'admin',
+            'bg-info text-dark': user.role.nom === 'coach',
+            'bg-success': user.role.nom === 'client'
+          }">
+            {{ user.role.nom }}
+          </span>
+          
+          <div class="mt-4" *ngIf="user.role.nom === 'client'">
+            <h6 class="mb-2">Progression globale</h6>
+            <div class="progress mb-2">
+              <div class="progress-bar" role="progressbar" [style.width]="getUserProgress() + '%'" 
+                   [attr.aria-valuenow]="getUserProgress()" aria-valuemin="0" aria-valuemax="100">
+              </div>
+            </div>
+            <p class="text-muted small mb-0">{{ getUserProgress() }}% complété</p>
+          </div>
+          
+          <hr class="my-3">
+          
+          <div class="d-flex justify-content-between text-start my-2">
+            <span class="text-muted small">Modules assignés:</span>
+            <span class="badge bg-primary">{{ userModules.length }}</span>
+          </div>
+          
+          <div class="d-flex justify-content-between text-start my-2">
+            <span class="text-muted small">Dernière connexion:</span>
+            <span class="small fw-bold">{{ user.derniere_connexion ? (user.derniere_connexion | date:'dd/MM/yyyy') : 'Jamais' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Gestion des modules -->
+    <div class="col-md-8">
+      <div class="card mb-4">
+        <div class="card-header bg-white">
+          <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+              <a class="nav-link active" id="modules-tab" data-bs-toggle="tab" href="#modules" role="tab">
+                <i class="fas fa-layer-group me-1"></i> Modules assignés 
+                <span class="badge bg-primary ms-1">{{ userModules.length }}</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="available-tab" data-bs-toggle="tab" href="#available" role="tab">
+                <i class="fas fa-plus-circle me-1"></i> Modules disponibles 
+                <span class="badge bg-secondary ms-1">{{ availableModules.length }}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="card-body">
+          <div class="tab-content">
+            <!-- Modules assignés -->
+            <div class="tab-pane fade show active" id="modules" role="tabpanel">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="input-group" style="max-width: 300px;">
+                  <input type="text" class="form-control" placeholder="Rechercher des modules..." 
+                         [(ngModel)]="searchQuery">
+                  <button class="btn btn-outline-secondary" type="button" *ngIf="searchQuery" 
+                          (click)="searchQuery = ''">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+                
+                <div class="dropdown">
+                  <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-sort me-1"></i> Trier
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="sortDropdown">
+                    <li><a class="dropdown-item" href="javascript:void(0)" (click)="sortModules('titre', 'asc')">Titre (A-Z)</a></li>
+                    <li><a class="dropdown-item" href="javascript:void(0)" (click)="sortModules('titre', 'desc')">Titre (Z-A)</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="javascript:void(0)" (click)="sortModules('progression', 'asc')">Progression (croissante)</a></li>
+                    <li><a class="dropdown-item" href="javascript:void(0)" (click)="sortModules('progression', 'desc')">Progression (décroissante)</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><a class="dropdown-item" href="javascript:void(0)" (click)="sortModules('date_assignation', 'desc')">Date d'assignation (récente)</a></li>
+                    <li><a class="dropdown-item" href="javascript:void(0)" (click)="sortModules('date_assignation', 'asc')">Date d'assignation (ancienne)</a></li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div *ngIf="userModules.length === 0" class="text-center py-4">
+                <i class="fas fa-info-circle text-muted mb-3" style="font-size: 3rem;"></i>
+                <p class="text-muted">Aucun module assigné à cet utilisateur.</p>
+                <button class="btn btn-outline-primary" id="go-to-available" (click)="goToAvailableTab()">
+                  <i class="fas fa-plus-circle me-1"></i> Assigner un module
+                </button>
+              </div>
+              
+              <div *ngIf="userModules.length > 0" class="list-group">
+                <div *ngFor="let module of filterAndSortModules(userModules)" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                  <div class="flex-grow-1">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <h6 class="mb-1">{{ module.titre }}</h6>
+                      <span class="badge" [ngClass]="{
+                        'bg-success': getModuleProgress(module) === 100,
+                        'bg-warning text-dark': getModuleProgress(module) > 0 && getModuleProgress(module) < 100,
+                        'bg-secondary': getModuleProgress(module) === 0
+                      }">{{ getModuleProgress(module) }}%</span>
+                    </div>
+                    <p class="text-muted small mb-1">{{ module.description }}</p>
+                    <div class="d-flex align-items-center mt-2">
+                      <div class="progress flex-grow-1 small-progress">
+                        <div class="progress-bar" role="progressbar" [style.width]="getModuleProgress(module) + '%'" 
+                             [attr.aria-valuenow]="getModuleProgress(module)" aria-valuemin="0" aria-valuemax="100"></div>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-between mt-2">
+                      <small class="text-muted">Assigné le: {{ module.date_assignation | date:'dd/MM/yyyy' }}</small>
+                      <small class="text-muted">{{ module.sections?.length || 0 }} sections</small>
+                    </div>
+                  </div>
+                  <div class="ms-3">
+                    <div class="btn-group">
+                      <button class="btn btn-sm btn-outline-secondary" title="Voir le détail" 
+                              [routerLink]="['/admin/users', userId, 'modules', module.id, 'detail']">
+                        <i class="fas fa-eye"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-warning" (click)="resetModuleProgress(module.id)" 
+                              [disabled]="getModuleProgress(module) === 0" title="Réinitialiser la progression">
+                        <i class="fas fa-redo"></i>
+                      </button>
+                      <button class="btn btn-sm btn-outline-danger" (click)="removeModule(module.id)" title="Retirer le module">
+                        <i class="fas fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Modules disponibles -->
+            <div class="tab-pane fade" id="available" role="tabpanel">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <div class="input-group" style="max-width: 300px;">
+                  <input type="text" class="form-control" placeholder="Rechercher des modules..." 
+                         [(ngModel)]="searchQuery">
+                  <button class="btn btn-outline-secondary" type="button" *ngIf="searchQuery" 
+                          (click)="searchQuery = ''">
+                    <i class="fas fa-times"></i>
+                  </button>
+                </div>
+                
+                <div class="dropdown">
+                  <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="sortAvailableDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fas fa-sort me-1"></i> Trier
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="sortAvailableDropdown">
+                    <li><a class="dropdown-item" href="javascript:void(0)" (click)="sortModules('titre', 'asc', 'available')">Titre (A-Z)</a></li>
+                    <li><a class="dropdown-item" href="javascript:void(0)" (click)="sortModules('titre', 'desc', 'available')">Titre (Z-A)</a></li>
+                  </ul>
+                </div>
+              </div>
+              
+              <div *ngIf="availableModules.length === 0" class="text-center py-4">
+                <i class="fas fa-check-circle text-success mb-3" style="font-size: 3rem;"></i>
+                <p class="text-muted">Tous les modules ont déjà été assignés à cet utilisateur.</p>
+              </div>
+              
+              <div *ngIf="availableModules.length > 0" class="list-group">
+                <div *ngFor="let module of filterAndSortModules(availableModules, 'available')" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                  <div>
+                    <h6 class="mb-1">{{ module.titre }}</h6>
+                    <p class="text-muted small mb-1">{{ module.description }}</p>
+                    <div class="d-flex align-items-center mt-1">
+                      <small class="text-muted">{{ module.sections?.length || 0 }} sections</small>
+                      <span class="badge bg-secondary ms-2" *ngIf="module.duree">{{ module.duree }}</span>
+                    </div>
+                  </div>
+                  <button class="btn btn-sm btn-primary" (click)="assignModule(module.id)">
+                    <i class="fas fa-plus me-1"></i> Assigner
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

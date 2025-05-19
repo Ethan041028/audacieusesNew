@@ -1,0 +1,69 @@
+/* Styles pour le conteneur du calendrier */
+.calendar-container {
+  min-height: 650px;
+  margin-bottom: 20px;
+}
+
+/* Styles pour les événements du calendrier */
+:host ::ng-deep .fc-event {
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 2px 4px;
+  font-size: 0.85em;
+}
+
+/* Style pour les événements créés par l'utilisateur */
+:host ::ng-deep .fc-event[data-role='creator'] {
+  border-left: 3px solid #28a745;
+}
+
+/* Style pour les événements où l'utilisateur est participant */
+:host ::ng-deep .fc-event[data-role='participant'] {
+  border-left: 3px solid #007bff;
+}
+
+/* Style pour les événements de type rendez-vous */
+:host ::ng-deep .fc-event[data-type='rendez-vous'] {
+  background-color: #6f42c1;
+  border-color: #6f42c1;
+}
+
+/* Style pour les événements de type rappel */
+:host ::ng-deep .fc-event[data-type='rappel'] {
+  background-color: #fd7e14;
+  border-color: #fd7e14;
+}
+
+/* Style pour les événements de type séance */
+:host ::ng-deep .fc-event[data-type='seance'] {
+  background-color: #20c997;
+  border-color: #20c997;
+}
+
+/* Styles pour les boutons du calendrier */
+:host ::ng-deep .fc-button-primary {
+  background-color: #47689e;
+  border-color: #47689e;
+}
+
+:host ::ng-deep .fc-button-primary:hover {
+  background-color: #3c5a8b;
+  border-color: #3c5a8b;
+}
+
+:host ::ng-deep .fc-button-primary:disabled {
+  background-color: #6c757d;
+  border-color: #6c757d;
+}
+
+/* Styles spécifiques pour le sélecteur de couleur */
+.form-control-color {
+  width: 50px;
+  height: 38px;
+  padding: 3px;
+}
+
+/* Style pour les périodes de temps en surbrillance */
+:host ::ng-deep .fc-highlight {
+  background-color: rgba(71, 104, 158, 0.2);
+}
