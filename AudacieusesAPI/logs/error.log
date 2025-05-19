@@ -61,3 +61,8 @@
 [2025-05-19 12:16:29] ERROR: Erreur lors de l'enregistrement de la réponse: notNull Violation: ReponseClient.contenu cannot be null
 [2025-05-19 12:16:37] ERROR: Erreur lors de la mise à jour de la progression du module 7 pour l'utilisateur 8: Cannot read properties of undefined (reading 'findAll')
 [2025-05-19 12:16:37] ERROR: Erreur lors de la mise à jour de la progression du module 7: Cannot read properties of undefined (reading 'findAll')
+[2025-05-19 13:18:23] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-19 13:36:49] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-19 13:48:11] ERROR: Erreur lors de l'enregistrement de la réponse: notNull Violation: ReponseClient.contenu cannot be null
+[2025-05-19 13:48:12] ERROR: Erreur lors de la mise à jour de la progression du module 7 pour l'utilisateur 8: Cannot read properties of undefined (reading 'findAll')
+[2025-05-19 13:48:12] ERROR: Erreur lors de la mise à jour de la progression du module 7: Cannot read properties of undefined (reading 'findAll')

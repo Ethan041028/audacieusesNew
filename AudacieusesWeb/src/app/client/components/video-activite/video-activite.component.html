@@ -6,8 +6,9 @@
     <div class="card-body">
       <p *ngIf="activite.description" class="activite-description">{{ activite.description }}</p>
         <div class="video-content fade-in">        <div class="video-wrapper">
+          <!-- Vidéos locales ou directes (mp4, webm, etc.) -->
           <video 
-            *ngIf="videoUrl"
+            *ngIf="videoUrl && videoType === videoUrlService.VIDEO_TYPE.FILE"
             [src]="videoUrl" 
             controls 
             (loadeddata)="onVideoLoaded()" 
@@ -17,6 +18,31 @@
             [poster]="activite.contenu?.poster || ''"
             aria-label="Vidéo de la formation">
           </video>
+            <!-- Vidéos YouTube -->
+          <iframe 
+            *ngIf="youtubeEmbedUrl && videoType === videoUrlService.VIDEO_TYPE.YOUTUBE"
+            width="100%" 
+            height="450"
+            [src]="youtubeEmbedUrl"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen
+            (load)="onEmbeddedVideoLoaded()"
+            title="YouTube video player">
+          </iframe>
+          
+          <!-- Vidéos Vimeo -->
+          <iframe 
+            *ngIf="vimeoEmbedUrl && videoType === videoUrlService.VIDEO_TYPE.VIMEO"
+            width="100%" 
+            height="450"
+            [src]="vimeoEmbedUrl"
+            frameborder="0"
+            allow="autoplay; fullscreen; picture-in-picture"
+            allowfullscreen
+            (load)="onEmbeddedVideoLoaded()"
+            title="Vimeo video player">
+          </iframe>
           
           <div *ngIf="!isVideoLoaded && !videoError" class="video-loading">
             <div class="spinner"></div>
@@ -28,10 +54,9 @@
               <!-- Si c'est un contenu de type texte, montrer directement le contenu texte -->
               <div class="content-message">
                 <p>Ce contenu est au format texte. Veuillez lire ci-dessous:</p>
-              </div>
-              <div *ngIf="activite.contenu?.texte" class="texte-content" [innerHTML]="activite.contenu.texte"></div>
-              <button class="btn btn-outline-primary" (click)="continueToNext()">
-                Continuer
+              </div>              <div *ngIf="activite.contenu?.texte" class="texte-content" [innerHTML]="activite.contenu.texte"></div>
+              <button class="btn btn-outline-primary" (click)="markTextContentAsCompleted()">
+                Marquer comme lu et continuer
               </button>
             </div>
             <button *ngIf="activite.contenu?.type !== 'texte'" class="btn btn-primary" (click)="prepareVideoUrl()">Réessayer</button>

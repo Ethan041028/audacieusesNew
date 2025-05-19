@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, SecurityContext } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { ActiviteService } from '../../../services/activite.service';
 import { AuthService } from '../../../services/auth.service';
 import { NotificationService } from '../../../services/notification.service';
@@ -17,18 +18,20 @@ import { VideoUrlService } from '../../../services/video-url.service';
 export class VideoActiviteComponent implements OnInit {
   @Input() activite: any;
   @Output() completed = new EventEmitter<void>();
-  
-  isVideoLoaded: boolean = false;
+    isVideoLoaded: boolean = false;
   isVideoCompleted: boolean = false;
   videoProgress: number = 0;
   videoError: string | null = null;
   videoUrl: string | null = null;
-  
-  constructor(
+  videoType: string = 'file';
+  youtubeEmbedUrl: SafeResourceUrl | null = null;
+  vimeoEmbedUrl: SafeResourceUrl | null = null;
+    constructor(
     private activiteService: ActiviteService,
     private authService: AuthService,
     private notificationService: NotificationService,
-    private videoUrlService: VideoUrlService
+    public videoUrlService: VideoUrlService,
+    private sanitizer: DomSanitizer
   ) {}
   
   ngOnInit(): void {
@@ -55,20 +58,46 @@ export class VideoActiviteComponent implements OnInit {
       if (this.activite.contenu?.type === 'texte') {
         this.videoError = "Ce contenu est de type texte et ne contient pas de vidéo";
         console.log('Contenu de type texte, pas de vidéo disponible');
+        // Pour le type texte, on ne quitte pas la méthode, le template affichera le contenu texte
         return;
       }
       
       // Définir une vidéo par défaut (null = pas de vidéo par défaut)
-      const defaultVideo = '/assets/videos/video-placeholder.mp4';
+      const defaultVideo = null; // '/assets/videos/video-placeholder.mp4';
       
       // Passer directement l'objet ou la chaîne au service qui s'occupera de l'extraction
-      // Le service est maintenant plus robuste et gère tous les cas
       this.videoUrl = this.videoUrlService.getVideoUrl(this.activite.contenu, defaultVideo);
       console.log('URL vidéo formatée:', this.videoUrl);
       
       // Si l'URL est null après formatage et qu'on n'a pas de vidéo par défaut, générer une erreur
       if (!this.videoUrl) {
         this.videoError = "Format de source vidéo invalide ou incompatible";
+        return;
+      }
+      
+      // Déterminer le type de vidéo
+      this.videoType = this.videoUrlService.getVideoType(this.videoUrl);
+      console.log('Type de vidéo détecté:', this.videoType);
+      
+      // Préparer les URL d'intégration sécurisées pour YouTube et Vimeo
+      if (this.videoType === this.videoUrlService.VIDEO_TYPE.YOUTUBE) {
+        const youtubeId = this.videoUrlService.extractYoutubeId(this.videoUrl);
+        if (youtubeId) {
+          const embedUrl = `https://www.youtube.com/embed/${youtubeId}`;
+          this.youtubeEmbedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+          console.log('URL YouTube intégrée:', embedUrl);
+        } else {
+          this.videoError = "Impossible d'extraire l'ID de la vidéo YouTube";
+        }
+      } else if (this.videoType === this.videoUrlService.VIDEO_TYPE.VIMEO) {
+        const vimeoId = this.videoUrlService.extractVimeoId(this.videoUrl);
+        if (vimeoId) {
+          const embedUrl = `https://player.vimeo.com/video/${vimeoId}`;
+          this.vimeoEmbedUrl = this.sanitizer.bypassSecurityTrustResourceUrl(embedUrl);
+          console.log('URL Vimeo intégrée:', embedUrl);
+        } else {
+          this.videoError = "Impossible d'extraire l'ID de la vidéo Vimeo";
+        }
       }
     } catch (error) {
       console.error('Erreur lors de la préparation de l\'URL vidéo:', error);
@@ -160,5 +189,33 @@ export class VideoActiviteComponent implements OnInit {
   
   continueToNext(): void {
     this.completed.emit();
+  }
+
+  // Pour Youtube et Vimeo, on ne peut pas suivre la progression directement
+  // On considère qu'une fois chargé, l'utilisateur a regardé la vidéo
+  onEmbeddedVideoLoaded(): void {
+    this.isVideoLoaded = true;
+    this.videoError = null;
+    
+    // Pour les vidéos intégrées, on considère que la vidéo est terminée après 10 secondes de visionnage
+    // Cela permet à l'utilisateur de valider l'activité même avec les vidéos externes
+    setTimeout(() => {
+      // Marquer comme complété après 10 secondes de visionnage
+      this.isVideoCompleted = true;
+      this.saveProgress(100, true);
+    }, 10000);
+  }
+
+  /**
+   * Marque une activité de type texte comme terminée
+   */
+  markTextContentAsCompleted(): void {
+    this.isVideoCompleted = true;
+    this.saveProgress(100, true);
+    
+    // Ajouter un court délai avant de continuer pour que l'utilisateur voit le message de confirmation
+    setTimeout(() => {
+      this.completed.emit();
+    }, 1000);
   }
 }
