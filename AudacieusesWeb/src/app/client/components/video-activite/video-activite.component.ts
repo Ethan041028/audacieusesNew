@@ -53,20 +53,41 @@ export class VideoActiviteComponent implements OnInit {
         console.error('Activité ou contenu manquant', this.activite);
         return;
       }
+
+      // Gérer le cas du contenu doublement encodé
+      let parsedContent = this.activite.contenu;
+      if (typeof parsedContent === 'string') {
+        try {
+          parsedContent = JSON.parse(parsedContent);
+          // Si le contenu est encore une chaîne JSON, le parser une deuxième fois
+          if (typeof parsedContent.contenu === 'string') {
+            try {
+              const innerContent = JSON.parse(parsedContent.contenu);
+              // Si le contenu interne est de type vidéo, l'utiliser directement
+              if (innerContent.type === 'video') {
+                parsedContent = innerContent;
+              }
+            } catch (e) {
+              console.warn('Impossible de parser le contenu interne:', e);
+            }
+          }
+        } catch (e) {
+          console.warn('Impossible de parser le contenu:', e);
+        }
+      }
       
       // Vérifier si le contenu est de type texte et l'indiquer à l'utilisateur
-      if (this.activite.contenu?.type === 'texte') {
+      if (parsedContent?.type === 'texte') {
         this.videoError = "Ce contenu est de type texte et ne contient pas de vidéo";
         console.log('Contenu de type texte, pas de vidéo disponible');
-        // Pour le type texte, on ne quitte pas la méthode, le template affichera le contenu texte
         return;
       }
       
       // Définir une vidéo par défaut (null = pas de vidéo par défaut)
-      const defaultVideo = null; // '/assets/videos/video-placeholder.mp4';
+      const defaultVideo = null;
       
       // Passer directement l'objet ou la chaîne au service qui s'occupera de l'extraction
-      this.videoUrl = this.videoUrlService.getVideoUrl(this.activite.contenu, defaultVideo);
+      this.videoUrl = this.videoUrlService.getVideoUrl(parsedContent, defaultVideo);
       console.log('URL vidéo formatée:', this.videoUrl);
       
       // Si l'URL est null après formatage et qu'on n'a pas de vidéo par défaut, générer une erreur

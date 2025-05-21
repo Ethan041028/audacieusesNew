@@ -2,29 +2,38 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink, RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UserService, User } from '../../services/user.service';
+import { UserService } from '../../services/user.service';
+import { RoleService } from '../../../admin/services/role.service';
 
 // Interface étendant User pour ajouter les propriétés nécessaires
-interface UserWithSelection extends User {
+interface UserWithSelection extends UserInterface {
   selected: boolean;
   active?: boolean;
 }
 
-// Service temporaire si le service officiel n'existe pas encore
-class RoleService {
-  getAllRoles() {
-    return {
-      subscribe: (callbacks: any) => {
-        // Rôles avec les IDs réels de la base de données
-        callbacks.next({ roles: [
-          { id: 1, nom: 'admin' },
-          { id: 2, nom: 'admin_plus' },
-          { id: 3, nom: 'coach' },
-          { id: 4, nom: 'client' }
-        ]});
-      }
-    };
-  }
+interface UserProgression {
+  percentage: number;
+  completed: number;
+  total: number;
+  status: 'TERMINE' | 'EN_COURS' | 'NON_COMMENCE';
+}
+
+interface UserInterface {
+  id: number;
+  nom: string;
+  prenom: string;
+  email: string;
+  role: {
+    id: number;
+    nom: string;
+    role_type?: string;
+  };
+  status: string;
+  derniere_connexion?: string;
+  progression?: UserProgression | number;
+  selected?: boolean;
+  active?: boolean;
+  date_creation?: string;
 }
 
 // Déclaration pour éviter l'erreur bootstrap
@@ -39,7 +48,7 @@ declare var bootstrap: any;
   providers: [RoleService]
 })
 export class UsersComponent implements OnInit, AfterViewInit {
-  users: UserWithSelection[] = [];
+  users: UserInterface[] = [];
   loading = true;
   error: string | null = null;
   searchQuery = '';
@@ -53,7 +62,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
   itemsPerPage = 10;
   
   // Formulaires
-  editingUser: User | null = null;
+  editingUser: UserInterface | null = null;
   userForm: FormGroup;
   newUserForm: FormGroup;
   
@@ -237,7 +246,7 @@ export class UsersComponent implements OnInit, AfterViewInit {
     // Cette méthode n'a pas besoin d'implémentation car les liens utilisent RouterLink
   }
   
-  editUser(user: User): void {
+  editUser(user: UserInterface): void {
     this.editingUser = user;
     
     this.userForm.patchValue({
@@ -444,24 +453,24 @@ export class UsersComponent implements OnInit, AfterViewInit {
     return date.toLocaleDateString('fr-FR');
   }
   
-  getStatusLabel(user: User): string {
+  getStatusLabel(user: UserInterface): string {
     if (!user.role) return '';
     
     if (user.role.role_type === 'admin' || user.role.role_type === 'admin_plus') {
       return 'Admin';
-    } else if (user.role.role_type === 'client' && user.progression !== undefined && user.progression > 0) {
+    } else if (user.role.role_type === 'client' && this.getUserProgress(user) > 0) {
       return 'Bénéficiaire';
     } else {
       return 'Utilisatrice';
     }
   }
   
-  getStatusClass(user: User): string {
+  getStatusClass(user: UserInterface): string {
     if (!user.role) return '';
     
     if (user.role.role_type === 'admin' || user.role.role_type === 'admin_plus') {
       return 'status-admin';
-    } else if (user.role.role_type === 'client' && user.progression !== undefined && user.progression > 0) {
+    } else if (user.role.role_type === 'client' && this.getUserProgress(user) > 0) {
       return 'status-beneficiaire';
     } else {
       return 'status-utilisatrice';
@@ -475,5 +484,45 @@ export class UsersComponent implements OnInit, AfterViewInit {
     if (progression < 50) return 'circle-medium';
     if (progression < 75) return 'circle-good';
     return 'circle-excellent';
+  }
+
+  // Méthode pour obtenir la progression d'un utilisateur
+  getUserProgress(user: UserInterface): number {
+    // Vérifier si l'utilisateur a une propriété progression
+    if (user.progression !== undefined) {
+      // Si c'est un objet avec percentage
+      if (typeof user.progression === 'object' && user.progression.percentage !== undefined) {
+        return user.progression.percentage;
+      }
+      
+      // Si c'est directement un nombre
+      if (typeof user.progression === 'number') {
+        return user.progression;
+      }
+    }
+    
+    // Si aucune progression n'est trouvée
+    return 0;
+  }
+
+  // Méthode pour obtenir le statut de progression d'un utilisateur
+  getUserProgressStatus(user: UserInterface): string {
+    // Vérifier si l'utilisateur a une propriété progression
+    if (user.progression !== undefined) {
+      // Si c'est un objet avec status
+      if (typeof user.progression === 'object' && user.progression.status) {
+        return user.progression.status;
+      }
+      
+      // Si c'est un nombre, déterminer le statut en fonction de la valeur
+      if (typeof user.progression === 'number') {
+        if (user.progression === 0) return 'NON_COMMENCE';
+        if (user.progression === 100) return 'TERMINE';
+        return 'EN_COURS';
+      }
+    }
+    
+    // Si aucune information de statut n'est trouvée
+    return 'NON_COMMENCE';
   }
 }

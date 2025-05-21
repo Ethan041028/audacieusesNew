@@ -72,7 +72,7 @@ export class ActiviteFormComponent implements OnInit {
       description: activite.description,
       type_activite_id: activite.type_activite_id,
       duree: activite.duree,
-      seance_id: this.seanceId || 0
+      seance_id: this.seanceId || (activite as any).seance_id || 0
     };
 
     // Initialiser le contenu en fonction du type d'activité
@@ -230,6 +230,15 @@ export class ActiviteFormComponent implements OnInit {
       // Contenu générique pour les types simples
       contenu: ['']
     });
+
+    // Ajouter les validateurs conditionnels
+    this.activiteForm.get('type_activite_id')?.valueChanges.subscribe(typeId => {
+      const type = this.typesActivite.find(t => t.id === Number(typeId));
+      if (type) {
+        this.selectedType = type.type_activite;
+        this.updateValidators();
+      }
+    });
   }
 
   private loadTypesActivite(): void {
@@ -262,24 +271,28 @@ export class ActiviteFormComponent implements OnInit {
   }
 
   private updateValidators(): void {
-    // Réinitialiser tous les validateurs spécifiques
-    this.activiteForm.get('lien_video')?.clearValidators();
-    this.activiteForm.get('contenu')?.clearValidators();
-    
-    // Appliquer les validateurs en fonction du type sélectionné
-    switch (this.selectedType) {
-      case 'Vidéo':
-        this.activiteForm.get('lien_video')?.setValidators([Validators.required]);
-        break;
-      case 'Texte':
-        this.activiteForm.get('contenu')?.setValidators([Validators.required]);
-        break;
-      // Pour les autres types, les validateurs sont gérés par les composants enfants
+    const lienVideoControl = this.activiteForm.get('lien_video');
+    const contenuControl = this.activiteForm.get('contenu');
+    const questionsControl = this.activiteForm.get('questions');
+
+    // Réinitialiser les validateurs
+    lienVideoControl?.clearValidators();
+    contenuControl?.clearValidators();
+    questionsControl?.clearValidators();
+
+    // Appliquer les validateurs en fonction du type
+    if (this.isVideoType) {
+      lienVideoControl?.setValidators([Validators.required]);
+    } else if (this.isQcmType || this.isQuestionReponseType) {
+      questionsControl?.setValidators([Validators.required]);
+    } else if (this.isTexteType) {
+      contenuControl?.setValidators([Validators.required]);
     }
-    
+
     // Mettre à jour les validateurs
-    this.activiteForm.get('lien_video')?.updateValueAndValidity();
-    this.activiteForm.get('contenu')?.updateValueAndValidity();
+    lienVideoControl?.updateValueAndValidity();
+    contenuControl?.updateValueAndValidity();
+    questionsControl?.updateValueAndValidity();
   }
 
   onSubmit(): void {
@@ -300,7 +313,8 @@ export class ActiviteFormComponent implements OnInit {
         type: 'video',
         lien: formValues.lien_video,
         description: formValues.description || ''
-      };    } else if (this.isQcmType) {
+      };
+    } else if (this.isQcmType) {
       // Utiliser le service QcmUtils pour valider et standardiser la structure QCM
       const qcmFormData = {
         questions: formValues.questions.map((q: any) => ({
@@ -325,36 +339,18 @@ export class ActiviteFormComponent implements OnInit {
       };
     }
 
-    // Pour le débogage: afficher le type et la structure du contenu
-    console.log('Type détecté:', 
-                this.isVideoType ? 'Vidéo' : 
-                this.isQcmType ? 'QCM' : 
-                this.isQuestionReponseType ? 'Question-Réponse' : 'Texte');
-    console.log('Structure du contenu:', contenuStructure);
-
     // Créer l'objet d'activité à envoyer
-    // Utiliser any pour éviter les erreurs TypeScript
     const activiteData: any = {
       titre: formValues.titre,
       description: formValues.description,
-      type_activite_id: Number(formValues.type_activite_id), // Convertir en nombre
-      seance_id: Number(formValues.seance_id), // Convertir en nombre
+      type_activite_id: Number(formValues.type_activite_id),
+      seance_id: Number(formValues.seance_id),
       ordre: formValues.ordre || 0,
-      duree: formValues.duree ? Number(formValues.duree) : null, // Convertir en nombre si défini
-      
-      // Ajouter les propriétés spécifiques au type au niveau racine
-      contenu: JSON.stringify(contenuStructure)
+      duree: formValues.duree ? Number(formValues.duree) : null,
+      contenu: JSON.stringify(contenuStructure) // Convertir en JSON une seule fois
     };
 
-    // Si c'est une vidéo, ajouter le lien directement
-    if (this.isVideoType) {
-      activiteData.lien_video = formValues.lien_video;
-    }
-
-    // Si c'est un QCM ou Question-Réponse, ajouter les questions directement
-    if (this.isQcmType || this.isQuestionReponseType) {
-      activiteData.questions = formValues.questions;
-    }    console.log('Données d\'activité à envoyer (FORMAT FINAL):', activiteData);
+    console.log('Données d\'activité à envoyer (FORMAT FINAL):', activiteData);
 
     this.isLoading = true;    // Si nous éditons une activité existante
     if (this.activiteToEdit && this.activiteToEdit.id) {

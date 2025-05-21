@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { NotificationService } from '../../services/notification.service';
+import { LoggingService } from '../../services/logging.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,14 +12,11 @@ import { NotificationService } from '../../services/notification.service';
 export class ModuleService {
   private apiUrl = `${environment.apiUrl}/modules`;
 
-  constructor(private http: HttpClient, private notificationService: NotificationService) { }
-
-  // Méthode de logging pour débugger
-  private logging(...args: any[]): void {
-    if (!environment.production) {
-      console.log(...args);
-    }
-  }
+  constructor(
+    private http: HttpClient, 
+    private notificationService: NotificationService,
+    private logger: LoggingService
+  ) { }
 
   // Récupérer tous les modules
   getAllModules(options: { 
@@ -42,18 +40,18 @@ export class ModuleService {
     if (options.debug) params = params.set('debug', options.debug);
     if (options.noFilter) params = params.set('noFilter', options.noFilter);
     
-    console.log('MODULE SERVICE - Envoi requête API:', `${this.apiUrl}`, { params });
+    this.logger.log('MODULE SERVICE - Envoi requête API:', `${this.apiUrl}`, { params });
     
     return this.http.get<any>(this.apiUrl, { params })
       .pipe(
         tap(response => {
-          console.log('MODULE SERVICE - Réponse brute reçue:', response);
-          console.log('MODULE SERVICE - Nombre de modules:', response?.modules?.length || 0);
+          this.logger.log('MODULE SERVICE - Réponse brute reçue:', response);
+          this.logger.log('MODULE SERVICE - Nombre de modules:', response?.modules?.length || 0);
           if (response?.modules?.length > 0) {
             // Log détaillé des modules reçus
-            console.log('MODULE SERVICE - Détail des modules reçus:');
+            this.logger.log('MODULE SERVICE - Détail des modules reçus:');
             response.modules.forEach((module: any, index: number) => {
-              console.log(`MODULE SERVICE - Module ${index + 1}:`, { 
+              this.logger.log(`MODULE SERVICE - Module ${index + 1}:`, { 
                 id: module.id, 
                 titre: module.titre, 
                 statut: module.statut,
@@ -70,6 +68,7 @@ export class ModuleService {
   getUserModules(userId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/user/${userId}`)
       .pipe(
+        tap(response => this.logger.log('Activités utilisateur reçues:', response)),
         catchError(this.handleError)
       );
   }
@@ -86,7 +85,7 @@ export class ModuleService {
   getUserModuleActivites(userId: number, moduleId: number): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/${moduleId}/user/${userId}/activites`)
       .pipe(
-        tap(response => this.logging('Activités utilisateur reçues:', response)),
+        tap(response => this.logger.log('Activités utilisateur reçues:', response)),
         catchError(error => {
           this.notificationService.showError('Erreur lors de la récupération des activités');
           return throwError(() => error);
@@ -192,10 +191,10 @@ export class ModuleService {
       );
   }  // Ajouter des séances à un module
   addSeancesToModule(moduleId: number, seanceIds: number[]): Observable<any> {
-    this.logging('MODULE SERVICE - Ajout de séances au module:', moduleId, 'IDs des séances:', seanceIds);
+    this.logger.log('MODULE SERVICE - Ajout de séances au module:', moduleId, 'IDs des séances:', seanceIds);
     return this.http.post<any>(`${this.apiUrl}/${moduleId}/seances`, { seanceIds })
       .pipe(
-        tap(response => this.logging('Séances ajoutées au module avec succès', response)),
+        tap(response => this.logger.log('Séances ajoutées au module avec succès', response)),
         catchError(error => {
           this.notificationService.showError('Erreur lors de l\'ajout des séances au module');
           return throwError(() => error);
@@ -205,10 +204,10 @@ export class ModuleService {
 
   // Supprimer une séance d'un module
   removeSeanceFromModule(moduleId: number, seanceId: number): Observable<any> {
-    this.logging('MODULE SERVICE - Suppression de la séance du module:', moduleId, 'ID de la séance:', seanceId);
+    this.logger.log('MODULE SERVICE - Suppression de la séance du module:', moduleId, 'ID de la séance:', seanceId);
     return this.http.delete<any>(`${this.apiUrl}/${moduleId}/seances/${seanceId}`)
       .pipe(
-        tap(response => this.logging('Séance supprimée du module avec succès', response)),
+        tap(response => this.logger.log('Séance supprimée du module avec succès', response)),
         catchError(error => {
           this.notificationService.showError('Erreur lors de la suppression de la séance du module');
           return throwError(() => error);
@@ -228,7 +227,7 @@ export class ModuleService {
   resetUserModuleProgress(moduleId: number, userId: number): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/${moduleId}/reset-progress/${userId}`, {})
       .pipe(
-        tap(response => this.logging('Progression du module réinitialisée avec succès', response)),
+        tap(response => this.logger.log('Progression du module réinitialisée avec succès', response)),
         catchError(error => {
           this.notificationService.showError('Erreur lors de la réinitialisation de la progression du module');
           return throwError(() => error);
@@ -240,7 +239,7 @@ export class ModuleService {
   private handleError(error: any): Observable<never> {
     let errorMessage = 'Une erreur est survenue';
     
-    console.error('Erreur HTTP détaillée:', error);
+    this.logger.error('Erreur HTTP détaillée:', error);
     
     if (error.error instanceof ErrorEvent) {
       // Erreur côté client
@@ -249,7 +248,7 @@ export class ModuleService {
       // Erreur renvoyée par le serveur
       try {
         if (error.status === 400) {
-          console.log('Erreur 400 - Détails:', error.error);
+          this.logger.error('Erreur 400 - Détails:', error.error);
           
           if (error.error && Array.isArray(error.error.errors)) {
             // Traiter les erreurs de validation express-validator

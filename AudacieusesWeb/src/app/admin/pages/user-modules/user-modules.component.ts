@@ -94,9 +94,11 @@ export class UserModulesComponent implements OnInit {
   }
   
   loadAllModules(): void {
-    this.moduleService.getAllModules().subscribe({
+    // Utiliser noFilter=true pour obtenir tous les modules sans filtrage
+    this.moduleService.getAllModules({ noFilter: 'true' }).subscribe({
       next: (response) => {
         this.allModules = response.modules || [];
+        console.log('Tous les modules chargés:', this.allModules.length);
         this.updateAvailableModules();
       },
       error: (err) => {
@@ -108,8 +110,15 @@ export class UserModulesComponent implements OnInit {
   updateAvailableModules(): void {
     // Mise à jour des modules disponibles (ceux qui ne sont pas encore assignés à l'utilisateur)
     if (this.allModules.length > 0 && this.userModules.length >= 0) {
-      const userModuleIds = this.userModules.map(m => m.id);
-      this.availableModules = this.allModules.filter(m => !userModuleIds.includes(m.id));
+      // Récupérer les ID des modules déjà assignés à l'utilisateur
+      const userModuleIds = new Set(this.userModules.map(m => m.id));
+      
+      // Filtrer les modules qui ne sont pas déjà assignés à l'utilisateur
+      this.availableModules = this.allModules.filter(m => !userModuleIds.has(m.id));
+      
+      // Log pour le débogage
+      console.log('Modules assignés:', this.userModules.length, 'IDs:', this.userModules.map(m => m.id).join(', '));
+      console.log('Modules disponibles:', this.availableModules.length, 'IDs:', this.availableModules.map(m => m.id).join(', '));
     }
   }
   
@@ -117,7 +126,9 @@ export class UserModulesComponent implements OnInit {
     this.moduleService.assignModuleToUser(moduleId, this.userId).subscribe({
       next: (response) => {
         this.notificationService.showSuccess('Module assigné avec succès!');
-        this.loadUserModules(); // Recharger la liste des modules de l'utilisateur
+        // Recharger à la fois les modules de l'utilisateur et tous les modules
+        this.loadUserModules();
+        this.loadAllModules();
       },
       error: (err) => {
         console.error('Erreur lors de l\'assignation du module', err);
@@ -131,7 +142,9 @@ export class UserModulesComponent implements OnInit {
       this.moduleService.removeModuleFromUser(moduleId, this.userId).subscribe({
         next: (response) => {
           this.notificationService.showSuccess('Module retiré avec succès!');
-          this.loadUserModules(); // Recharger la liste des modules de l'utilisateur
+          // Recharger à la fois les modules de l'utilisateur et tous les modules
+          this.loadUserModules();
+          this.loadAllModules();
         },
         error: (err) => {
           console.error('Erreur lors du retrait du module', err);

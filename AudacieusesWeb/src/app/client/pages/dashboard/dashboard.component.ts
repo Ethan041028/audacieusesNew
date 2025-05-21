@@ -69,37 +69,28 @@ export class ClientDashboardComponent implements OnInit {
       if (module.seances) {
         this.stats.totalSeances += module.seances.length;
         
-        // Vérifier d'abord si le module a des informations de progression depuis l'API
+        // Vérifier si le module a des informations de progression depuis l'API
         if (module.progression) {
-          console.log(`Dashboard - Module ${module.id} avec progression API:`, module.progression);
-          
           // Si le module a un statut TERMINE, toutes ses séances sont considérées terminées
           if (module.progression.status === 'TERMINE') {
-            // Utiliser le nombre de séances terminées fourni par l'API
-            const completedSeances = module.progression.completed || module.seances.length;
-            this.stats.completedSeances += completedSeances;
+            this.stats.completedSeances += module.seances.length;
             this.stats.completedModules++;
-            console.log(`Dashboard - Module ${module.id}: ${completedSeances}/${module.seances.length} séances terminées (selon API)`);
           } 
-          // Si le module est en cours, utiliser le nombre exact de séances terminées
+          // Si le module est en cours, utiliser le nombre de séances terminées fourni par l'API
           else if (module.progression.status === 'EN_COURS') {
             const completedSeances = module.progression.completed || 0;
             this.stats.completedSeances += completedSeances;
             this.stats.inProgressModules++;
-            console.log(`Dashboard - Module ${module.id}: ${completedSeances}/${module.seances.length} séances terminées (avec progression EN_COURS)`);
           }
         } 
         // Sinon, on compte les séances terminées comme avant
         else {
-          // Compter les séances terminées
           const completedSeances = module.seances.filter(
             (seance: any) => this.isSeanceCompleted(seance)
           ).length;
-          console.log(`Dashboard - Module ${module.id}: ${completedSeances}/${module.seances.length} séances terminées`);
           
           this.stats.completedSeances += completedSeances;
           
-          // Vérifier si le module est terminé (toutes les séances terminées)
           if (completedSeances === module.seances.length && completedSeances > 0) {
             this.stats.completedModules++;
           } else if (completedSeances > 0) {
@@ -140,7 +131,16 @@ export class ClientDashboardComponent implements OnInit {
   // Obtenir le pourcentage de progression
   getProgressPercentage(): number {
     if (this.stats.totalSeances === 0) return 0;
-    return Math.round((this.stats.completedSeances / this.stats.totalSeances) * 100);
+    
+    // Calculer la progression globale en utilisant les données de progression de l'API
+    const totalProgress = this.modulesList.reduce((sum, module) => {
+      if (module.progression && module.progression.percentage !== undefined) {
+        return sum + module.progression.percentage;
+      }
+      return sum;
+    }, 0);
+    
+    return Math.round(totalProgress / this.modulesList.length);
   }
 
   // Calculer la largeur de la barre de progression pour un module
@@ -155,7 +155,7 @@ export class ClientDashboardComponent implements OnInit {
       return `${percentage}%`;
     }
     
-    // Sinon, compter les séances terminées
+    // Sinon, calculer à partir des séances terminées
     const completedSeances = module.seances.filter(
       (s: any) => this.isSeanceCompleted(s)
     ).length;

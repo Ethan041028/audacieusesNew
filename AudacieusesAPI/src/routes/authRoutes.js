@@ -194,4 +194,22 @@ router.post('/logout', authenticate, authController.logout);
  */
 router.post('/reset-admin', authController.resetAdminPassword);
 
+/**
+ * @swagger
+ * /api/auth/roles:
+ *   get:
+ *     summary: Récupérer tous les rôles
+ *     tags: [Authentication]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Liste des rôles récupérée avec succès
+ *       401:
+ *         description: Non authentifié
+ *       500:
+ *         description: Erreur serveur
+ */
+router.get('/roles', authenticate, authController.getAllRoles);
+
 module.exports = router;

@@ -96,3 +96,27 @@ body {
   .table-striped tbody tr:nth-of-type(odd) {
     background-color: rgba(235, 148, 120, 0.05);
   }
+
+.progress {
+  height: 8px;
+  background-color: #f0f0f0;
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 0;
+  
+  .progress-bar {
+    transition: width 0.3s ease;
+    
+    &.bg-success {
+      background-color: #32a05f;
+    }
+    
+    &.bg-warning {
+      background-color: #eb9478;
+    }
+    
+    &.bg-secondary {
+      background-color: #6c757d;
+    }
+  }
+}

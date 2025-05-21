@@ -77,7 +77,7 @@ app.use(helmet({
 
 // Middleware CORS configuré pour accepter les credentials avec origine spécifique
 app.use(cors({
-  origin: ['http://localhost:4200', 'https://lesaudacieuses.fr'],  // Origines spécifiques autorisées
+  origin: ['http://localhost:4200', 'https://lesaudacieuses.fr', 'https://audacieuses-web.onrender.com'],  // Origines spécifiques autorisées
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'Origin', 'X-Requested-With', 'Accept'],
   credentials: true,

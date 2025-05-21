@@ -456,3 +456,22 @@ exports.resetAdminPassword = async (req, res) => {
     });
   }
 };
+
+// Récupérer tous les rôles
+exports.getAllRoles = async (req, res) => {
+  try {
+    const roles = await Role.findAll({
+      attributes: ['id', 'nom', 'description']
+    });
+    
+    res.status(200).json({
+      roles: roles
+    });
+  } catch (error) {
+    logger.error(`Erreur lors de la récupération des rôles: ${error.message}`);
+    res.status(500).json({
+      error: 'Erreur serveur',
+      message: 'Une erreur est survenue lors de la récupération des rôles'
+    });
+  }
+};

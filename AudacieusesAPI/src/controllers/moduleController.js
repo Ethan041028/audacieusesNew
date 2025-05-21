@@ -819,156 +819,156 @@ exports.getUserModules = async (req, res) => {
         }
       }]
     });
+     // Récupérer les modules assignés à l'utilisateur
+    const userWithModules = await User.findByPk(userId, {
+      include: [{
+        model: Module,
+        as: 'modules',
+        attributes: ['id']
+      }]
+    });
     
-    // Si c'est un client, il voit seulement les modules publiés ET qui lui sont assignés
+    // Créer un ensemble des IDs de modules assignés à l'utilisateur
+    const assignedModuleIds = new Set(userWithModules.modules.map(module => module.id));
+    
+    logger.info(`Modules assignés à l'utilisateur ${userId}: ${Array.from(assignedModuleIds).join(', ')}`);
+    
+    // Vérifier si c'est un client ou un administrateur qui consulte
     const isClientUser = req.user.role.nom === 'client' || (user.role && user.role.nom === 'client');
-    if (isClientUser) {
-      // Récupérer les modules assignés à l'utilisateur
-      const userWithModules = await User.findByPk(userId, {
-        include: [{
-          model: Module,
-          as: 'modules',
-          attributes: ['id']
-        }]
+    
+    // Filtrer les modules pour n'inclure que ceux assignés à l'utilisateur
+    // Si l'utilisateur est un client, ne montrer que les modules publiés
+    allModules = allModules.filter(module => {
+      const isAssigned = assignedModuleIds.has(module.id);
+      const isPublished = module.statut === 'publié';
+      
+      // Pour les clients, on filtre les modules publiés ET assignés
+      // Pour les administrateurs, on montre tous les modules assignés indépendamment du statut
+      return isAssigned && (isClientUser ? isPublished : true);
+    });
+    
+    logger.info(`Modules filtrés (assignés) pour l'utilisateur ${userId}: ${allModules.map(m => m.id).join(', ')}`);
+    
+    const moduleProgressMap = {};
+    
+    // Créer un map des progressions de modules existantes
+    if (user.suiviModules && user.suiviModules.length > 0) {
+      user.suiviModules.forEach(suivi => {
+        logger.info(`Module ${suivi.module_id} - Données de suivi_module: progression=${suivi.progression}, status_id=${suivi.status_id}, status=${suivi.status?.type_status}`);
+        moduleProgressMap[suivi.module_id] = {
+          percentage: parseFloat(suivi.progression),
+          status: suivi.status ? suivi.status.type_status : 'NON_COMMENCE',
+          status_id: suivi.status_id,
+          date_completion: suivi.date_completion,
+          date_mise_a_jour: suivi.date_mise_a_jour
+        };
       });
-      
-      // Créer un ensemble des IDs de modules assignés à l'utilisateur
-      const assignedModuleIds = new Set(userWithModules.modules.map(module => module.id));
-      
-      logger.info(`Modules assignés à l'utilisateur ${userId}: ${Array.from(assignedModuleIds).join(', ')}`);
-      
-      // Filtrer les modules pour n'inclure que ceux qui sont publiés ET assignés à l'utilisateur
-      allModules = allModules.filter(module => 
-        module.statut === 'publié' && assignedModuleIds.has(module.id)
-      );
-      
-      logger.info(`Modules filtrés (publiés et assignés) pour l'utilisateur ${userId}: ${allModules.map(m => m.id).join(', ')}`);
-      
-      const moduleProgressMap = {};
-      
-      // Créer un map des progressions de modules existantes
-      if (user.suiviModules && user.suiviModules.length > 0) {
-        user.suiviModules.forEach(suivi => {
-          logger.info(`Module ${suivi.module_id} - Données de suivi_module: progression=${suivi.progression}, status_id=${suivi.status_id}, status=${suivi.status?.type_status}`);
-          moduleProgressMap[suivi.module_id] = {
-            percentage: parseFloat(suivi.progression),
-            status: suivi.status ? suivi.status.type_status : 'NON_COMMENCE',
-            status_id: suivi.status_id,
-            date_completion: suivi.date_completion,
-            date_mise_a_jour: suivi.date_mise_a_jour
-          };
-        });
-      }
-      
-      // Pour chaque module qui n'a pas encore de suivi, calculer sa progression
-      const modulesWithProgress = await Promise.all(allModules.map(async (module) => {
-        // Vérifier si une progression existe déjà
-        if (moduleProgressMap[module.id]) {
-          // Utiliser la progression existante dans la table suivi_module
-          const progression = moduleProgressMap[module.id];
-          
-          logger.info(`Module ${module.id} - Progression existante trouvée: ${progression.percentage}%, Statut: ${progression.status}`);
-          
-          return {
-            ...module.toJSON(),
-            progression: {
-              percentage: progression.percentage,
-              status: progression.status,
-              completed: Math.round((progression.percentage / 100) * (module.seances?.length || 0)),
-              total: module.seances?.length || 0,
-              date_completion: progression.date_completion,
-              date_mise_a_jour: progression.date_mise_a_jour
-            }
-          };
-        } else {
-          // Si aucun suivi n'existe, utiliser la méthode de calcul existante
-          const seancesModule = module.seances || [];
-          const moduleSeanceIds = seancesModule.map(s => s.id);
-          
-          logger.info(`Module ${module.id} sans suivi - Calcul de progression basé sur les séances: ${moduleSeanceIds.join(', ')}`);
-          
-          // Récupérer uniquement les suivis pour les séances de ce module spécifique
-          const suivis = await sequelize.models.Suivi.findAll({
-            where: { 
-              user_id: userId,
-              seance_id: { [Op.in]: moduleSeanceIds }
-            },
-          include: [{
-              model: sequelize.models.StatusSuivi,
-            as: 'status'
-          }]
-        });
+    }
+    
+    // Pour chaque module qui n'a pas encore de suivi, calculer sa progression
+    const modulesWithProgress = await Promise.all(allModules.map(async (module) => {
+      // Vérifier si une progression existe déjà
+      if (moduleProgressMap[module.id]) {
+        // Utiliser la progression existante dans la table suivi_module
+        const progression = moduleProgressMap[module.id];
         
-          // Calculer le nombre d'activités spécifiques à ce module
-          const seanceCount = moduleSeanceIds.length;
-          
-          // Compter les séances terminées
-          const completedCount = suivis.filter(suivi => 
-            suivi.status && suivi.status.type_status === 'TERMINE'
-          ).length;
-          
-          // Calculer la progression
-          const progressionPercentage = seanceCount > 0 ? Math.min((completedCount / seanceCount) * 100, 100) : 0;
-          
-          // Déterminer le statut
-          let status = 'NON_COMMENCE';
-          let status_id = 1;
-          
-          if (progressionPercentage === 100) {
-            status = 'TERMINE';
-            status_id = 3;
-          } else if (progressionPercentage > 0) {
-            status = 'EN_COURS';
-            status_id = 2;
-          }
-          
-          logger.info(`Module ${module.id} - Progression calculée: ${progressionPercentage}%, Statut: ${status}`);
-          
-          // Créer un suivi de module si nécessaire
-          if (progressionPercentage > 0) {
-            try {
-              await sequelize.models.SuiviModule.create({
-                user_id: userId,
-                module_id: module.id,
-                progression: progressionPercentage,
-                status_id: status_id,
-                date_mise_a_jour: new Date(),
-                date_completion: status === 'TERMINE' ? new Date() : null
-              });
-              
-              logger.info(`Nouveau suivi de module créé pour le module ${module.id}, utilisateur ${userId}`);
-            } catch (error) {
-              logger.error(`Erreur lors de la création du suivi de module: ${error.message}`);
-            }
-          }
+        logger.info(`Module ${module.id} - Progression existante trouvée: ${progression.percentage}%, Statut: ${progression.status}`);
         
         return {
           ...module.toJSON(),
           progression: {
-              percentage: progressionPercentage,
-              status: status,
-            completed: completedCount,
-            total: seanceCount
+            percentage: progression.percentage,
+            status: progression.status,
+            completed: Math.round((progression.percentage / 100) * (module.seances?.length || 0)),
+            total: module.seances?.length || 0,
+            date_completion: progression.date_completion,
+            date_mise_a_jour: progression.date_mise_a_jour
           }
         };
-        }
-      }));
-      
-      // Log détaillé des modules trouvés
-      if (modulesWithProgress.length > 0) {
-        modulesWithProgress.forEach((module, index) => {
-          logger.info(`Module ${index + 1}: ID=${module.id}, Titre="${module.titre}", Statut=${module.statut}, Séances=${module.seances?.length || 0}, Progression=${module.progression.percentage}%, Status=${module.progression.status}`);
-        });
       } else {
-        logger.warn(`Aucun module trouvé pour l'utilisateur ${userId}`);
-      }
+        // Si aucun suivi n'existe, utiliser la méthode de calcul existante
+        const seancesModule = module.seances || [];
+        const moduleSeanceIds = seancesModule.map(s => s.id);
+        
+        logger.info(`Module ${module.id} sans suivi - Calcul de progression basé sur les séances: ${moduleSeanceIds.join(', ')}`);
+        
+        // Récupérer uniquement les suivis pour les séances de ce module spécifique
+        const suivis = await sequelize.models.Suivi.findAll({
+          where: { 
+            user_id: userId,
+            seance_id: { [Op.in]: moduleSeanceIds }
+          },
+        include: [{
+            model: sequelize.models.StatusSuivi,
+          as: 'status'
+        }]
+      });
+        
+        // Calculer le nombre d'activités spécifiques à ce module
+        const seanceCount = moduleSeanceIds.length;
+        
+        // Compter les séances terminées
+        const completedCount = suivis.filter(suivi => 
+          suivi.status && suivi.status.type_status === 'TERMINE'
+        ).length;
+        
+        // Calculer la progression
+        const progressionPercentage = seanceCount > 0 ? Math.min((completedCount / seanceCount) * 100, 100) : 0;
+        
+        // Déterminer le statut
+        let status = 'NON_COMMENCE';
+        let status_id = 1;
+        
+        if (progressionPercentage === 100) {
+          status = 'TERMINE';
+          status_id = 3;
+        } else if (progressionPercentage > 0) {
+          status = 'EN_COURS';
+          status_id = 2;
+        }
+        
+        logger.info(`Module ${module.id} - Progression calculée: ${progressionPercentage}%, Statut: ${status}`);
+        
+        // Créer un suivi de module si nécessaire
+        if (progressionPercentage > 0) {
+          try {
+            await sequelize.models.SuiviModule.create({
+              user_id: userId,
+              module_id: module.id,
+              progression: progressionPercentage,
+              status_id: status_id,
+              date_mise_a_jour: new Date(),
+              date_completion: status === 'TERMINE' ? new Date() : null
+            });
+            
+            logger.info(`Nouveau suivi de module créé pour le module ${module.id}, utilisateur ${userId}`);
+          } catch (error) {
+            logger.error(`Erreur lors de la création du suivi de module: ${error.message}`);
+          }
+        }
       
-      return res.status(200).json({ modules: modulesWithProgress });
+      return {
+        ...module.toJSON(),
+        progression: {
+            percentage: progressionPercentage,
+            status: status,
+          completed: completedCount,
+          total: seanceCount
+        }
+      };
+      }
+    }));
+    
+    // Log détaillé des modules trouvés
+    if (modulesWithProgress.length > 0) {
+      modulesWithProgress.forEach((module, index) => {
+        logger.info(`Module ${index + 1}: ID=${module.id}, Titre="${module.titre}", Statut=${module.statut}, Séances=${module.seances?.length || 0}, Progression=${module.progression.percentage}%, Status=${module.progression.status}`);
+      });
+    } else {
+      logger.warn(`Aucun module trouvé pour l'utilisateur ${userId}`);
     }
     
-    // Pour les non-clients, renvoyez tous les modules
-    logger.info(`Renvoi de ${allModules.length} modules pour l'utilisateur admin/formateur ${userId}`);
-    res.status(200).json({ modules: allModules });
+    return res.status(200).json({ modules: modulesWithProgress });
     
   } catch (error) {
     logger.error(`Erreur lors de la récupération des modules de l'utilisateur ${req.params.userId}: ${error.message}`);

@@ -67,9 +67,7 @@
           </div>
 
           <div *ngFor="let activity of stats.recentActivity || []" class="activity-item">
-            <div class="activity-avatar">
-              <img [src]="activity.user?.avatar || '/assets/images/avatar.jpg'" [alt]="activity.user?.nom">
-            </div>
+            
             <div class="activity-info">
               <div class="activity-header">
                 <span class="user-name">{{ activity.user?.prenom }} {{ activity.user?.nom }}</span>

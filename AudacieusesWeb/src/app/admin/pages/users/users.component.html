@@ -130,9 +130,17 @@
           <td>{{ user.derniere_connexion ? (user.derniere_connexion | date:'dd/MM/yyyy HH:mm') : 'Jamais' }}</td>
           <td>
             <div class="progress" *ngIf="user.role.nom === 'client'">
-              <div class="progress-bar" role="progressbar" [style.width]="(user.progression || 0) + '%'" 
-                   [attr.aria-valuenow]="user.progression || 0" aria-valuemin="0" aria-valuemax="100">
-                {{ user.progression || 0 }}%
+              <div class="progress-bar" role="progressbar" 
+                   [style.width]="getUserProgress(user) + '%'" 
+                   [attr.aria-valuenow]="getUserProgress(user)" 
+                   aria-valuemin="0" 
+                   aria-valuemax="100"
+                   [ngClass]="{
+                     'bg-success': getUserProgressStatus(user) === 'TERMINE',
+                     'bg-warning': getUserProgressStatus(user) === 'EN_COURS',
+                     'bg-secondary': getUserProgressStatus(user) === 'NON_COMMENCE'
+                   }">
+                {{ getUserProgress(user) }}%
               </div>
             </div>
             <span *ngIf="user.role.nom !== 'client'">-</span>

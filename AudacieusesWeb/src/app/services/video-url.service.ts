@@ -83,17 +83,20 @@ export class VideoUrlService {
   getVideoUrl(videoPath: any, defaultVideo: string | null = null): string | null {
     console.log('VideoUrlService: input value:', videoPath);
     
-    // Si videoPath est un objet qui a une propriété url
+    // Si videoPath est un objet qui a une propriété lien (pour les vidéos)
     if (videoPath && typeof videoPath === 'object') {
-      if (videoPath.url && typeof videoPath.url === 'string') {
+      if (videoPath.lien && typeof videoPath.lien === 'string') {
+        console.log('VideoUrlService: extracting lien from object:', videoPath.lien);
+        return videoPath.lien;
+      } else if (videoPath.url && typeof videoPath.url === 'string') {
         console.log('VideoUrlService: extracting URL from object:', videoPath.url);
-        videoPath = videoPath.url;
+        return videoPath.url;
       } else if (videoPath.source && typeof videoPath.source === 'string') {
         console.log('VideoUrlService: extracting source from object:', videoPath.source);
-        videoPath = videoPath.source;
+        return videoPath.source;
       } else if (videoPath.video && typeof videoPath.video === 'string') {
         console.log('VideoUrlService: extracting video from object:', videoPath.video);
-        videoPath = videoPath.video;
+        return videoPath.video;
       } else {
         console.warn('VideoUrlService: unable to extract URL from object:', videoPath);
         return defaultVideo;
@@ -103,33 +106,31 @@ export class VideoUrlService {
     // Vérification que videoPath est une chaîne de caractères valide
     if (!videoPath || typeof videoPath !== 'string') {
       console.warn('VideoUrlService: videoPath n\'est pas une chaîne valide', videoPath);
-      return defaultVideo;    }    try {
-      // Pour les URL YouTube et Vimeo, retourner directement l'URL
-      const videoType = this.getVideoType(videoPath);
-      console.log('VideoUrlService: Video type détecté:', videoType);
-      
-      if (videoType === this.VIDEO_TYPE.YOUTUBE || videoType === this.VIDEO_TYPE.VIMEO) {
-        return videoPath;
-      }
-
-      // Si la vidéo commence par http:// ou https://, c'est déjà une URL complète (fichier direct)
-      if (videoPath.startsWith('http://') || videoPath.startsWith('https://')) {
-        return videoPath;
-      }
-
-      // Nettoyage du chemin pour éviter les problèmes
-      const cleanPath = videoPath.trim();
-      
-      // Si le chemin commence par /uploads, utiliser directement l'URL complète
-      if (cleanPath.startsWith('/uploads')) {
-        return `${this.backendUrl}${cleanPath}`;
-      }
-      
-      // Si le chemin est juste le nom du fichier
-      return `${this.backendUrl}/uploads/videos/${cleanPath}`;
-    } catch (error) {
-      console.error('VideoUrlService: Erreur lors du formatage de l\'URL vidéo', error, videoPath);
       return defaultVideo;
     }
+
+    // Pour les URL YouTube et Vimeo, retourner directement l'URL
+    const videoType = this.getVideoType(videoPath);
+    console.log('VideoUrlService: Video type détecté:', videoType);
+    
+    if (videoType === this.VIDEO_TYPE.YOUTUBE || videoType === this.VIDEO_TYPE.VIMEO) {
+      return videoPath;
+    }
+
+    // Si la vidéo commence par http:// ou https://, c'est déjà une URL complète (fichier direct)
+    if (videoPath.startsWith('http://') || videoPath.startsWith('https://')) {
+      return videoPath;
+    }
+
+    // Nettoyage du chemin pour éviter les problèmes
+    const cleanPath = videoPath.trim();
+    
+    // Si le chemin commence par /uploads, utiliser directement l'URL complète
+    if (cleanPath.startsWith('/uploads')) {
+      return `${this.backendUrl}${cleanPath}`;
+    }
+    
+    // Si le chemin est juste le nom du fichier
+    return `${this.backendUrl}/uploads/videos/${cleanPath}`;
   }
 }

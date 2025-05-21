@@ -3,6 +3,11 @@ const path = require('path');
 const fs = require('fs');
 require('dotenv').config();
 
+// Définir le niveau de log par défaut en fonction de l'environnement
+const defaultLogLevel = process.env.NODE_ENV === 'production' ? 'error' : 'debug';
+// Utiliser le niveau de log spécifié dans les variables d'environnement ou la valeur par défaut
+const logLevel = process.env.LOG_LEVEL || defaultLogLevel;
+
 // Configuration des niveaux et couleurs personnalisés
 const levels = {
   error: 0,
@@ -43,7 +48,7 @@ const logger = winston.createLogger({
     // Log tous les niveaux dans un fichier combiné
     new winston.transports.File({
       filename: path.join(logDir, 'combined.log'),
-      level: 'debug',
+      level: logLevel,
       maxsize: 10485760, // 10 Mo
       maxFiles: 5,
       tailable: true
@@ -55,16 +60,18 @@ const logger = winston.createLogger({
       maxsize: 10485760, // 10 Mo
       maxFiles: 5
     }),
-    // Logs de débogage plus détaillés
-    new winston.transports.File({
-      filename: path.join(logDir, 'debug.log'),
-      level: 'debug',
-      maxsize: 15728640, // 15 Mo
-      maxFiles: 2
-    }),
+    // Logs de débogage plus détaillés (seulement en non-production)
+    ...(process.env.NODE_ENV !== 'production' ? [
+      new winston.transports.File({
+        filename: path.join(logDir, 'debug.log'),
+        level: 'debug',
+        maxsize: 15728640, // 15 Mo
+        maxFiles: 2
+      })
+    ] : []),
     // Console en développement
     new winston.transports.Console({
-      level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
+      level: logLevel,
       format: winston.format.combine(
         winston.format.colorize(),
         winston.format.printf(({ timestamp, level, message }) => {

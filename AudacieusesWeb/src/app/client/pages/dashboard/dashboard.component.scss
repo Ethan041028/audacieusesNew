@@ -230,63 +230,52 @@
   gap: 1rem;
   
   .module-item {
-    display: flex;
-    border-radius: 8px;
+    background: white;
+    border-radius: 10px;
     overflow: hidden;
-    border: 1px solid #e9ecef;
-    transition: transform 0.3s, box-shadow 0.3s;
-    
-    &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    }
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 1rem;
     
     .module-image {
       position: relative;
-      width: 120px;
-      height: 120px;
-      flex-shrink: 0;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
       
       img {
         width: 100%;
         height: 100%;
         object-fit: cover;
       }
-      
-      .module-progress {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        height: 4px;
-        background-color: var(--color-success);
-      }
     }
     
     .module-info {
       padding: 1rem;
-      flex-grow: 1;
       
       h3 {
         margin: 0 0 0.5rem;
-        font-size: 1.1rem;
+        font-size: 1.2rem;
+        color: var(--text-primary);
       }
       
       .module-desc {
-        font-size: 0.9rem;
         color: var(--text-secondary);
-        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
       }
       
       .module-meta {
         display: flex;
         gap: 1rem;
+        margin-top: 1rem;
         
-        span {
+        .module-level,
+        .module-duration {
           font-size: 0.8rem;
-          color: var(--text-secondary);
-          padding: 0.2rem 0.5rem;
-          background-color: #f8f9fa;
+          padding: 0.25rem 0.5rem;
           border-radius: 4px;
+          background-color: var(--color-light);
+          color: var(--text-secondary);
         }
       }
     }
@@ -453,6 +442,29 @@
           }
         }
       }
+    }
+  }
+}
+
+// Styles pour la barre de progression
+.progress {
+  background-color: var(--color-light);
+  border-radius: 4px;
+  overflow: hidden;
+  
+  .progress-bar {
+    transition: width 0.3s ease;
+    
+    &.bg-success {
+      background-color: var(--color-success);
+    }
+    
+    &.bg-warning {
+      background-color: var(--color-warning);
+    }
+    
+    &.bg-secondary {
+      background-color: var(--color-secondary);
     }
   }
 }

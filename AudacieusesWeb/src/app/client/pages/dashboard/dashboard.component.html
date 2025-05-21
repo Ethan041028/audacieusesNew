@@ -49,13 +49,36 @@
           <div *ngFor="let module of modulesList.slice(0, 3)" class="module-item">
             <div class="module-image">
               <img [src]="getModuleImageFullUrl(module.image_url)" [alt]="module.titre">
-              <div class="module-progress" 
-                   [ngStyle]="{'width': getModuleProgressWidth(module)}">
-              </div>
             </div>
             <div class="module-info">
               <h3>{{ module.titre }}</h3>
               <p class="module-desc">{{ module.description | slice:0:100 }}{{ module.description.length > 100 ? '...' : '' }}</p>
+              
+              <!-- Barre de progression -->
+              <div *ngIf="module.progression" class="mt-3">
+                <div class="d-flex justify-content-between">
+                  <small>Progression</small>
+                  <small>{{ module.progression.completed }}/{{ module.progression.total }} séances</small>
+                </div>
+                <div class="progress" style="height: 10px;">
+                  <div class="progress-bar" 
+                       [ngClass]="{
+                         'bg-success': module.progression.status === 'TERMINE',
+                         'bg-warning': module.progression.status === 'EN_COURS',
+                         'bg-secondary': !module.progression.status || module.progression.status === 'NON_COMMENCE'
+                       }"
+                       [style.width.%]="module.progression.percentage" 
+                       role="progressbar" 
+                       [attr.aria-valuenow]="module.progression.percentage" 
+                       aria-valuemin="0" 
+                       aria-valuemax="100">
+                  </div>
+                </div>
+                <div class="text-end mt-1">
+                  <small>{{ module.progression.percentage | number:'1.0-0' }}%</small>
+                </div>
+              </div>
+              
               <div class="module-meta">
                 <span class="module-level">{{ module.niveau }}</span>
                 <span class="module-duration">{{ module.duree }} heures</span>

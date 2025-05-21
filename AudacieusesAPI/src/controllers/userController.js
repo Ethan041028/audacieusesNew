@@ -68,18 +68,20 @@ exports.getAllUsers = async (req, res) => {
         id: user.id,
         nom: user.nom,
         prenom: user.prenom,
-        // Convertir mail en email pour le frontend
         email: user.mail,
         date_naissance: user.date_naissance,
-        // Envoyer le rôle comme un objet
         role: {
           id: user.role.id,
           nom: user.role.nom
         },
-        // Ajouter le statut et la dernière connexion
         status: user.active ? 'active' : 'inactive',
-        derniere_connexion: user.updated_at, // Utiliser updated_at comme approximation
-        progression: 0 // Progression par défaut
+        derniere_connexion: user.updated_at,
+        progression: user.progression || {
+          percentage: 0,
+          completed: 0,
+          total: 0,
+          status: 'NON_COMMENCE'
+        }
       })),
       total: count
     });
