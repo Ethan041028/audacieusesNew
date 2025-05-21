@@ -13,7 +13,7 @@
     <div class="offcanvas-body p-0">
       <nav id="sidebar" class="sidebar bg-light text-dark p-3 d-flex flex-column h-100">
         <div class="text-center mb-4">
-          <img src="../../../assets/images/logo.png" alt="Les Audacieuses" class="img-fluid" style="max-width: 120px;">
+          <img src="assets/images/logo.png" alt="Les Audacieuses" class="img-fluid" style="max-width: 120px;">
         </div>
       
         <h4 class="fw-bold">Tableau de bord</h4>
@@ -43,11 +43,6 @@
           </div>
       
           <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link text-dark d-flex align-items-center" routerLink="/client/help" routerLinkActive="active" data-bs-dismiss="offcanvas" data-bs-target="#clientSidebar">
-                <i class="fas fa-question-circle me-2"></i> Aide
-              </a>
-            </li>
             <li class="nav-item">
               <a class="nav-link text-dark d-flex align-items-center" (click)="logout()" style="cursor: pointer;" data-bs-dismiss="offcanvas" data-bs-target="#clientSidebar">
                 <i class="fas fa-power-off me-2"></i> Déconnexion

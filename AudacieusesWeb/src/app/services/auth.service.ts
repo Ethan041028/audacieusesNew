@@ -4,7 +4,6 @@ import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { environment } from '../../environments/environment';
-import { SocketService } from './socket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +16,7 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private router: Router,
-    private socketService: SocketService
+    private router: Router
   ) {
     // Récupérer l'utilisateur stocké dans le localStorage au démarrage
     this.currentUserSubject = new BehaviorSubject<any>(this.getUserFromStorage());
@@ -26,11 +24,6 @@ export class AuthService {
     
     // Vérifier et rafraîchir le token si nécessaire
     this.checkTokenExpiration();
-    
-    // Initialiser la connexion Socket.IO si l'utilisateur est déjà connecté
-    if (this.currentUserValue) {
-      this.initSocketConnection(this.currentUserValue.user.id);
-    }
   }
 
   // Getter pour accéder à l'utilisateur courant
@@ -144,6 +137,7 @@ export class AuthService {
     console.log('Est client:', hasClientRole);
     return hasClientRole;
   }
+
   // Obtenir le token JWT pour l'intercepteur
   public getToken(): string | null {
     return this.currentUserValue ? this.currentUserValue.token : null;
@@ -187,29 +181,19 @@ export class AuthService {
           if (response && response.token) {
             this.storeUserData(response);
             console.log('Données utilisateur stockées après inscription:', this.currentUserValue);
-            
-            // Initialiser la connexion Socket.IO après l'inscription réussie
-            if (response.user && response.user.id) {
-              this.initSocketConnection(response.user.id);
-            }
           }
         }),
         catchError(this.handleError)
       );
   }
 
-  // Connexion d'un utilisateur
+  // Connexion
   login(credentials: { mail: string; mdp: string }): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}/login`, credentials)
       .pipe(
         tap(response => {
           if (response && response.token) {
             this.storeUserData(response);
-            
-            // Établir la connexion Socket.IO après la connexion
-            if (response.user && response.user.id) {
-              this.initSocketConnection(response.user.id);
-            }
           }
         }),
         catchError(this.handleError)
@@ -218,142 +202,139 @@ export class AuthService {
 
   // Déconnexion
   logout(): void {
-    // Déconnecter Socket.IO
-    this.socketService.disconnect();
-    
+    // Supprimer l'utilisateur du localStorage
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+    
+    // Arrêter le timer d'expiration
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
+    
+    // Rediriger vers la page de connexion
     this.router.navigate(['/auth/login']);
   }
 
-  // Demande de réinitialisation de mot de passe
+  // Mot de passe oublié
   forgotPassword(email: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/forgot-password`, { mail: email })
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.post<any>(`${this.apiUrl}/forgot-password`, { email })
+      .pipe(catchError(this.handleError));
   }
 
-  // Réinitialisation de mot de passe avec token
+  // Réinitialisation du mot de passe
   resetPassword(token: string, newPassword: string): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/reset-password`, { token, mdp: newPassword })
-      .pipe(
-        catchError(this.handleError)
-      );
+    return this.http.post<any>(`${this.apiUrl}/reset-password`, { token, newPassword })
+      .pipe(catchError(this.handleError));
   }
 
   // Rafraîchir le token
   refreshToken(): Observable<any> {
-    // Si pas d'utilisateur connecté, retourner une erreur
-    if (!this.currentUserValue) {
-      return throwError(() => new Error('Aucun utilisateur connecté'));
+    if (!this.currentUserValue || !this.currentUserValue.token) {
+      return throwError(() => new Error('Pas de token à rafraîchir'));
     }
 
     return this.http.post<any>(`${this.apiUrl}/refresh-token`, {
-      refreshToken: this.currentUserValue.refreshToken
+      token: this.currentUserValue.token
     }).pipe(
       tap(response => {
         if (response && response.token) {
-          // Mettre à jour uniquement le token et sa date d'expiration
-          const updatedUser = {
-            ...this.currentUserValue,
-            token: response.token,
-            refreshToken: response.refreshToken
-          };
-          this.storeUserData(updatedUser);
+          this.storeUserData(response);
         }
       }),
       catchError(error => {
-        // En cas d'erreur, déconnecter l'utilisateur
+        // En cas d'erreur de rafraîchissement, déconnecter l'utilisateur
         this.logout();
         return throwError(() => error);
       })
     );
   }
 
-  // Stocker les données utilisateur dans le localStorage
+  // Stocker les données utilisateur
   private storeUserData(userData: any): void {
     localStorage.setItem('currentUser', JSON.stringify(userData));
     this.currentUserSubject.next(userData);
     
     // Configurer l'expiration automatique du token
-    this.autoLogout(this.getTokenExpirationDate(userData.token));
+    const expirationDate = this.getTokenExpirationDate(userData.token);
+    this.autoLogout(expirationDate);
   }
 
-  // Obtenir la date d'expiration d'un token JWT
+  // Obtenir la date d'expiration du token
   private getTokenExpirationDate(token: string): Date | null {
-    if (!token) return null;
-
     try {
-      const decoded = JSON.parse(atob(token.split('.')[1]));
-      if (!decoded.exp) return null;
-
-      const expirationDate = new Date(0);
-      expirationDate.setUTCSeconds(decoded.exp);
-      return expirationDate;
+      const tokenData = JSON.parse(atob(token.split('.')[1]));
+      if (tokenData.exp) {
+        return new Date(tokenData.exp * 1000);
+      }
+      return null;
     } catch (e) {
+      console.error('Erreur lors du décodage du token:', e);
       return null;
     }
   }
 
-  // Configurer la déconnexion automatique à l'expiration du token
+  // Déconnexion automatique à l'expiration du token
   private autoLogout(expirationDate: Date | null): void {
     if (!expirationDate) return;
 
-    if (this.tokenExpirationTimer) {
-      clearTimeout(this.tokenExpirationTimer);
-    }
+    const now = new Date().getTime();
+    const expirationTime = expirationDate.getTime();
+    const timeUntilExpiration = expirationTime - now;
 
-    const expiresIn = expirationDate.getTime() - Date.now();
-    if (expiresIn <= 0) {
+    // Si le token est déjà expiré, déconnecter immédiatement
+    if (timeUntilExpiration <= 0) {
       this.logout();
       return;
     }
 
+    // Sinon, programmer la déconnexion automatique
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+
     this.tokenExpirationTimer = setTimeout(() => {
       this.logout();
-    }, expiresIn);
+    }, timeUntilExpiration);
   }
 
-  // Vérifier l'expiration du token au démarrage de l'application
+  // Vérifier l'expiration du token
   private checkTokenExpiration(): void {
-    if (this.currentUserValue && this.currentUserValue.token) {
-      const expirationDate = this.getTokenExpirationDate(this.currentUserValue.token);
-      
-      if (expirationDate && expirationDate > new Date()) {
-        // Token valide, configurer la déconnexion automatique
-        this.autoLogout(expirationDate);
-      } else {
-        // Token expiré, essayer de le rafraîchir
-        this.refreshToken().subscribe({
-          error: () => this.logout()
-        });
-      }
+    if (!this.currentUserValue || !this.currentUserValue.token) return;
+
+    const expirationDate = this.getTokenExpirationDate(this.currentUserValue.token);
+    if (!expirationDate) return;
+
+    const now = new Date().getTime();
+    const expirationTime = expirationDate.getTime();
+    const timeUntilExpiration = expirationTime - now;
+
+    // Si le token expire dans moins de 5 minutes, le rafraîchir
+    if (timeUntilExpiration > 0 && timeUntilExpiration < 5 * 60 * 1000) {
+      this.refreshToken().subscribe();
     }
   }
 
-  // Initialiser la connexion Socket.IO
-  private initSocketConnection(userId: number): void {
-    if (userId) {
-      this.socketService.connect(userId);
-    }
-  }
-
-  // Gestion des erreurs HTTP
+  // Gestion des erreurs
   private handleError(error: any): Observable<never> {
     let errorMessage = 'Une erreur est survenue';
     
     if (error.error instanceof ErrorEvent) {
       // Erreur côté client
-      errorMessage = `Erreur: ${error.error.message}`;
-    } else if (error.status) {
-      // Erreur renvoyée par le serveur
-      errorMessage = error.error.message || error.statusText;
+      errorMessage = error.error.message;
+    } else {
+      // Erreur côté serveur
+      if (error.error && error.error.message) {
+        errorMessage = error.error.message;
+      } else if (error.status === 401) {
+        errorMessage = 'Identifiants invalides';
+      } else if (error.status === 403) {
+        errorMessage = 'Accès non autorisé';
+      } else if (error.status === 404) {
+        errorMessage = 'Ressource non trouvée';
+      }
     }
     
-    return throwError(() => ({ error: errorMessage, status: error.status }));
+    console.error('Erreur:', errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 }

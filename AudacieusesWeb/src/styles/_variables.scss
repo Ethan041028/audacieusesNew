@@ -1,5 +1,6 @@
 // Import des modules Sass nécessaires
 @use 'sass:color';
+@use 'sass:list';
 
 // Variables de couleurs primaires
 $color-primary: #3f51b5;
@@ -9,7 +10,7 @@ $color-primary-dark: #303f9f;
 
 // Function to handle rgba with rgb tuples
 @function rgba-color($color, $opacity) {
-  @return rgba(nth($color, 1), nth($color, 2), nth($color, 3), $opacity);
+  @return rgba(list.nth($color, 1), list.nth($color, 2), list.nth($color, 3), $opacity);
 }
 
 $color-secondary: #ff4081;

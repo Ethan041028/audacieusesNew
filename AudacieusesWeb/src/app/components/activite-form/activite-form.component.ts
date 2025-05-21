@@ -279,7 +279,7 @@ export class ActiviteFormComponent implements OnInit {
     lienVideoControl?.clearValidators();
     contenuControl?.clearValidators();
     questionsControl?.clearValidators();
-
+    
     // Appliquer les validateurs en fonction du type
     if (this.isVideoType) {
       lienVideoControl?.setValidators([Validators.required]);
@@ -288,7 +288,7 @@ export class ActiviteFormComponent implements OnInit {
     } else if (this.isTexteType) {
       contenuControl?.setValidators([Validators.required]);
     }
-
+    
     // Mettre à jour les validateurs
     lienVideoControl?.updateValueAndValidity();
     contenuControl?.updateValueAndValidity();
