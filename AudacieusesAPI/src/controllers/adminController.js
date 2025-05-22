@@ -95,13 +95,25 @@ exports.getDashboardStats = async (req, res) => {
       recentActivity: limitedActivity
     };
     
-    res.status(200).json(stats);
+    // Préparer la réponse
+    const response = {
+      totalUsers,
+      activeUsers,
+      totalModules,
+      totalSeances,
+      recentActivity,
+      recentModules,
+      recentSeances
+    };
+
+    // Log de la réponse pour débogage
+    logger.debug('Réponse des statistiques administrateur:', response);
+
+    // Envoyer la réponse
+    res.json(response);
   } catch (error) {
-    logger.error(`Erreur lors de la récupération des statistiques du tableau de bord: ${error.message}`);
-    res.status(500).json({
-      error: 'Erreur serveur',
-      message: 'Une erreur est survenue lors de la récupération des statistiques du tableau de bord'
-    });
+    logger.error('Erreur lors de la récupération des statistiques administrateur:', error);
+    res.status(500).json({ error: 'Erreur serveur' });
   }
 };
 

@@ -1,0 +1,10 @@
+Tentative de connexion à la base de données avec les paramètres suivants:
+- Base de données: audacieuses_db
+- Utilisateur: root
+- Mot de passe: Non défini
+- Hôte: localhost
+
+Environnement: development
+Executing (default): SELECT 1+1 AS result
+
+✅ SUCCÈS: Connexion à la base de données établie avec succès.

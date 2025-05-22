@@ -1,0 +1,38 @@
+[2025-05-22 12:21:18] ERROR: uncaughtException: listen EADDRINUSE: address already in use :::3000
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1937:16)
+    at listenInCluster (node:net:1994:12)
+    at Server.listen (node:net:2099:7)
+    at C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\src\app.js:602:12
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-05-22 12:22:02] ERROR: uncaughtException: listen EADDRINUSE: address already in use :::3000
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1937:16)
+    at listenInCluster (node:net:1994:12)
+    at Server.listen (node:net:2099:7)
+    at C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\src\app.js:602:12
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-05-22 14:04:33] ERROR: uncaughtException: Router.use() requires a middleware function but got a Object
+TypeError: Router.use() requires a middleware function but got a Object
+    at Function.use (C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\node_modules\express\lib\router\index.js:469:13)
+    at Function.<anonymous> (C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\node_modules\express\lib\application.js:227:21)
+    at Array.forEach (<anonymous>)
+    at Function.use (C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\node_modules\express\lib\application.js:224:7)
+    at Object.<anonymous> (C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\src\app.js:130:5)
+    at Module._compile (node:internal/modules/cjs/loader:1554:14)
+    at Object..js (node:internal/modules/cjs/loader:1706:10)
+    at Module.load (node:internal/modules/cjs/loader:1289:32)
+    at Function._load (node:internal/modules/cjs/loader:1108:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-05-22 14:04:57] ERROR: uncaughtException: Router.use() requires a middleware function but got a Object
+TypeError: Router.use() requires a middleware function but got a Object
+    at Function.use (C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\node_modules\express\lib\router\index.js:469:13)
+    at Function.<anonymous> (C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\node_modules\express\lib\application.js:227:21)
+    at Array.forEach (<anonymous>)
+    at Function.use (C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\node_modules\express\lib\application.js:224:7)
+    at Object.<anonymous> (C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\src\app.js:130:5)
+    at Module._compile (node:internal/modules/cjs/loader:1554:14)
+    at Object..js (node:internal/modules/cjs/loader:1706:10)
+    at Module.load (node:internal/modules/cjs/loader:1289:32)
+    at Function._load (node:internal/modules/cjs/loader:1108:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)

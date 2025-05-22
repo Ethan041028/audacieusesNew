@@ -20,15 +20,52 @@ services:
     autoDeploy: true
     plan: free
 
-  # Service API PHP
+  # Service API Node.js
   - type: web
     name: audacieuses-api
-    env: php
+    env: node
     buildCommand: |
-      composer install --no-dev
-    startCommand: php -S 0.0.0.0:$PORT public/index.php
+      cd AudacieusesAPI
+      npm install
+    startCommand: |
+      cd AudacieusesAPI
+      npm start
     envVars:
-      - key: PHP_VERSION
+      - key: NODE_VERSION
+        value: 20.11.1
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: JWT_SECRET
+        sync: false
+      - key: DB_HOST
+        fromDatabase:
+          name: audacieuses-db
+          property: host
+      - key: DB_NAME
+        fromDatabase:
+          name: audacieuses-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: audacieuses-db
+          property: user
+      - key: DB_PASSWORD
+        fromDatabase:
+          name: audacieuses-db
+          property: password
+      - key: FRONTEND_URL
+        value: https://audacieuses-web.onrender.com
+    healthCheckPath: /api/health
+    autoDeploy: true
+    plan: free
+
+  # Base de données MySQL
+databases:
+  - name: audacieuses-db
+    plan: free
+    type: mysql
         value: 8.2.0
       - key: DB_HOST
         value: ${DB_HOST}

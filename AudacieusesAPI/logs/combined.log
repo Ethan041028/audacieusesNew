@@ -4252,3 +4252,1496 @@ Utilisateur jason.jako.57@gmail.com authentifié avec le rôle: admin_plus
 [2025-05-21 16:06:03] INFO: [isAdmin] Rôle utilisateur détecté: nom=admin_plus
 [2025-05-21 16:06:03] INFO: [isAdmin] Accès admin autorisé pour l'utilisateur 5
 [2025-05-21 16:06:03] INFO: ::1 - - [21/May/2025:14:06:03 +0000] "GET /api/admin/stats HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 11:49:29] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 11:49:29] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 11:49:29] INFO: Table activites existe.
+[2025-05-22 11:49:29] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 11:49:29] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 11:49:29] INFO: Table users existe.
+[2025-05-22 11:49:29] INFO: Table users contient 12 enregistrements.
+[2025-05-22 11:49:29] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 11:49:29] INFO: Table status_suivi existe.
+[2025-05-22 11:49:29] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 11:49:29] INFO: Table evenements existe.
+[2025-05-22 11:49:29] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 11:49:29] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 11:49:29] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 11:49:29] INFO: Synchronisation du modèle Role...
+[2025-05-22 11:49:29] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 11:49:29] INFO: Synchronisation du modèle User...
+[2025-05-22 11:49:29] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 11:49:29] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 11:49:29] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 11:49:29] INFO: Synchronisation du modèle Module...
+[2025-05-22 11:49:29] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 11:49:29] INFO: Synchronisation du modèle Seance...
+[2025-05-22 11:49:29] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 11:49:29] INFO: Synchronisation du modèle Activite...
+[2025-05-22 11:49:29] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 11:49:29] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 11:49:29] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 11:49:29] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 11:49:29] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 11:49:29] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 11:49:29] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 11:49:29] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 11:49:29] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 11:49:29] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 11:49:30] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 11:49:30] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 11:49:30] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 11:49:30] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 11:49:30] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 11:49:30] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 11:49:34] INFO: Nouvelle connexion socket: k2Y-uPbSdrNQrpSjAAAB pour l'utilisateur 11
+[2025-05-22 12:06:59] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 12:06:59] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 12:06:59] INFO: Table activites existe.
+[2025-05-22 12:06:59] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 12:06:59] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 12:06:59] INFO: Table users existe.
+[2025-05-22 12:06:59] INFO: Table users contient 12 enregistrements.
+[2025-05-22 12:06:59] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 12:06:59] INFO: Table status_suivi existe.
+[2025-05-22 12:06:59] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 12:06:59] INFO: Table evenements existe.
+[2025-05-22 12:06:59] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 12:06:59] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 12:06:59] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 12:06:59] INFO: Synchronisation du modèle Role...
+[2025-05-22 12:06:59] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 12:06:59] INFO: Synchronisation du modèle User...
+[2025-05-22 12:06:59] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 12:06:59] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 12:06:59] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 12:06:59] INFO: Synchronisation du modèle Module...
+[2025-05-22 12:06:59] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 12:06:59] INFO: Synchronisation du modèle Seance...
+[2025-05-22 12:06:59] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 12:06:59] INFO: Synchronisation du modèle Activite...
+[2025-05-22 12:06:59] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 12:06:59] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 12:06:59] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 12:06:59] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 12:06:59] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 12:06:59] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 12:06:59] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 12:06:59] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 12:06:59] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 12:06:59] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 12:07:00] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 12:07:00] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 12:07:00] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 12:07:00] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 12:07:00] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 12:07:00] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 12:07:00] INFO: Nouvelle connexion socket: IK6MstTuiU_KHlDqAAAB pour l'utilisateur 11
+[2025-05-22 12:07:30] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 12:07:30] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 12:07:30] INFO: Table activites existe.
+[2025-05-22 12:07:30] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 12:07:30] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 12:07:30] INFO: Table users existe.
+[2025-05-22 12:07:30] INFO: Table users contient 12 enregistrements.
+[2025-05-22 12:07:30] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 12:07:30] INFO: Table status_suivi existe.
+[2025-05-22 12:07:30] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 12:07:30] INFO: Table evenements existe.
+[2025-05-22 12:07:30] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 12:07:30] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 12:07:30] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 12:07:30] INFO: Synchronisation du modèle Role...
+[2025-05-22 12:07:30] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 12:07:30] INFO: Synchronisation du modèle User...
+[2025-05-22 12:07:30] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 12:07:30] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 12:07:30] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 12:07:30] INFO: Synchronisation du modèle Module...
+[2025-05-22 12:07:30] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 12:07:30] INFO: Synchronisation du modèle Seance...
+[2025-05-22 12:07:30] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 12:07:30] INFO: Synchronisation du modèle Activite...
+[2025-05-22 12:07:30] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 12:07:30] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 12:07:30] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 12:07:30] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 12:07:30] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 12:07:30] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 12:07:30] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 12:07:30] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 12:07:30] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 12:07:30] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 12:07:30] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 12:07:30] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 12:07:30] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 12:07:30] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 12:07:30] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 12:07:30] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 12:07:30] INFO: Nouvelle connexion socket: hmgkdAm_KGMgJTcAAAAB pour l'utilisateur 11
+[2025-05-22 12:11:24] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 12:11:24] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 12:11:24] INFO: Table activites existe.
+[2025-05-22 12:11:24] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 12:11:24] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 12:11:24] INFO: Table users existe.
+[2025-05-22 12:11:24] INFO: Table users contient 12 enregistrements.
+[2025-05-22 12:11:24] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 12:11:24] INFO: Table status_suivi existe.
+[2025-05-22 12:11:24] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 12:11:24] INFO: Table evenements existe.
+[2025-05-22 12:11:24] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 12:11:24] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 12:11:24] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 12:11:24] INFO: Synchronisation du modèle Role...
+[2025-05-22 12:11:24] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 12:11:24] INFO: Synchronisation du modèle User...
+[2025-05-22 12:11:24] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 12:11:24] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 12:11:24] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 12:11:24] INFO: Synchronisation du modèle Module...
+[2025-05-22 12:11:24] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 12:11:24] INFO: Synchronisation du modèle Seance...
+[2025-05-22 12:11:24] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 12:11:24] INFO: Synchronisation du modèle Activite...
+[2025-05-22 12:11:24] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 12:11:24] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 12:11:24] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 12:11:24] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 12:11:24] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 12:11:24] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 12:11:24] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 12:11:24] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 12:11:24] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 12:11:24] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 12:11:24] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 12:11:24] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 12:11:24] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 12:11:24] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 12:11:24] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 12:11:24] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 12:11:24] INFO: Nouvelle connexion socket: 9lEAqDEgSGvCtPLAAAAB pour l'utilisateur 11
+[2025-05-22 12:12:10] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 12:12:11] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 12:12:11] INFO: Table activites existe.
+[2025-05-22 12:12:11] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 12:12:11] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 12:12:11] INFO: Table users existe.
+[2025-05-22 12:12:11] INFO: Table users contient 12 enregistrements.
+[2025-05-22 12:12:11] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 12:12:11] INFO: Table status_suivi existe.
+[2025-05-22 12:12:11] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 12:12:11] INFO: Table evenements existe.
+[2025-05-22 12:12:11] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 12:12:11] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 12:12:11] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 12:12:11] INFO: Synchronisation du modèle Role...
+[2025-05-22 12:12:11] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 12:12:11] INFO: Synchronisation du modèle User...
+[2025-05-22 12:12:11] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 12:12:11] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 12:12:11] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 12:12:11] INFO: Synchronisation du modèle Module...
+[2025-05-22 12:12:11] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 12:12:11] INFO: Synchronisation du modèle Seance...
+[2025-05-22 12:12:11] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 12:12:11] INFO: Synchronisation du modèle Activite...
+[2025-05-22 12:12:11] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 12:12:11] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 12:12:11] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 12:12:11] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 12:12:11] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 12:12:11] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 12:12:11] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 12:12:11] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 12:12:11] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 12:12:11] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 12:12:11] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 12:12:11] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 12:12:11] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 12:12:11] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 12:12:11] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 12:12:11] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 12:12:11] INFO: Nouvelle connexion socket: rdQo5UHMvGqwrr1HAAAB pour l'utilisateur 11
+[2025-05-22 12:12:28] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 12:12:28] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 12:12:28] INFO: Table activites existe.
+[2025-05-22 12:12:28] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 12:12:28] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 12:12:28] INFO: Table users existe.
+[2025-05-22 12:12:28] INFO: Table users contient 12 enregistrements.
+[2025-05-22 12:12:28] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 12:12:28] INFO: Table status_suivi existe.
+[2025-05-22 12:12:28] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 12:12:28] INFO: Table evenements existe.
+[2025-05-22 12:12:28] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 12:12:28] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 12:12:28] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 12:12:28] INFO: Synchronisation du modèle Role...
+[2025-05-22 12:12:28] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 12:12:28] INFO: Synchronisation du modèle User...
+[2025-05-22 12:12:28] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 12:12:28] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 12:12:28] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 12:12:28] INFO: Synchronisation du modèle Module...
+[2025-05-22 12:12:28] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 12:12:28] INFO: Synchronisation du modèle Seance...
+[2025-05-22 12:12:28] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 12:12:28] INFO: Synchronisation du modèle Activite...
+[2025-05-22 12:12:28] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 12:12:28] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 12:12:28] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 12:12:28] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 12:12:28] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 12:12:28] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 12:12:28] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 12:12:28] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 12:12:28] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 12:12:28] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 12:12:28] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 12:12:28] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 12:12:28] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 12:12:28] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 12:12:28] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 12:12:28] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 12:12:29] INFO: Nouvelle connexion socket: MzsRIOQ6rq2E_0THAAAB pour l'utilisateur 11
+[2025-05-22 12:12:40] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 12:12:40] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 12:12:40] INFO: Table activites existe.
+[2025-05-22 12:12:40] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 12:12:40] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 12:12:40] INFO: Table users existe.
+[2025-05-22 12:12:40] INFO: Table users contient 12 enregistrements.
+[2025-05-22 12:12:40] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 12:12:40] INFO: Table status_suivi existe.
+[2025-05-22 12:12:40] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 12:12:40] INFO: Table evenements existe.
+[2025-05-22 12:12:40] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 12:12:40] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 12:12:40] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 12:12:40] INFO: Synchronisation du modèle Role...
+[2025-05-22 12:12:40] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 12:12:40] INFO: Synchronisation du modèle User...
+[2025-05-22 12:12:40] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 12:12:40] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 12:12:40] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 12:12:40] INFO: Synchronisation du modèle Module...
+[2025-05-22 12:12:40] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 12:12:40] INFO: Synchronisation du modèle Seance...
+[2025-05-22 12:12:40] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 12:12:40] INFO: Synchronisation du modèle Activite...
+[2025-05-22 12:12:40] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 12:12:40] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 12:12:40] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 12:12:40] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 12:12:40] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 12:12:40] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 12:12:40] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 12:12:40] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 12:12:40] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 12:12:40] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 12:12:41] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 12:12:41] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 12:12:41] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 12:12:41] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 12:12:41] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 12:12:41] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 12:12:41] INFO: Nouvelle connexion socket: gg-_KDsJ75G15TLPAAAB pour l'utilisateur 11
+[2025-05-22 12:13:57] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 12:13:57] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 12:13:58] INFO: Table activites existe.
+[2025-05-22 12:13:58] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 12:13:58] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 12:13:58] INFO: Table users existe.
+[2025-05-22 12:13:58] INFO: Table users contient 12 enregistrements.
+[2025-05-22 12:13:58] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 12:13:58] INFO: Table status_suivi existe.
+[2025-05-22 12:13:58] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 12:13:58] INFO: Table evenements existe.
+[2025-05-22 12:13:58] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 12:13:58] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 12:13:58] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 12:13:58] INFO: Synchronisation du modèle Role...
+[2025-05-22 12:13:58] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 12:13:58] INFO: Synchronisation du modèle User...
+[2025-05-22 12:13:58] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 12:13:58] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 12:13:58] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 12:13:58] INFO: Synchronisation du modèle Module...
+[2025-05-22 12:13:58] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 12:13:58] INFO: Synchronisation du modèle Seance...
+[2025-05-22 12:13:58] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 12:13:58] INFO: Synchronisation du modèle Activite...
+[2025-05-22 12:13:58] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 12:13:58] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 12:13:58] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 12:13:58] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 12:13:58] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 12:13:58] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 12:13:58] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 12:13:58] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 12:13:58] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 12:13:58] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 12:13:58] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 12:13:58] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 12:13:58] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 12:13:58] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 12:13:58] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 12:13:58] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 12:13:58] INFO: Nouvelle connexion socket: J2v9P99Wgnx3MNVcAAAB pour l'utilisateur 11
+[2025-05-22 12:21:17] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 12:21:18] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 12:21:18] INFO: Table activites existe.
+[2025-05-22 12:21:18] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 12:21:18] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 12:21:18] INFO: Table users existe.
+[2025-05-22 12:21:18] INFO: Table users contient 12 enregistrements.
+[2025-05-22 12:21:18] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 12:21:18] INFO: Table status_suivi existe.
+[2025-05-22 12:21:18] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 12:21:18] INFO: Table evenements existe.
+[2025-05-22 12:21:18] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 12:21:18] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 12:21:18] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 12:21:18] INFO: Synchronisation du modèle Role...
+[2025-05-22 12:21:18] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 12:21:18] INFO: Synchronisation du modèle User...
+[2025-05-22 12:21:18] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 12:21:18] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 12:21:18] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 12:21:18] INFO: Synchronisation du modèle Module...
+[2025-05-22 12:21:18] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 12:21:18] INFO: Synchronisation du modèle Seance...
+[2025-05-22 12:21:18] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 12:21:18] INFO: Synchronisation du modèle Activite...
+[2025-05-22 12:21:18] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 12:21:18] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 12:21:18] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 12:21:18] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 12:21:18] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 12:21:18] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 12:21:18] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 12:21:18] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 12:21:18] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 12:21:18] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 12:21:18] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 12:21:18] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 12:21:18] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 12:22:01] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 12:22:01] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 12:22:01] INFO: Table activites existe.
+[2025-05-22 12:22:01] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 12:22:01] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 12:22:01] INFO: Table users existe.
+[2025-05-22 12:22:01] INFO: Table users contient 12 enregistrements.
+[2025-05-22 12:22:01] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 12:22:01] INFO: Table status_suivi existe.
+[2025-05-22 12:22:01] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 12:22:01] INFO: Table evenements existe.
+[2025-05-22 12:22:01] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 12:22:01] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 12:22:01] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 12:22:01] INFO: Synchronisation du modèle Role...
+[2025-05-22 12:22:01] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 12:22:01] INFO: Synchronisation du modèle User...
+[2025-05-22 12:22:01] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 12:22:02] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 12:22:02] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 12:22:02] INFO: Synchronisation du modèle Module...
+[2025-05-22 12:22:02] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 12:22:02] INFO: Synchronisation du modèle Seance...
+[2025-05-22 12:22:02] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 12:22:02] INFO: Synchronisation du modèle Activite...
+[2025-05-22 12:22:02] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 12:22:02] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 12:22:02] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 12:22:02] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 12:22:02] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 12:22:02] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 12:22:02] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 12:22:02] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 12:22:02] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 12:22:02] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 12:22:02] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 12:22:02] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 12:22:02] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 12:28:41] INFO: Socket déconnecté: J2v9P99Wgnx3MNVcAAAB
+[2025-05-22 13:34:26] INFO: Nouvelle connexion socket: PTcRdQX-pK53kkSLAAAD pour l'utilisateur 11
+[2025-05-22 13:35:24] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 13:35:24] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 13:35:24] INFO: Table activites existe.
+[2025-05-22 13:35:24] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 13:35:24] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 13:35:24] INFO: Table users existe.
+[2025-05-22 13:35:24] INFO: Table users contient 12 enregistrements.
+[2025-05-22 13:35:24] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 13:35:24] INFO: Table status_suivi existe.
+[2025-05-22 13:35:24] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 13:35:24] INFO: Table evenements existe.
+[2025-05-22 13:35:24] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 13:35:24] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 13:35:24] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 13:35:24] INFO: Synchronisation du modèle Role...
+[2025-05-22 13:35:24] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 13:35:24] INFO: Synchronisation du modèle User...
+[2025-05-22 13:35:24] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 13:35:24] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 13:35:24] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 13:35:24] INFO: Synchronisation du modèle Module...
+[2025-05-22 13:35:24] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 13:35:24] INFO: Synchronisation du modèle Seance...
+[2025-05-22 13:35:24] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 13:35:24] INFO: Synchronisation du modèle Activite...
+[2025-05-22 13:35:24] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 13:35:24] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 13:35:24] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 13:35:24] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 13:35:24] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 13:35:24] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 13:35:24] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 13:35:24] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 13:35:24] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 13:35:24] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 13:35:24] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 13:35:24] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 13:35:24] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 13:35:24] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 13:35:24] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 13:35:24] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 13:35:25] INFO: Nouvelle connexion socket: jtuVBkJLazZJFX0GAAAB pour l'utilisateur 11
+[2025-05-22 13:47:11] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 13:47:11] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 13:47:11] INFO: Table activites existe.
+[2025-05-22 13:47:11] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 13:47:11] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 13:47:11] INFO: Table users existe.
+[2025-05-22 13:47:11] INFO: Table users contient 12 enregistrements.
+[2025-05-22 13:47:12] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 13:47:12] INFO: Table status_suivi existe.
+[2025-05-22 13:47:12] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 13:47:12] INFO: Table evenements existe.
+[2025-05-22 13:47:12] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 13:47:12] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 13:47:12] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 13:47:12] INFO: Synchronisation du modèle Role...
+[2025-05-22 13:47:12] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 13:47:12] INFO: Synchronisation du modèle User...
+[2025-05-22 13:47:12] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 13:47:12] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 13:47:12] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 13:47:12] INFO: Synchronisation du modèle Module...
+[2025-05-22 13:47:12] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 13:47:12] INFO: Synchronisation du modèle Seance...
+[2025-05-22 13:47:12] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 13:47:12] INFO: Synchronisation du modèle Activite...
+[2025-05-22 13:47:12] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 13:47:12] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 13:47:12] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 13:47:12] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 13:47:12] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 13:47:12] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 13:47:12] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 13:47:12] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 13:47:12] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 13:47:12] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 13:47:12] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 13:47:12] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 13:47:12] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 13:47:12] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 13:47:12] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 13:47:12] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 13:47:12] INFO: Nouvelle connexion socket: CHc8H841IlY56u4hAAAB pour l'utilisateur 11
+[2025-05-22 13:47:27] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 13:47:27] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 13:47:27] INFO: Table activites existe.
+[2025-05-22 13:47:27] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 13:47:27] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 13:47:27] INFO: Table users existe.
+[2025-05-22 13:47:27] INFO: Table users contient 12 enregistrements.
+[2025-05-22 13:47:28] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 13:47:28] INFO: Table status_suivi existe.
+[2025-05-22 13:47:28] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 13:47:28] INFO: Table evenements existe.
+[2025-05-22 13:47:28] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 13:47:28] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 13:47:28] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 13:47:28] INFO: Synchronisation du modèle Role...
+[2025-05-22 13:47:28] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 13:47:28] INFO: Synchronisation du modèle User...
+[2025-05-22 13:47:28] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 13:47:28] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 13:47:28] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 13:47:28] INFO: Synchronisation du modèle Module...
+[2025-05-22 13:47:28] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 13:47:28] INFO: Synchronisation du modèle Seance...
+[2025-05-22 13:47:28] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 13:47:28] INFO: Synchronisation du modèle Activite...
+[2025-05-22 13:47:28] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 13:47:28] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 13:47:28] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 13:47:28] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 13:47:28] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 13:47:28] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 13:47:28] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 13:47:28] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 13:47:28] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 13:47:28] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 13:47:28] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 13:47:28] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 13:47:28] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 13:47:28] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 13:47:28] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 13:47:28] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 13:47:28] INFO: Nouvelle connexion socket: 27Y_WzdCh2zp8KcDAAAB pour l'utilisateur 11
+[2025-05-22 13:47:59] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 13:47:59] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 13:47:59] INFO: Table activites existe.
+[2025-05-22 13:47:59] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 13:47:59] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 13:47:59] INFO: Table users existe.
+[2025-05-22 13:47:59] INFO: Table users contient 12 enregistrements.
+[2025-05-22 13:47:59] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 13:47:59] INFO: Table status_suivi existe.
+[2025-05-22 13:47:59] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 13:47:59] INFO: Table evenements existe.
+[2025-05-22 13:47:59] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 13:47:59] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 13:47:59] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 13:47:59] INFO: Synchronisation du modèle Role...
+[2025-05-22 13:47:59] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 13:47:59] INFO: Synchronisation du modèle User...
+[2025-05-22 13:47:59] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 13:47:59] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 13:47:59] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 13:47:59] INFO: Synchronisation du modèle Module...
+[2025-05-22 13:47:59] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 13:47:59] INFO: Synchronisation du modèle Seance...
+[2025-05-22 13:47:59] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 13:47:59] INFO: Synchronisation du modèle Activite...
+[2025-05-22 13:47:59] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 13:47:59] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 13:47:59] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 13:47:59] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 13:47:59] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 13:47:59] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 13:47:59] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 13:47:59] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 13:47:59] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 13:47:59] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 13:47:59] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 13:47:59] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 13:47:59] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 13:47:59] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 13:47:59] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 13:47:59] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 13:47:59] INFO: Nouvelle connexion socket: dtdzdXFPgkux1CnCAAAB pour l'utilisateur 11
+[2025-05-22 13:51:10] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 13:51:10] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:10] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 13:51:10] INFO: Données utilisateur récupérées:
+[2025-05-22 13:51:10] INFO: - ID: 11
+[2025-05-22 13:51:10] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:10] INFO: - role_id depuis la table users: 2
+[2025-05-22 13:51:10] INFO: - role_id depuis la jointure: 2
+[2025-05-22 13:51:10] INFO: - role_nom: admin_plus
+[2025-05-22 13:51:10] INFO: - role_description: Super administrateur du système
+[2025-05-22 13:51:10] INFO: Objet utilisateur final construit:
+[2025-05-22 13:51:10] INFO: - ID: 11
+[2025-05-22 13:51:10] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:10] INFO: - Role.id: 2
+[2025-05-22 13:51:10] INFO: - Role.nom: admin_plus
+[2025-05-22 13:51:10] INFO: - Role.role_type: admin_plus
+[2025-05-22 13:51:10] INFO: - Role.description: Super administrateur du système
+[2025-05-22 13:51:10] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 13:51:10] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:10] INFO: [isAdmin] Vérification du rôle admin pour l'utilisateur ID=11, Rôle={"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}
+[2025-05-22 13:51:10] INFO: [isAdmin] Rôle utilisateur détecté: nom=admin_plus
+[2025-05-22 13:51:10] INFO: [isAdmin] Accès admin autorisé pour l'utilisateur 11
+[2025-05-22 13:51:10] INFO: ::1 - - [22/May/2025:11:51:10 +0000] "GET /api/admin/stats HTTP/1.1" 200 1424 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 13:51:32] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 13:51:32] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:32] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 13:51:32] INFO: Données utilisateur récupérées:
+[2025-05-22 13:51:32] INFO: - ID: 11
+[2025-05-22 13:51:32] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:32] INFO: - role_id depuis la table users: 2
+[2025-05-22 13:51:32] INFO: - role_id depuis la jointure: 2
+[2025-05-22 13:51:32] INFO: - role_nom: admin_plus
+[2025-05-22 13:51:32] INFO: - role_description: Super administrateur du système
+[2025-05-22 13:51:32] INFO: Objet utilisateur final construit:
+[2025-05-22 13:51:32] INFO: - ID: 11
+[2025-05-22 13:51:32] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:32] INFO: - Role.id: 2
+[2025-05-22 13:51:32] INFO: - Role.nom: admin_plus
+[2025-05-22 13:51:32] INFO: - Role.role_type: admin_plus
+[2025-05-22 13:51:32] INFO: - Role.description: Super administrateur du système
+[2025-05-22 13:51:32] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 13:51:32] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:32] INFO: [isAdmin] Vérification du rôle admin pour l'utilisateur ID=11, Rôle={"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}
+[2025-05-22 13:51:32] INFO: [isAdmin] Rôle utilisateur détecté: nom=admin_plus
+[2025-05-22 13:51:32] INFO: [isAdmin] Accès admin autorisé pour l'utilisateur 11
+[2025-05-22 13:51:32] INFO: ::1 - - [22/May/2025:11:51:32 +0000] "GET /api/admin/stats HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 13:51:36] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 13:51:36] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:36] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 13:51:36] INFO: Données utilisateur récupérées:
+[2025-05-22 13:51:36] INFO: - ID: 11
+[2025-05-22 13:51:36] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:36] INFO: - role_id depuis la table users: 2
+[2025-05-22 13:51:36] INFO: - role_id depuis la jointure: 2
+[2025-05-22 13:51:36] INFO: - role_nom: admin_plus
+[2025-05-22 13:51:36] INFO: - role_description: Super administrateur du système
+[2025-05-22 13:51:36] INFO: Objet utilisateur final construit:
+[2025-05-22 13:51:36] INFO: - ID: 11
+[2025-05-22 13:51:36] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:36] INFO: - Role.id: 2
+[2025-05-22 13:51:36] INFO: - Role.nom: admin_plus
+[2025-05-22 13:51:36] INFO: - Role.role_type: admin_plus
+[2025-05-22 13:51:36] INFO: - Role.description: Super administrateur du système
+[2025-05-22 13:51:36] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 13:51:36] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:36] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 13:51:36] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-22 13:51:36] INFO: - Méthode: GET
+[2025-05-22 13:51:36] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-22 13:51:36] INFO: - Paramètre statut reçu: ""
+[2025-05-22 13:51:36] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 13:51:36] INFO: - ID Utilisateur: 11
+[2025-05-22 13:51:36] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:36] INFO: - Rôle ID: 2
+[2025-05-22 13:51:36] INFO: - Rôle nom: admin_plus
+[2025-05-22 13:51:36] INFO: - Rôle type: admin_plus
+[2025-05-22 13:51:36] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 13:51:36] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 13:51:36] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 13:51:36] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 13:51:36] INFO: - Conditions WHERE construites: {}
+[2025-05-22 13:51:36] INFO: - Options de tri: date_creation desc
+[2025-05-22 13:51:36] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 13:51:36] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 13:51:36] INFO: - Détail des modules trouvés:
+[2025-05-22 13:51:36] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 13:51:36] INFO: ::1 - - [22/May/2025:11:51:36 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 200 1017 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 13:51:37] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 13:51:37] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:37] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 13:51:37] INFO: Données utilisateur récupérées:
+[2025-05-22 13:51:37] INFO: - ID: 11
+[2025-05-22 13:51:37] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:37] INFO: - role_id depuis la table users: 2
+[2025-05-22 13:51:37] INFO: - role_id depuis la jointure: 2
+[2025-05-22 13:51:37] INFO: - role_nom: admin_plus
+[2025-05-22 13:51:37] INFO: - role_description: Super administrateur du système
+[2025-05-22 13:51:37] INFO: Objet utilisateur final construit:
+[2025-05-22 13:51:37] INFO: - ID: 11
+[2025-05-22 13:51:37] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:37] INFO: - Role.id: 2
+[2025-05-22 13:51:37] INFO: - Role.nom: admin_plus
+[2025-05-22 13:51:37] INFO: - Role.role_type: admin_plus
+[2025-05-22 13:51:37] INFO: - Role.description: Super administrateur du système
+[2025-05-22 13:51:37] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 13:51:37] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:37] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 13:51:37] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-22 13:51:37] INFO: - Méthode: GET
+[2025-05-22 13:51:37] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-22 13:51:37] INFO: - Paramètre statut reçu: ""
+[2025-05-22 13:51:37] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 13:51:37] INFO: - ID Utilisateur: 11
+[2025-05-22 13:51:37] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:37] INFO: - Rôle ID: 2
+[2025-05-22 13:51:37] INFO: - Rôle nom: admin_plus
+[2025-05-22 13:51:37] INFO: - Rôle type: admin_plus
+[2025-05-22 13:51:37] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 13:51:37] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 13:51:37] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 13:51:37] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 13:51:37] INFO: - Conditions WHERE construites: {}
+[2025-05-22 13:51:37] INFO: - Options de tri: date_creation desc
+[2025-05-22 13:51:37] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 13:51:37] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 13:51:37] INFO: - Détail des modules trouvés:
+[2025-05-22 13:51:37] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 13:51:37] INFO: ::1 - - [22/May/2025:11:51:37 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 13:51:38] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 13:51:38] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:38] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 13:51:38] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 13:51:38] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:38] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 13:51:38] INFO: ::1 - - [22/May/2025:11:51:38 +0000] "GET /api/seances HTTP/1.1" 200 1562 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 13:51:38] INFO: Données utilisateur récupérées:
+[2025-05-22 13:51:38] INFO: - ID: 11
+[2025-05-22 13:51:38] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:38] INFO: - role_id depuis la table users: 2
+[2025-05-22 13:51:38] INFO: - role_id depuis la jointure: 2
+[2025-05-22 13:51:38] INFO: - role_nom: admin_plus
+[2025-05-22 13:51:38] INFO: - role_description: Super administrateur du système
+[2025-05-22 13:51:38] INFO: Objet utilisateur final construit:
+[2025-05-22 13:51:38] INFO: - ID: 11
+[2025-05-22 13:51:38] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:38] INFO: - Role.id: 2
+[2025-05-22 13:51:38] INFO: - Role.nom: admin_plus
+[2025-05-22 13:51:38] INFO: - Role.role_type: admin_plus
+[2025-05-22 13:51:38] INFO: - Role.description: Super administrateur du système
+[2025-05-22 13:51:38] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 13:51:38] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:38] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 13:51:38] INFO: - URL complète: http://localhost:3000/api/modules
+[2025-05-22 13:51:38] INFO: - Méthode: GET
+[2025-05-22 13:51:38] INFO: - Paramètres de requête: {}
+[2025-05-22 13:51:38] INFO: - Paramètre statut reçu: ""
+[2025-05-22 13:51:38] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 13:51:38] INFO: - ID Utilisateur: 11
+[2025-05-22 13:51:38] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:38] INFO: - Rôle ID: 2
+[2025-05-22 13:51:38] INFO: - Rôle nom: admin_plus
+[2025-05-22 13:51:38] INFO: - Rôle type: admin_plus
+[2025-05-22 13:51:38] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 13:51:38] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 13:51:38] INFO: Données utilisateur récupérées:
+[2025-05-22 13:51:38] INFO: - ID: 11
+[2025-05-22 13:51:38] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:38] INFO: - role_id depuis la table users: 2
+[2025-05-22 13:51:38] INFO: - role_id depuis la jointure: 2
+[2025-05-22 13:51:38] INFO: - role_nom: admin_plus
+[2025-05-22 13:51:38] INFO: - role_description: Super administrateur du système
+[2025-05-22 13:51:38] INFO: Objet utilisateur final construit:
+[2025-05-22 13:51:38] INFO: - ID: 11
+[2025-05-22 13:51:38] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:38] INFO: - Role.id: 2
+[2025-05-22 13:51:38] INFO: - Role.nom: admin_plus
+[2025-05-22 13:51:38] INFO: - Role.role_type: admin_plus
+[2025-05-22 13:51:38] INFO: - Role.description: Super administrateur du système
+[2025-05-22 13:51:38] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 13:51:38] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:38] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 13:51:38] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 13:51:38] INFO: - Conditions WHERE construites: {}
+[2025-05-22 13:51:38] INFO: - Options de tri: date_creation desc
+[2025-05-22 13:51:38] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 13:51:38] INFO: ::1 - - [22/May/2025:11:51:38 +0000] "GET /api/activites/types HTTP/1.1" 200 293 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 13:51:38] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 13:51:38] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:38] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 13:51:38] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 13:51:38] INFO: - Détail des modules trouvés:
+[2025-05-22 13:51:38] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 13:51:38] INFO: ::1 - - [22/May/2025:11:51:38 +0000] "GET /api/modules HTTP/1.1" 200 1017 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 13:51:38] INFO: Données utilisateur récupérées:
+[2025-05-22 13:51:38] INFO: - ID: 11
+[2025-05-22 13:51:38] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:38] INFO: - role_id depuis la table users: 2
+[2025-05-22 13:51:38] INFO: - role_id depuis la jointure: 2
+[2025-05-22 13:51:38] INFO: - role_nom: admin_plus
+[2025-05-22 13:51:38] INFO: - role_description: Super administrateur du système
+[2025-05-22 13:51:38] INFO: Objet utilisateur final construit:
+[2025-05-22 13:51:38] INFO: - ID: 11
+[2025-05-22 13:51:38] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:38] INFO: - Role.id: 2
+[2025-05-22 13:51:38] INFO: - Role.nom: admin_plus
+[2025-05-22 13:51:38] INFO: - Role.role_type: admin_plus
+[2025-05-22 13:51:38] INFO: - Role.description: Super administrateur du système
+[2025-05-22 13:51:38] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 13:51:38] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:38] INFO: ::1 - - [22/May/2025:11:51:38 +0000] "GET /api/activites/seance/10 HTTP/1.1" 200 1069 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 13:51:39] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 13:51:39] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:39] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 13:51:39] INFO: Données utilisateur récupérées:
+[2025-05-22 13:51:39] INFO: - ID: 11
+[2025-05-22 13:51:39] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:39] INFO: - role_id depuis la table users: 2
+[2025-05-22 13:51:39] INFO: - role_id depuis la jointure: 2
+[2025-05-22 13:51:39] INFO: - role_nom: admin_plus
+[2025-05-22 13:51:39] INFO: - role_description: Super administrateur du système
+[2025-05-22 13:51:39] INFO: Objet utilisateur final construit:
+[2025-05-22 13:51:39] INFO: - ID: 11
+[2025-05-22 13:51:39] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:39] INFO: - Role.id: 2
+[2025-05-22 13:51:39] INFO: - Role.nom: admin_plus
+[2025-05-22 13:51:39] INFO: - Role.role_type: admin_plus
+[2025-05-22 13:51:39] INFO: - Role.description: Super administrateur du système
+[2025-05-22 13:51:39] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 13:51:39] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:39] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 13:51:39] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-22 13:51:39] INFO: - Méthode: GET
+[2025-05-22 13:51:39] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-22 13:51:39] INFO: - Paramètre statut reçu: ""
+[2025-05-22 13:51:39] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 13:51:39] INFO: - ID Utilisateur: 11
+[2025-05-22 13:51:39] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:39] INFO: - Rôle ID: 2
+[2025-05-22 13:51:39] INFO: - Rôle nom: admin_plus
+[2025-05-22 13:51:39] INFO: - Rôle type: admin_plus
+[2025-05-22 13:51:39] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 13:51:39] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 13:51:39] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 13:51:39] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 13:51:39] INFO: - Conditions WHERE construites: {}
+[2025-05-22 13:51:39] INFO: - Options de tri: date_creation desc
+[2025-05-22 13:51:39] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 13:51:39] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 13:51:39] INFO: - Détail des modules trouvés:
+[2025-05-22 13:51:39] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 13:51:39] INFO: ::1 - - [22/May/2025:11:51:39 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 13:51:39] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 13:51:39] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:39] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 13:51:39] INFO: Données utilisateur récupérées:
+[2025-05-22 13:51:39] INFO: - ID: 11
+[2025-05-22 13:51:39] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:39] INFO: - role_id depuis la table users: 2
+[2025-05-22 13:51:39] INFO: - role_id depuis la jointure: 2
+[2025-05-22 13:51:39] INFO: - role_nom: admin_plus
+[2025-05-22 13:51:39] INFO: - role_description: Super administrateur du système
+[2025-05-22 13:51:39] INFO: Objet utilisateur final construit:
+[2025-05-22 13:51:39] INFO: - ID: 11
+[2025-05-22 13:51:39] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:39] INFO: - Role.id: 2
+[2025-05-22 13:51:39] INFO: - Role.nom: admin_plus
+[2025-05-22 13:51:39] INFO: - Role.role_type: admin_plus
+[2025-05-22 13:51:39] INFO: - Role.description: Super administrateur du système
+[2025-05-22 13:51:39] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 13:51:39] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:39] INFO: [isAdmin] Vérification du rôle admin pour l'utilisateur ID=11, Rôle={"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}
+[2025-05-22 13:51:39] INFO: [isAdmin] Rôle utilisateur détecté: nom=admin_plus
+[2025-05-22 13:51:39] INFO: [isAdmin] Accès admin autorisé pour l'utilisateur 11
+[2025-05-22 13:51:39] INFO: ::1 - - [22/May/2025:11:51:39 +0000] "GET /api/admin/stats HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 13:51:40] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 13:51:40] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:40] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 13:51:40] INFO: Données utilisateur récupérées:
+[2025-05-22 13:51:40] INFO: - ID: 11
+[2025-05-22 13:51:40] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:40] INFO: - role_id depuis la table users: 2
+[2025-05-22 13:51:40] INFO: - role_id depuis la jointure: 2
+[2025-05-22 13:51:40] INFO: - role_nom: admin_plus
+[2025-05-22 13:51:40] INFO: - role_description: Super administrateur du système
+[2025-05-22 13:51:40] INFO: Objet utilisateur final construit:
+[2025-05-22 13:51:40] INFO: - ID: 11
+[2025-05-22 13:51:40] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:40] INFO: - Role.id: 2
+[2025-05-22 13:51:40] INFO: - Role.nom: admin_plus
+[2025-05-22 13:51:40] INFO: - Role.role_type: admin_plus
+[2025-05-22 13:51:40] INFO: - Role.description: Super administrateur du système
+[2025-05-22 13:51:40] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 13:51:40] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:51:40] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 13:51:40] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-22 13:51:40] INFO: - Méthode: GET
+[2025-05-22 13:51:40] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-22 13:51:40] INFO: - Paramètre statut reçu: ""
+[2025-05-22 13:51:40] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 13:51:40] INFO: - ID Utilisateur: 11
+[2025-05-22 13:51:40] INFO: - Email: ethan@admin.com
+[2025-05-22 13:51:40] INFO: - Rôle ID: 2
+[2025-05-22 13:51:40] INFO: - Rôle nom: admin_plus
+[2025-05-22 13:51:40] INFO: - Rôle type: admin_plus
+[2025-05-22 13:51:40] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 13:51:40] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 13:51:40] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 13:51:40] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 13:51:40] INFO: - Conditions WHERE construites: {}
+[2025-05-22 13:51:40] INFO: - Options de tri: date_creation desc
+[2025-05-22 13:51:40] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 13:51:40] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 13:51:40] INFO: - Détail des modules trouvés:
+[2025-05-22 13:51:40] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 13:51:40] INFO: ::1 - - [22/May/2025:11:51:40 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 13:52:07] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 13:52:07] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:52:07] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 13:52:07] INFO: Données utilisateur récupérées:
+[2025-05-22 13:52:07] INFO: - ID: 11
+[2025-05-22 13:52:07] INFO: - Email: ethan@admin.com
+[2025-05-22 13:52:07] INFO: - role_id depuis la table users: 2
+[2025-05-22 13:52:07] INFO: - role_id depuis la jointure: 2
+[2025-05-22 13:52:07] INFO: - role_nom: admin_plus
+[2025-05-22 13:52:07] INFO: - role_description: Super administrateur du système
+[2025-05-22 13:52:07] INFO: Objet utilisateur final construit:
+[2025-05-22 13:52:07] INFO: - ID: 11
+[2025-05-22 13:52:07] INFO: - Email: ethan@admin.com
+[2025-05-22 13:52:07] INFO: - Role.id: 2
+[2025-05-22 13:52:07] INFO: - Role.nom: admin_plus
+[2025-05-22 13:52:07] INFO: - Role.role_type: admin_plus
+[2025-05-22 13:52:07] INFO: - Role.description: Super administrateur du système
+[2025-05-22 13:52:07] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 13:52:07] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:52:07] INFO: [isAdmin] Vérification du rôle admin pour l'utilisateur ID=11, Rôle={"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}
+[2025-05-22 13:52:07] INFO: [isAdmin] Rôle utilisateur détecté: nom=admin_plus
+[2025-05-22 13:52:07] INFO: [isAdmin] Accès admin autorisé pour l'utilisateur 11
+[2025-05-22 13:52:07] INFO: ::1 - - [22/May/2025:11:52:07 +0000] "GET /api/admin/stats HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 13:53:38] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 13:53:38] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:53:38] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 13:53:38] INFO: Données utilisateur récupérées:
+[2025-05-22 13:53:38] INFO: - ID: 11
+[2025-05-22 13:53:38] INFO: - Email: ethan@admin.com
+[2025-05-22 13:53:38] INFO: - role_id depuis la table users: 2
+[2025-05-22 13:53:38] INFO: - role_id depuis la jointure: 2
+[2025-05-22 13:53:38] INFO: - role_nom: admin_plus
+[2025-05-22 13:53:38] INFO: - role_description: Super administrateur du système
+[2025-05-22 13:53:38] INFO: Objet utilisateur final construit:
+[2025-05-22 13:53:38] INFO: - ID: 11
+[2025-05-22 13:53:38] INFO: - Email: ethan@admin.com
+[2025-05-22 13:53:38] INFO: - Role.id: 2
+[2025-05-22 13:53:38] INFO: - Role.nom: admin_plus
+[2025-05-22 13:53:38] INFO: - Role.role_type: admin_plus
+[2025-05-22 13:53:38] INFO: - Role.description: Super administrateur du système
+[2025-05-22 13:53:38] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 13:53:38] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:53:38] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 13:53:38] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-22 13:53:38] INFO: - Méthode: GET
+[2025-05-22 13:53:38] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-22 13:53:38] INFO: - Paramètre statut reçu: ""
+[2025-05-22 13:53:38] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 13:53:38] INFO: - ID Utilisateur: 11
+[2025-05-22 13:53:38] INFO: - Email: ethan@admin.com
+[2025-05-22 13:53:38] INFO: - Rôle ID: 2
+[2025-05-22 13:53:38] INFO: - Rôle nom: admin_plus
+[2025-05-22 13:53:38] INFO: - Rôle type: admin_plus
+[2025-05-22 13:53:38] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 13:53:38] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 13:53:38] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 13:53:38] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 13:53:38] INFO: - Conditions WHERE construites: {}
+[2025-05-22 13:53:38] INFO: - Options de tri: date_creation desc
+[2025-05-22 13:53:38] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 13:53:38] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 13:53:38] INFO: - Détail des modules trouvés:
+[2025-05-22 13:53:38] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 13:53:38] INFO: ::1 - - [22/May/2025:11:53:38 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 13:53:39] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 13:53:39] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:53:39] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 13:53:39] INFO: Données utilisateur récupérées:
+[2025-05-22 13:53:39] INFO: - ID: 11
+[2025-05-22 13:53:39] INFO: - Email: ethan@admin.com
+[2025-05-22 13:53:39] INFO: - role_id depuis la table users: 2
+[2025-05-22 13:53:39] INFO: - role_id depuis la jointure: 2
+[2025-05-22 13:53:39] INFO: - role_nom: admin_plus
+[2025-05-22 13:53:39] INFO: - role_description: Super administrateur du système
+[2025-05-22 13:53:39] INFO: Objet utilisateur final construit:
+[2025-05-22 13:53:39] INFO: - ID: 11
+[2025-05-22 13:53:39] INFO: - Email: ethan@admin.com
+[2025-05-22 13:53:39] INFO: - Role.id: 2
+[2025-05-22 13:53:39] INFO: - Role.nom: admin_plus
+[2025-05-22 13:53:39] INFO: - Role.role_type: admin_plus
+[2025-05-22 13:53:39] INFO: - Role.description: Super administrateur du système
+[2025-05-22 13:53:39] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 13:53:39] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:53:39] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 13:53:39] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-22 13:53:39] INFO: - Méthode: GET
+[2025-05-22 13:53:39] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-22 13:53:39] INFO: - Paramètre statut reçu: ""
+[2025-05-22 13:53:39] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 13:53:39] INFO: - ID Utilisateur: 11
+[2025-05-22 13:53:39] INFO: - Email: ethan@admin.com
+[2025-05-22 13:53:39] INFO: - Rôle ID: 2
+[2025-05-22 13:53:39] INFO: - Rôle nom: admin_plus
+[2025-05-22 13:53:39] INFO: - Rôle type: admin_plus
+[2025-05-22 13:53:39] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 13:53:39] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 13:53:39] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 13:53:39] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 13:53:39] INFO: - Conditions WHERE construites: {}
+[2025-05-22 13:53:39] INFO: - Options de tri: date_creation desc
+[2025-05-22 13:53:39] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 13:53:39] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 13:53:39] INFO: - Détail des modules trouvés:
+[2025-05-22 13:53:39] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 13:53:39] INFO: ::1 - - [22/May/2025:11:53:39 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 13:53:56] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 13:53:56] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:53:56] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 13:53:56] INFO: Données utilisateur récupérées:
+[2025-05-22 13:53:56] INFO: - ID: 11
+[2025-05-22 13:53:56] INFO: - Email: ethan@admin.com
+[2025-05-22 13:53:56] INFO: - role_id depuis la table users: 2
+[2025-05-22 13:53:56] INFO: - role_id depuis la jointure: 2
+[2025-05-22 13:53:56] INFO: - role_nom: admin_plus
+[2025-05-22 13:53:56] INFO: - role_description: Super administrateur du système
+[2025-05-22 13:53:56] INFO: Objet utilisateur final construit:
+[2025-05-22 13:53:56] INFO: - ID: 11
+[2025-05-22 13:53:56] INFO: - Email: ethan@admin.com
+[2025-05-22 13:53:56] INFO: - Role.id: 2
+[2025-05-22 13:53:56] INFO: - Role.nom: admin_plus
+[2025-05-22 13:53:56] INFO: - Role.role_type: admin_plus
+[2025-05-22 13:53:56] INFO: - Role.description: Super administrateur du système
+[2025-05-22 13:53:56] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 13:53:56] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:53:56] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 13:53:56] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-22 13:53:56] INFO: - Méthode: GET
+[2025-05-22 13:53:56] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-22 13:53:56] INFO: - Paramètre statut reçu: ""
+[2025-05-22 13:53:56] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 13:53:56] INFO: - ID Utilisateur: 11
+[2025-05-22 13:53:56] INFO: - Email: ethan@admin.com
+[2025-05-22 13:53:56] INFO: - Rôle ID: 2
+[2025-05-22 13:53:56] INFO: - Rôle nom: admin_plus
+[2025-05-22 13:53:56] INFO: - Rôle type: admin_plus
+[2025-05-22 13:53:56] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 13:53:56] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 13:53:56] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 13:53:56] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 13:53:56] INFO: - Conditions WHERE construites: {}
+[2025-05-22 13:53:56] INFO: - Options de tri: date_creation desc
+[2025-05-22 13:53:56] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 13:53:56] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 13:53:56] INFO: - Détail des modules trouvés:
+[2025-05-22 13:53:56] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 13:53:56] INFO: ::1 - - [22/May/2025:11:53:56 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 13:53:58] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 13:53:58] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:53:58] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 13:53:58] INFO: Données utilisateur récupérées:
+[2025-05-22 13:53:58] INFO: - ID: 11
+[2025-05-22 13:53:58] INFO: - Email: ethan@admin.com
+[2025-05-22 13:53:58] INFO: - role_id depuis la table users: 2
+[2025-05-22 13:53:58] INFO: - role_id depuis la jointure: 2
+[2025-05-22 13:53:58] INFO: - role_nom: admin_plus
+[2025-05-22 13:53:58] INFO: - role_description: Super administrateur du système
+[2025-05-22 13:53:58] INFO: Objet utilisateur final construit:
+[2025-05-22 13:53:58] INFO: - ID: 11
+[2025-05-22 13:53:58] INFO: - Email: ethan@admin.com
+[2025-05-22 13:53:58] INFO: - Role.id: 2
+[2025-05-22 13:53:58] INFO: - Role.nom: admin_plus
+[2025-05-22 13:53:58] INFO: - Role.role_type: admin_plus
+[2025-05-22 13:53:58] INFO: - Role.description: Super administrateur du système
+[2025-05-22 13:53:58] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 13:53:58] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 13:53:58] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 13:53:58] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-22 13:53:58] INFO: - Méthode: GET
+[2025-05-22 13:53:58] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-22 13:53:58] INFO: - Paramètre statut reçu: ""
+[2025-05-22 13:53:58] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 13:53:58] INFO: - ID Utilisateur: 11
+[2025-05-22 13:53:58] INFO: - Email: ethan@admin.com
+[2025-05-22 13:53:58] INFO: - Rôle ID: 2
+[2025-05-22 13:53:58] INFO: - Rôle nom: admin_plus
+[2025-05-22 13:53:58] INFO: - Rôle type: admin_plus
+[2025-05-22 13:53:58] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 13:53:58] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 13:53:58] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 13:53:58] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 13:53:58] INFO: - Conditions WHERE construites: {}
+[2025-05-22 13:53:58] INFO: - Options de tri: date_creation desc
+[2025-05-22 13:53:58] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 13:53:58] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 13:53:58] INFO: - Détail des modules trouvés:
+[2025-05-22 13:53:58] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 13:53:58] INFO: ::1 - - [22/May/2025:11:53:58 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 14:01:42] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 14:01:42] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 14:01:42] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 14:01:42] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 14:01:42] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 14:01:42] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 14:01:42] INFO: ::1 - - [22/May/2025:12:01:42 +0000] "GET /api/seances HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 14:01:43] INFO: Données utilisateur récupérées:
+[2025-05-22 14:01:43] INFO: - ID: 11
+[2025-05-22 14:01:43] INFO: - Email: ethan@admin.com
+[2025-05-22 14:01:43] INFO: - role_id depuis la table users: 2
+[2025-05-22 14:01:43] INFO: - role_id depuis la jointure: 2
+[2025-05-22 14:01:43] INFO: - role_nom: admin_plus
+[2025-05-22 14:01:43] INFO: - role_description: Super administrateur du système
+[2025-05-22 14:01:43] INFO: Objet utilisateur final construit:
+[2025-05-22 14:01:43] INFO: - ID: 11
+[2025-05-22 14:01:43] INFO: - Email: ethan@admin.com
+[2025-05-22 14:01:43] INFO: - Role.id: 2
+[2025-05-22 14:01:43] INFO: - Role.nom: admin_plus
+[2025-05-22 14:01:43] INFO: - Role.role_type: admin_plus
+[2025-05-22 14:01:43] INFO: - Role.description: Super administrateur du système
+[2025-05-22 14:01:43] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 14:01:43] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 14:01:43] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 14:01:43] INFO: - URL complète: http://localhost:3000/api/modules
+[2025-05-22 14:01:43] INFO: - Méthode: GET
+[2025-05-22 14:01:43] INFO: - Paramètres de requête: {}
+[2025-05-22 14:01:43] INFO: - Paramètre statut reçu: ""
+[2025-05-22 14:01:43] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 14:01:43] INFO: - ID Utilisateur: 11
+[2025-05-22 14:01:43] INFO: - Email: ethan@admin.com
+[2025-05-22 14:01:43] INFO: - Rôle ID: 2
+[2025-05-22 14:01:43] INFO: - Rôle nom: admin_plus
+[2025-05-22 14:01:43] INFO: - Rôle type: admin_plus
+[2025-05-22 14:01:43] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 14:01:43] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 14:01:43] INFO: Données utilisateur récupérées:
+[2025-05-22 14:01:43] INFO: - ID: 11
+[2025-05-22 14:01:43] INFO: - Email: ethan@admin.com
+[2025-05-22 14:01:43] INFO: - role_id depuis la table users: 2
+[2025-05-22 14:01:43] INFO: - role_id depuis la jointure: 2
+[2025-05-22 14:01:43] INFO: - role_nom: admin_plus
+[2025-05-22 14:01:43] INFO: - role_description: Super administrateur du système
+[2025-05-22 14:01:43] INFO: Objet utilisateur final construit:
+[2025-05-22 14:01:43] INFO: - ID: 11
+[2025-05-22 14:01:43] INFO: - Email: ethan@admin.com
+[2025-05-22 14:01:43] INFO: - Role.id: 2
+[2025-05-22 14:01:43] INFO: - Role.nom: admin_plus
+[2025-05-22 14:01:43] INFO: - Role.role_type: admin_plus
+[2025-05-22 14:01:43] INFO: - Role.description: Super administrateur du système
+[2025-05-22 14:01:43] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 14:01:43] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 14:01:43] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 14:01:43] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 14:01:43] INFO: - Conditions WHERE construites: {}
+[2025-05-22 14:01:43] INFO: - Options de tri: date_creation desc
+[2025-05-22 14:01:43] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 14:01:43] INFO: ::1 - - [22/May/2025:12:01:43 +0000] "GET /api/activites/types HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 14:01:43] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 14:01:43] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 14:01:43] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 14:01:43] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 14:01:43] INFO: - Détail des modules trouvés:
+[2025-05-22 14:01:43] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 14:01:43] INFO: ::1 - - [22/May/2025:12:01:43 +0000] "GET /api/modules HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 14:01:43] INFO: Données utilisateur récupérées:
+[2025-05-22 14:01:43] INFO: - ID: 11
+[2025-05-22 14:01:43] INFO: - Email: ethan@admin.com
+[2025-05-22 14:01:43] INFO: - role_id depuis la table users: 2
+[2025-05-22 14:01:43] INFO: - role_id depuis la jointure: 2
+[2025-05-22 14:01:43] INFO: - role_nom: admin_plus
+[2025-05-22 14:01:43] INFO: - role_description: Super administrateur du système
+[2025-05-22 14:01:43] INFO: Objet utilisateur final construit:
+[2025-05-22 14:01:43] INFO: - ID: 11
+[2025-05-22 14:01:43] INFO: - Email: ethan@admin.com
+[2025-05-22 14:01:43] INFO: - Role.id: 2
+[2025-05-22 14:01:43] INFO: - Role.nom: admin_plus
+[2025-05-22 14:01:43] INFO: - Role.role_type: admin_plus
+[2025-05-22 14:01:43] INFO: - Role.description: Super administrateur du système
+[2025-05-22 14:01:43] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 14:01:43] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 14:01:43] INFO: ::1 - - [22/May/2025:12:01:43 +0000] "GET /api/activites/seance/10 HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 14:01:43] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 14:01:43] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 14:01:43] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 14:01:43] INFO: Données utilisateur récupérées:
+[2025-05-22 14:01:43] INFO: - ID: 11
+[2025-05-22 14:01:43] INFO: - Email: ethan@admin.com
+[2025-05-22 14:01:43] INFO: - role_id depuis la table users: 2
+[2025-05-22 14:01:43] INFO: - role_id depuis la jointure: 2
+[2025-05-22 14:01:43] INFO: - role_nom: admin_plus
+[2025-05-22 14:01:43] INFO: - role_description: Super administrateur du système
+[2025-05-22 14:01:43] INFO: Objet utilisateur final construit:
+[2025-05-22 14:01:43] INFO: - ID: 11
+[2025-05-22 14:01:43] INFO: - Email: ethan@admin.com
+[2025-05-22 14:01:43] INFO: - Role.id: 2
+[2025-05-22 14:01:43] INFO: - Role.nom: admin_plus
+[2025-05-22 14:01:43] INFO: - Role.role_type: admin_plus
+[2025-05-22 14:01:43] INFO: - Role.description: Super administrateur du système
+[2025-05-22 14:01:43] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 14:01:43] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 14:01:43] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 14:01:43] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 14:01:43] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 14:01:43] INFO: ::1 - - [22/May/2025:12:01:43 +0000] "GET /api/seances HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 14:01:43] INFO: ::1 - - [22/May/2025:12:01:43 +0000] "GET /api/activites/types HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 14:01:43] INFO: Données utilisateur récupérées:
+[2025-05-22 14:01:43] INFO: - ID: 11
+[2025-05-22 14:01:43] INFO: - Email: ethan@admin.com
+[2025-05-22 14:01:43] INFO: - role_id depuis la table users: 2
+[2025-05-22 14:01:43] INFO: - role_id depuis la jointure: 2
+[2025-05-22 14:01:43] INFO: - role_nom: admin_plus
+[2025-05-22 14:01:43] INFO: - role_description: Super administrateur du système
+[2025-05-22 14:01:43] INFO: Objet utilisateur final construit:
+[2025-05-22 14:01:43] INFO: - ID: 11
+[2025-05-22 14:01:43] INFO: - Email: ethan@admin.com
+[2025-05-22 14:01:43] INFO: - Role.id: 2
+[2025-05-22 14:01:43] INFO: - Role.nom: admin_plus
+[2025-05-22 14:01:43] INFO: - Role.role_type: admin_plus
+[2025-05-22 14:01:43] INFO: - Role.description: Super administrateur du système
+[2025-05-22 14:01:43] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 14:01:43] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 14:01:43] INFO: ::1 - - [22/May/2025:12:01:43 +0000] "GET /api/activites HTTP/1.1" 200 2217 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 14:04:10] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 14:04:10] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 14:04:10] INFO: Table activites existe.
+[2025-05-22 14:04:10] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 14:04:10] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 14:04:10] INFO: Table users existe.
+[2025-05-22 14:04:10] INFO: Table users contient 12 enregistrements.
+[2025-05-22 14:04:11] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 14:04:11] INFO: Table status_suivi existe.
+[2025-05-22 14:04:11] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 14:04:11] INFO: Table evenements existe.
+[2025-05-22 14:04:11] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 14:04:11] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 14:04:11] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 14:04:11] INFO: Synchronisation du modèle Role...
+[2025-05-22 14:04:11] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 14:04:11] INFO: Synchronisation du modèle User...
+[2025-05-22 14:04:11] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 14:04:11] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 14:04:11] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 14:04:11] INFO: Synchronisation du modèle Module...
+[2025-05-22 14:04:11] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 14:04:11] INFO: Synchronisation du modèle Seance...
+[2025-05-22 14:04:11] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 14:04:11] INFO: Synchronisation du modèle Activite...
+[2025-05-22 14:04:11] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 14:04:11] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 14:04:11] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 14:04:11] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 14:04:11] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 14:04:11] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 14:04:11] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 14:04:11] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 14:04:11] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 14:04:11] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 14:04:11] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 14:04:11] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 14:04:11] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 14:04:11] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 14:04:11] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 14:04:11] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 14:04:11] INFO: Nouvelle connexion socket: RdU9nmDDBCcBhJOjAAAB pour l'utilisateur 11
+[2025-05-22 14:04:33] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 14:04:57] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 14:05:28] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 14:05:28] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 14:05:28] INFO: Table activites existe.
+[2025-05-22 14:05:28] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 14:05:28] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 14:05:28] INFO: Table users existe.
+[2025-05-22 14:05:28] INFO: Table users contient 12 enregistrements.
+[2025-05-22 14:05:28] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 14:05:28] INFO: Table status_suivi existe.
+[2025-05-22 14:05:28] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 14:05:28] INFO: Table evenements existe.
+[2025-05-22 14:05:28] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 14:05:28] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 14:05:28] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 14:05:28] INFO: Synchronisation du modèle Role...
+[2025-05-22 14:05:28] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 14:05:28] INFO: Synchronisation du modèle User...
+[2025-05-22 14:05:28] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 14:05:28] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 14:05:28] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 14:05:28] INFO: Synchronisation du modèle Module...
+[2025-05-22 14:05:28] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 14:05:28] INFO: Synchronisation du modèle Seance...
+[2025-05-22 14:05:28] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 14:05:28] INFO: Synchronisation du modèle Activite...
+[2025-05-22 14:05:28] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 14:05:28] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 14:05:28] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 14:05:28] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 14:05:28] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 14:05:28] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 14:05:28] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 14:05:28] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 14:05:28] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 14:05:28] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 14:05:28] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 14:05:28] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 14:05:28] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 14:05:28] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 14:05:28] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 14:05:28] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 14:05:33] INFO: Nouvelle connexion socket: UhYL2tVjAFD4-9KJAAAB pour l'utilisateur 11

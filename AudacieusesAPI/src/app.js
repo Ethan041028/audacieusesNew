@@ -20,6 +20,7 @@ const seanceRoutes = require('./routes/seanceRoutes');
 const evenementRoutes = require('./routes/evenementRoutes'); // Importation des routes d'événements
 const adminRoutes = require('./routes/adminRoutes'); // Importation des routes d'administration
 const activiteRoutes = require('./routes/activiteRoutes'); // Importation des routes d'activités
+const healthRoutes = require('./routes/healthRoutes'); // Importation des routes de vérification de santé
 
 // Configuration de l'application Express
 const app = express();
@@ -126,8 +127,9 @@ app.use('/api/seances', seanceRoutes);
 app.use('/api/evenements', evenementRoutes); // Ajout des routes d'événements
 app.use('/api/admin', adminRoutes); // Ajout des routes d'administration
 app.use('/api/activites', activiteRoutes); // Ajout des routes d'activités
+app.use('/api', healthRoutes); // Ajout des routes de vérification de santé
 
-// Route pour la documentation API avec Swagger
+// Documentation Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Route par défaut pour tester si le serveur est en cours d'exécution
