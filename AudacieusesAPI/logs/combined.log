@@ -5745,3 +5745,45 @@ Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
 [2025-05-22 14:05:28] INFO: Documentation API disponible sur http://localhost:3000/api-docs
 [2025-05-22 14:05:28] INFO: Socket.IO initialisé et prêt à recevoir des connexions
 [2025-05-22 14:05:33] INFO: Nouvelle connexion socket: UhYL2tVjAFD4-9KJAAAB pour l'utilisateur 11
+[2025-05-22 14:08:52] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 14:08:53] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 14:08:53] INFO: Table activites existe.
+[2025-05-22 14:08:53] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 14:08:53] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 14:08:53] INFO: Table users existe.
+[2025-05-22 14:08:53] INFO: Table users contient 12 enregistrements.
+[2025-05-22 14:08:53] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 14:08:53] INFO: Table status_suivi existe.
+[2025-05-22 14:08:53] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 14:08:53] INFO: Table evenements existe.
+[2025-05-22 14:08:53] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 14:08:53] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle Role...
+[2025-05-22 14:08:53] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle User...
+[2025-05-22 14:08:53] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 14:08:53] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 14:08:53] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle Module...
+[2025-05-22 14:08:53] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle Seance...
+[2025-05-22 14:08:53] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle Activite...
+[2025-05-22 14:08:53] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 14:08:53] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 14:08:53] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 14:08:53] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 14:08:53] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 14:08:53] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 14:08:53] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 14:08:53] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 14:08:53] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 14:08:53] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 14:08:53] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 14:08:53] INFO: Nouvelle connexion socket: 0maUpgf7PnvN7CSfAAAB pour l'utilisateur 11

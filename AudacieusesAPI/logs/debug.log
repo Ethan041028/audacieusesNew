@@ -8340,3 +8340,106 @@ Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
 [2025-05-22 14:05:28] INFO: Documentation API disponible sur http://localhost:3000/api-docs
 [2025-05-22 14:05:28] INFO: Socket.IO initialisé et prêt à recevoir des connexions
 [2025-05-22 14:05:33] INFO: Nouvelle connexion socket: UhYL2tVjAFD4-9KJAAAB pour l'utilisateur 11
+[2025-05-22 14:08:52] DEBUG: Journalisation initialisée en mode développement
+[2025-05-22 14:08:52] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT 1+1 AS result
+[2025-05-22 14:08:53] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'type_activites' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SHOW INDEX FROM `type_activites`
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'roles' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SHOW INDEX FROM `roles`
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'users' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SHOW INDEX FROM `users`
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'modules' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SHOW INDEX FROM `modules`
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'seances' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SHOW INDEX FROM `seances`
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'activites' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SHOW INDEX FROM `activites`
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `type_activites` AS `TypeActivite`;
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `roles` AS `Role`;
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT 1 FROM information_schema.tables WHERE table_schema = 'audacieuses_db' AND table_name = 'activites'
+[2025-05-22 14:08:53] INFO: Table activites existe.
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT 1 FROM information_schema.columns WHERE table_schema = 'audacieuses_db' AND table_name = 'activites' AND column_name = 'type_activite_id'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT COUNT(*) as count FROM activites
+[2025-05-22 14:08:53] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT `id`, `type_activite`, `couleur` FROM `type_activites` AS `TypeActivite` WHERE `TypeActivite`.`type_activite` = 'Quiz';
+[2025-05-22 14:08:53] DEBUG: Executing (default): UPDATE activites SET type_activite_id = 2 WHERE type_activite_id IS NULL OR type_activite_id = 0
+[2025-05-22 14:08:53] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT 1 FROM information_schema.tables WHERE table_schema = 'audacieuses_db' AND table_name = 'users'
+[2025-05-22 14:08:53] INFO: Table users existe.
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT 1 FROM information_schema.columns WHERE table_schema = 'audacieuses_db' AND table_name = 'users' AND column_name = 'mail'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT COUNT(*) as count FROM users
+[2025-05-22 14:08:53] INFO: Table users contient 12 enregistrements.
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT 1 FROM information_schema.columns WHERE table_schema = 'audacieuses_db' AND table_name = 'users' AND column_name = 'role_id'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = 'audacieuses_db' AND TABLE_NAME = 'users' AND COLUMN_NAME = 'role_id' AND REFERENCED_TABLE_NAME IS NOT NULL
+[2025-05-22 14:08:53] DEBUG: Executing (default): ALTER TABLE users ADD CONSTRAINT fk_users_role FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE NO ACTION ON UPDATE CASCADE
+[2025-05-22 14:08:53] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT 1 FROM information_schema.tables WHERE table_schema = 'audacieuses_db' AND table_name = 'status_suivi'
+[2025-05-22 14:08:53] INFO: Table status_suivi existe.
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT 1 FROM information_schema.columns WHERE table_schema = 'audacieuses_db' AND table_name = 'status_suivi' AND column_name = 'type_status'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT COUNT(*) as count FROM status_suivi
+[2025-05-22 14:08:53] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT 1 FROM information_schema.tables WHERE table_schema = 'audacieuses_db' AND table_name = 'evenements'
+[2025-05-22 14:08:53] INFO: Table evenements existe.
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT 1 FROM information_schema.columns WHERE table_schema = 'audacieuses_db' AND table_name = 'evenements' AND column_name = 'createur_id'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT COUNT(*) as count FROM evenements
+[2025-05-22 14:08:53] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'type_activites' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SHOW INDEX FROM `type_activites`
+[2025-05-22 14:08:53] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle Role...
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'roles' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SHOW INDEX FROM `roles`
+[2025-05-22 14:08:53] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle User...
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = 'audacieuses_db' AND TABLE_NAME = 'users' AND COLUMN_NAME = 'role_id' AND REFERENCED_TABLE_NAME IS NOT NULL
+[2025-05-22 14:08:53] DEBUG: Executing (default): ALTER TABLE users DROP FOREIGN KEY fk_users_role
+[2025-05-22 14:08:53] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 14:08:53] DEBUG: Executing (default): ALTER TABLE users CHANGE prenom prenom VARCHAR(50) NOT NULL
+[2025-05-22 14:08:53] DEBUG: Executing (default): ALTER TABLE users CHANGE nom nom VARCHAR(50) NOT NULL
+[2025-05-22 14:08:53] DEBUG: Executing (default): ALTER TABLE users CHANGE mail mail VARCHAR(50) NOT NULL UNIQUE
+[2025-05-22 14:08:53] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 14:08:53] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle Module...
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'modules' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SHOW INDEX FROM `modules`
+[2025-05-22 14:08:53] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle Seance...
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'seances' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SHOW INDEX FROM `seances`
+[2025-05-22 14:08:53] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle Activite...
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'activites' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SHOW INDEX FROM `activites`
+[2025-05-22 14:08:53] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'status_suivi' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SHOW INDEX FROM `status_suivi`
+[2025-05-22 14:08:53] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'suivi' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SHOW INDEX FROM `suivi`
+[2025-05-22 14:08:53] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'reponse_client' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SHOW INDEX FROM `reponse_client`
+[2025-05-22 14:08:53] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = 'audacieuses_db' AND TABLE_NAME = 'evenements' AND REFERENCED_TABLE_NAME IS NOT NULL
+[2025-05-22 14:08:53] DEBUG: Executing (default): ALTER TABLE evenements DROP FOREIGN KEY fk_evenements_seance
+[2025-05-22 14:08:53] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 14:08:53] DEBUG: Executing (default): ALTER TABLE evenements DROP FOREIGN KEY fk_evenements_user
+[2025-05-22 14:08:53] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 14:08:53] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'evenements' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-22 14:08:53] DEBUG: Executing (default): SHOW INDEX FROM `evenements`
+[2025-05-22 14:08:53] DEBUG: Executing (default): ALTER TABLE evenements ADD CONSTRAINT fk_evenements_user FOREIGN KEY (createur_id) REFERENCES users(id) ON DELETE NO ACTION ON UPDATE CASCADE
+[2025-05-22 14:08:53] DEBUG: Executing (default): ALTER TABLE evenements ADD CONSTRAINT fk_evenements_seance FOREIGN KEY (seance_id) REFERENCES seances(id) ON DELETE SET NULL ON UPDATE CASCADE
+[2025-05-22 14:08:53] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 14:08:53] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 14:08:53] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 14:08:53] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 14:08:53] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 14:08:53] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 14:08:53] INFO: Nouvelle connexion socket: 0maUpgf7PnvN7CSfAAAB pour l'utilisateur 11
