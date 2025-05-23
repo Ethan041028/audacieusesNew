@@ -70,5 +70,5 @@ databases:
   - name: audacieuses-db
     region: frankfurt
     plan: free
-    type: postgres
-    version: "15"
+    databaseName: audacieuses_db
+    ipAllowList: []
