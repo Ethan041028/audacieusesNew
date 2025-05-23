@@ -2,14 +2,17 @@ const { Sequelize } = require('sequelize');
 const logger = require('../utils/logger');
 require('dotenv').config();
 
+// Déterminer le dialecte de la base de données (défaut: postgres)
+const dialect = process.env.DB_DIALECT || 'postgres';
+
 // Configuration de la base de données pour différents environnements
 const config = {
   development: {
-    database: process.env.DB_NAME,
-    username: process.env.DB_USER,
+    database: process.env.DB_DATABASE || process.env.DB_NAME,
+    username: process.env.DB_USERNAME || process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     host: process.env.DB_HOST,
-    dialect: 'postgres',
+    dialect: dialect,
     logging: (msg) => logger.debug(msg),
     pool: {
       max: 5,
@@ -19,11 +22,11 @@ const config = {
     }
   },
   test: {
-    database: process.env.DB_NAME_TEST || process.env.DB_NAME,
-    username: process.env.DB_USER,
+    database: process.env.DB_DATABASE_TEST || process.env.DB_DATABASE || process.env.DB_NAME,
+    username: process.env.DB_USERNAME || process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     host: process.env.DB_HOST,
-    dialect: 'postgres',
+    dialect: dialect,
     logging: false,
     pool: {
       max: 5,
@@ -33,11 +36,11 @@ const config = {
     }
   },
   production: {
-    database: process.env.DB_NAME,
-    username: process.env.DB_USER,
+    database: process.env.DB_DATABASE || process.env.DB_NAME,
+    username: process.env.DB_USERNAME || process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     host: process.env.DB_HOST,
-    dialect: 'postgres',
+    dialect: dialect,
     logging: false,
     pool: {
       max: 10,

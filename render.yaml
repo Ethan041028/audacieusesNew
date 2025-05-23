@@ -1,8 +1,9 @@
 services:
-  # Service Frontend Angular
+  # Front-end Angular
   - type: web
     name: audacieuses-web
     env: node
+    region: frankfurt
     buildCommand: |
       cd AudacieusesWeb
       npm install
@@ -20,10 +21,11 @@ services:
     autoDeploy: true
     plan: free
 
-  # Service API Node.js
+  # Back-end Node.js API
   - type: web
     name: audacieuses-api
     env: node
+    region: frankfurt
     buildCommand: |
       cd AudacieusesAPI
       npm install
@@ -37,8 +39,6 @@ services:
         value: production
       - key: PORT
         value: 10000
-      - key: JWT_SECRET
-        sync: false
       - key: DB_DIALECT
         value: postgres
       - key: DB_HOST
@@ -57,6 +57,8 @@ services:
         fromDatabase:
           name: audacieuses-db
           property: password
+      - key: JWT_SECRET
+        generateValue: true
       - key: FRONTEND_URL
         value: https://audacieuses-web.onrender.com
     healthCheckPath: /api/health
@@ -66,5 +68,7 @@ services:
 # Base de données PostgreSQL
 databases:
   - name: audacieuses-db
+    region: frankfurt
     plan: free
     type: postgres
+    version: "15"
