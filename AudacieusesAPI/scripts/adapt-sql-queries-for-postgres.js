@@ -16,13 +16,25 @@ async function adaptSqlQueriesForPostgres() {
   const originalContent = fileContent;
   
   // Modifications à effectuer
-  
-  // 1. Adapter les requêtes information_schema pour PostgreSQL
+    // 1. Adapter les requêtes information_schema pour PostgreSQL
   // Dans MySQL: table_schema = 'audacieuses_db'
   // Dans PostgreSQL: table_schema = 'public'
   fileContent = fileContent.replace(
     /table_schema\s*=\s*['"]audacieuses_db['"]/g, 
     "table_schema = 'public'"
+  );
+  
+  // Remplacer les requêtes qui utilisent REFERENCED_TABLE_NAME qui n'existe pas dans PostgreSQL
+  // Nous devons utiliser pg_constraint, pg_class, pg_namespace pour obtenir la même information
+  fileContent = fileContent.replace(
+    /SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA\.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = '[^']+' AND TABLE_NAME = '[^']+' AND COLUMN_NAME = '[^']+' AND REFERENCED_TABLE_NAME IS NOT NULL/g,
+    "SELECT con.conname as CONSTRAINT_NAME FROM pg_constraint con JOIN pg_class rel ON rel.oid = con.conrelid JOIN pg_namespace nsp ON nsp.oid = rel.relnamespace WHERE nsp.nspname = 'public' AND rel.relname = '$2' AND con.contype = 'f'"
+  );
+  
+  // Remplacer aussi les requêtes qui utilisent referenced_table_name en minuscules
+  fileContent = fileContent.replace(
+    /SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA\.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = '[^']+' AND TABLE_NAME = '[^']+' AND REFERENCED_TABLE_NAME IS NOT NULL/g,
+    "SELECT con.conname as CONSTRAINT_NAME FROM pg_constraint con JOIN pg_class rel ON rel.oid = con.conrelid JOIN pg_namespace nsp ON nsp.oid = rel.relnamespace WHERE nsp.nspname = 'public' AND rel.relname = '$2' AND con.contype = 'f'"
   );
   
   // 2. Adapter la syntaxe ALTER TABLE pour PostgreSQL

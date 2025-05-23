@@ -23,6 +23,8 @@
    - Script d'adaptation des modèles
    - Script d'adaptation des requêtes SQL
    - Script de migration des données de MySQL vers PostgreSQL
+   - Script de correction des requêtes PostgreSQL spécifiques
+   - Script de test de l'API avec PostgreSQL
 
 6. **Mise à jour du fichier render.yaml**
    - Changement du type de base de données de `mysql` à `postgres`
@@ -30,24 +32,66 @@
 7. **Documentation**
    - Guide de migration détaillé (MYSQL_TO_POSTGRES_MIGRATION.md)
    - Guide de déploiement sur Render (RENDER_POSTGRES_DEPLOYMENT.md)
+   - Résumé des corrections PostgreSQL (POSTGRES_CORRECTIONS.md)
 
 8. **Scripts d'automatisation**
    - Script bash pour Linux/Mac (migrate-to-postgres.sh)
    - Script batch pour Windows (migrate-to-postgres.bat)
+   - Scripts de test local avec PostgreSQL (test-postgres-local.sh/.bat)
 
 ## Fichiers créés ou modifiés
 
 1. **Fichiers créés :**
    - `AudacieusesAPI/src/config/init-postgres-database.sql`
+   - `AudacieusesAPI/src/config/init-postgres-database.js`
    - `AudacieusesAPI/src/config/pg-data-types.js`
    - `AudacieusesAPI/scripts/adapt-models-for-postgres.js`
    - `AudacieusesAPI/scripts/adapt-sql-queries-for-postgres.js`
+   - `AudacieusesAPI/scripts/fix-postgres-queries.js`
    - `AudacieusesAPI/scripts/migrate-mysql-to-postgres.js`
+   - `AudacieusesAPI/scripts/test-postgres-api.js`
    - `AudacieusesAPI/scripts/init-postgres-db.sh`
+   - `AudacieusesAPI/test-postgres-local.sh`
+   - `AudacieusesAPI/test-postgres-local.bat`
    - `MYSQL_TO_POSTGRES_MIGRATION.md`
    - `RENDER_POSTGRES_DEPLOYMENT.md`
+   - `POSTGRES_CORRECTIONS.md` 
    - `migrate-to-postgres.sh`
    - `migrate-to-postgres.bat`
+
+2. **Fichiers modifiés :**
+   - `AudacieusesAPI/src/config/database.js`
+   - `AudacieusesAPI/src/app.js`
+   - `AudacieusesAPI/package.json`
+   - `render.yaml`
+   - Tous les fichiers de modèles dans `AudacieusesAPI/src/models/`
+
+## Problèmes résolus
+
+1. **Différences de syntaxe**
+   - Adaptation des reqûetes SQL spécifiques à MySQL vers PostgreSQL
+   - Remplacement des types ENUM par STRING avec validation
+   - Adaptation de la gestion des clés étrangères et des contraintes
+
+2. **Information Schema**
+   - Adaptation des requêtes utilisant `information_schema.key_column_usage.referenced_table_name`
+   - Utilisation des tables système PostgreSQL (`pg_constraint`, `pg_class`, `pg_namespace`)
+
+3. **Syntaxe ALTER TABLE**
+   - Adaptation de `ALTER TABLE x MODIFY COLUMN` vers la syntaxe PostgreSQL
+   - Adaptation de `DROP FOREIGN KEY` vers `DROP CONSTRAINT`
+
+4. **Séquences d'auto-incrémentation**
+   - Gestion correcte des séquences lors de la migration des données
+
+5. **Types de données**
+   - Adaptation des types spécifiques à MySQL vers leurs équivalents PostgreSQL
+
+## Prochaines étapes
+
+1. Exécuter le script `test-postgres-local` pour vérifier le bon fonctionnement avec PostgreSQL
+2. Déployer sur Render en suivant le guide `RENDER_POSTGRES_DEPLOYMENT.md`
+3. Vérifier le bon fonctionnement de l'application sur Render
 
 2. **Fichiers modifiés :**
    - `AudacieusesAPI/package.json` (ajout de pg et scripts)

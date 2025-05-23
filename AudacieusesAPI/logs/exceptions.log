@@ -48,3 +48,66 @@ Error: Please install pg package manually
     at Module.load (node:internal/modules/cjs/loader:1289:32)
     at Function._load (node:internal/modules/cjs/loader:1108:12)
     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-05-23 10:32:32] ERROR: uncaughtException: listen EADDRINUSE: address already in use :::3000
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1937:16)
+    at listenInCluster (node:net:1994:12)
+    at Server.listen (node:net:2099:7)
+    at C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\src\app.js:604:12
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-05-23 10:32:44] ERROR: uncaughtException: listen EADDRINUSE: address already in use :::3000
+Error: listen EADDRINUSE: address already in use :::3000
+    at Server.setupListenHandle [as _listen2] (node:net:1937:16)
+    at listenInCluster (node:net:1994:12)
+    at Server.listen (node:net:2099:7)
+    at C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\src\app.js:604:12
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-05-23 10:33:11] ERROR: uncaughtException: listen EADDRINUSE: address already in use :::3001
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1937:16)
+    at listenInCluster (node:net:1994:12)
+    at Server.listen (node:net:2099:7)
+    at C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\src\app.js:604:12
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-05-23 10:34:28] ERROR: uncaughtException: listen EADDRINUSE: address already in use :::3001
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1937:16)
+    at listenInCluster (node:net:1994:12)
+    at Server.listen (node:net:2099:7)
+    at C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\src\app.js:604:12
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-05-23 10:35:09] ERROR: uncaughtException: listen EADDRINUSE: address already in use :::3001
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1937:16)
+    at listenInCluster (node:net:1994:12)
+    at Server.listen (node:net:2099:7)
+    at C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\src\app.js:604:12
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-05-23 10:36:31] ERROR: uncaughtException: listen EADDRINUSE: address already in use :::3001
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1937:16)
+    at listenInCluster (node:net:1994:12)
+    at Server.listen (node:net:2099:7)
+    at C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\src\app.js:604:12
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-05-23 10:36:52] ERROR: uncaughtException: listen EADDRINUSE: address already in use :::3001
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1937:16)
+    at listenInCluster (node:net:1994:12)
+    at Server.listen (node:net:2099:7)
+    at C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\src\app.js:604:12
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-05-23 10:56:17] ERROR: uncaughtException: listen EADDRINUSE: address already in use :::3001
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1937:16)
+    at listenInCluster (node:net:1994:12)
+    at Server.listen (node:net:2099:7)
+    at C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\src\app.js:604:12
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+[2025-05-23 10:58:15] ERROR: uncaughtException: listen EADDRINUSE: address already in use :::3001
+Error: listen EADDRINUSE: address already in use :::3001
+    at Server.setupListenHandle [as _listen2] (node:net:1937:16)
+    at listenInCluster (node:net:1994:12)
+    at Server.listen (node:net:2099:7)
+    at C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\src\app.js:604:12
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)

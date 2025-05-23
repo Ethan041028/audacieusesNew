@@ -207,15 +207,15 @@ app.use((err, req, res, next) => {
         // 4. Vérifier si la table activites existe et contient des données
         try {
           const tableExists = await sequelize.query(
-            "SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'activites'",
+            "SELECT EXISTS(SELECT EXISTS(SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'activites'",
             { type: sequelize.QueryTypes.SELECT }
           );
-            if (tableExists.length > 0) {
+            if (tableExists[0].exists === true) {
             logger.info('Table activites existe.');
             
             // Vérifier si la colonne type_activite_id existe déjà dans activites
             const columnExists = await sequelize.query(
-              "SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'activites' AND column_name = 'type_activite_id'",
+              "SELECT EXISTS(SELECT EXISTS(SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'activites' AND column_name = 'type_activite_id'",
               { type: sequelize.QueryTypes.SELECT }
             );
             
@@ -227,7 +227,7 @@ app.use((err, req, res, next) => {
               // Récupérer un ID valide de type_activites (par exemple Quiz)
             const defaultType = await TypeActivite.findOne({ where: { type_activite: 'Quiz' } });
             
-            if (defaultType && columnExists.length > 0) {
+            if (defaultType && columnExists[0].exists === true) {
               // La colonne type_activite_id existe, mettre à jour les valeurs nulles ou zéro
               await sequelize.query('UPDATE activites SET type_activite_id = :typeId WHERE type_activite_id IS NULL OR type_activite_id = 0', { 
                 replacements: { typeId: defaultType.id },
@@ -245,16 +245,16 @@ app.use((err, req, res, next) => {
         // 5. Vérifier si la table users existe et contient des données
         try {
           const usersExists = await sequelize.query(
-            "SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'users'",
+            "SELECT EXISTS(SELECT EXISTS(SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'users'",
             { type: sequelize.QueryTypes.SELECT }
           );
           
-          if (usersExists.length > 0) {
+          if (usersExists[0].exists === true) {
             logger.info('Table users existe.');
             
             // Vérifier si la colonne mail existe déjà
             const mailColumnExists = await sequelize.query(
-              "SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'users' AND column_name = 'mail'",
+              "SELECT EXISTS(SELECT EXISTS(SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'users' AND column_name = 'mail'",
               { type: sequelize.QueryTypes.SELECT }
             );
             
@@ -291,7 +291,7 @@ app.use((err, req, res, next) => {
             
             // Vérifier également la colonne role_id
             const roleColumnExists = await sequelize.query(
-              "SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'users' AND column_name = 'role_id'",
+              "SELECT EXISTS(SELECT EXISTS(SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'users' AND column_name = 'role_id'",
               { type: sequelize.QueryTypes.SELECT }
             );
             
@@ -318,12 +318,12 @@ app.use((err, req, res, next) => {
               } catch (alterError) {
                 logger.error('Erreur lors de l\'ajout de la colonne role_id:', alterError.message);
               }
-            } else if (roleColumnExists.length > 0) {
+            } else if (roleColumnExists[0].exists === true) {
               // La colonne role_id existe déjà, vérifier si la contrainte de clé étrangère existe
               try {
                 // Vérifier s'il existe déjà une contrainte de clé étrangère
                 const fkExists = await sequelize.query(
-                  "SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = 'audacieuses_db' AND TABLE_NAME = 'users' AND COLUMN_NAME = 'role_id' AND REFERENCED_TABLE_NAME IS NOT NULL",
+                  "SELECT con.conname as CONSTRAINT_NAME FROM pg_constraint con JOIN pg_class rel ON rel.oid = con.conrelid JOIN pg_namespace nsp ON nsp.oid = rel.relnamespace WHERE nsp.nspname = 'public' AND rel.relname = '$2' AND con.contype = 'f'",
                   { type: sequelize.QueryTypes.SELECT }
                 );
                 
@@ -355,16 +355,16 @@ app.use((err, req, res, next) => {
           // Vérifier et initialiser les StatusSuivi pour éviter l'erreur de validation
           try {
             const statusTableExists = await sequelize.query(
-              "SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'status_suivi'",
+              "SELECT EXISTS(SELECT EXISTS(SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'status_suivi'",
               { type: sequelize.QueryTypes.SELECT }
             );
             
-            if (statusTableExists.length > 0) {
+            if (statusTableExists[0].exists === true) {
               logger.info('Table status_suivi existe.');
               
               // Vérifier si la colonne type_status existe déjà
               const typeStatusExists = await sequelize.query(
-                "SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'status_suivi' AND column_name = 'type_status'",
+                "SELECT EXISTS(SELECT EXISTS(SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'status_suivi' AND column_name = 'type_status'",
                 { type: sequelize.QueryTypes.SELECT }
               );
               
@@ -407,16 +407,16 @@ app.use((err, req, res, next) => {
           // Traitement spécial pour la table evenements
           try {
             const evenementTableExists = await sequelize.query(
-              "SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'evenements'",
+              "SELECT EXISTS(SELECT EXISTS(SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'evenements'",
               { type: sequelize.QueryTypes.SELECT }
             );
             
-            if (evenementTableExists.length > 0) {
+            if (evenementTableExists[0].exists === true) {
               logger.info('Table evenements existe.');
               
               // Vérifier si la colonne createur_id existe déjà
               const createurIdExists = await sequelize.query(
-                "SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'evenements' AND column_name = 'createur_id'",
+                "SELECT EXISTS(SELECT EXISTS(SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'evenements' AND column_name = 'createur_id'",
                 { type: sequelize.QueryTypes.SELECT }
               );
               
@@ -436,7 +436,7 @@ app.use((err, req, res, next) => {
                     { type: sequelize.QueryTypes.SELECT }
                   );
                   
-                  const defaultUserId = adminUser.length > 0 ? adminUser[0].id : 1;
+                  const defaultUserId = adminUser[0].exists === true ? adminUser[0].id : 1;
                   
                   // Ajouter la colonne createur_id avec une valeur par défaut
                   await sequelize.query('ALTER TABLE evenements ADD COLUMN createur_id INT NOT NULL DEFAULT :userId', {
@@ -477,12 +477,12 @@ app.use((err, req, res, next) => {
                   try {
                     // 1. Vérifier si la contrainte de clé étrangère existe déjà
                     const fkExists = await sequelize.query(
-                      "SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = 'audacieuses_db' AND TABLE_NAME = 'users' AND COLUMN_NAME = 'role_id' AND REFERENCED_TABLE_NAME IS NOT NULL",
+                      "SELECT con.conname as CONSTRAINT_NAME FROM pg_constraint con JOIN pg_class rel ON rel.oid = con.conrelid JOIN pg_namespace nsp ON nsp.oid = rel.relnamespace WHERE nsp.nspname = 'public' AND rel.relname = '$2' AND con.contype = 'f'",
                       { type: sequelize.QueryTypes.SELECT }
                     );
                     
                     // 2. Si elle existe, la supprimer d'abord
-                    if (fkExists.length > 0) {
+                    if (fkExists[0].exists === true) {
                       try {
                         await sequelize.query(
                           `ALTER TABLE users DROP FOREIGN KEY ${fkExists[0].CONSTRAINT_NAME}`,
@@ -534,7 +534,7 @@ app.use((err, req, res, next) => {
                   try {
                     // Vérifier d'abord si des contraintes existent
                     const constraints = await sequelize.query(
-                      "SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = 'audacieuses_db' AND TABLE_NAME = 'evenements' AND REFERENCED_TABLE_NAME IS NOT NULL",
+                      "SELECT con.conname as CONSTRAINT_NAME FROM pg_constraint con JOIN pg_class rel ON rel.oid = con.conrelid JOIN pg_namespace nsp ON nsp.oid = rel.relnamespace WHERE nsp.nspname = 'public' AND rel.relname = '$2' AND con.contype = 'f'",
                       { type: sequelize.QueryTypes.SELECT }
                     );
                     

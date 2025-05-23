@@ -40,3 +40,120 @@
 [2025-05-23 09:54:34] ERROR: Impossible de se connecter à la base de données:
 [2025-05-23 09:54:54] ERROR: Impossible de se connecter à la base de données:
 [2025-05-23 10:00:20] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-23 10:32:32] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:32:32] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:32:32] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:32:32] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:32:32] ERROR: Erreur lors de la synchronisation manuelle du modèle User: column "referenced_table_name" does not exist
+[2025-05-23 10:32:32] ERROR: Erreur lors de la synchronisation spéciale du modèle Evenement: column "referenced_table_name" does not exist
+[2025-05-23 10:32:44] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:32:44] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:32:44] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:32:44] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:32:44] ERROR: Erreur lors de la synchronisation manuelle du modèle User: column "referenced_table_name" does not exist
+[2025-05-23 10:32:44] ERROR: Erreur lors de la synchronisation spéciale du modèle Evenement: column "referenced_table_name" does not exist
+[2025-05-23 10:33:11] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:33:11] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:33:11] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:33:11] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:33:11] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:33:11] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:33:11] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:33:11] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:33:11] ERROR: Erreur lors de la synchronisation manuelle du modèle User: column "referenced_table_name" does not exist
+[2025-05-23 10:33:11] ERROR: Erreur lors de la synchronisation manuelle du modèle User: column "referenced_table_name" does not exist
+[2025-05-23 10:33:11] ERROR: Erreur lors de la synchronisation spéciale du modèle Evenement: column "referenced_table_name" does not exist
+[2025-05-23 10:33:11] ERROR: Erreur lors de la synchronisation spéciale du modèle Evenement: column "referenced_table_name" does not exist
+[2025-05-23 10:34:27] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:34:27] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:34:27] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:34:27] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:34:27] ERROR: Erreur lors de la synchronisation manuelle du modèle User: column "referenced_table_name" does not exist
+[2025-05-23 10:34:28] ERROR: Erreur lors de la synchronisation spéciale du modèle Evenement: column "referenced_table_name" does not exist
+[2025-05-23 10:34:28] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:34:28] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:34:28] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:34:28] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:34:28] ERROR: Erreur lors de la synchronisation manuelle du modèle User: column "referenced_table_name" does not exist
+[2025-05-23 10:34:28] ERROR: Erreur lors de la synchronisation spéciale du modèle Evenement: column "referenced_table_name" does not exist
+[2025-05-23 10:35:09] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:35:09] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:35:09] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:35:09] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:35:09] ERROR: Erreur lors de la synchronisation manuelle du modèle User: column "referenced_table_name" does not exist
+[2025-05-23 10:35:09] ERROR: Erreur lors de la synchronisation spéciale du modèle Evenement: column "referenced_table_name" does not exist
+[2025-05-23 10:35:09] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:35:09] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:35:09] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:35:09] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:35:09] ERROR: Erreur lors de la synchronisation manuelle du modèle User: column "referenced_table_name" does not exist
+[2025-05-23 10:35:09] ERROR: Erreur lors de la synchronisation spéciale du modèle Evenement: column "referenced_table_name" does not exist
+[2025-05-23 10:36:30] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:36:30] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:36:30] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:36:30] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:36:30] ERROR: Erreur lors de la synchronisation manuelle du modèle User: column "referenced_table_name" does not exist
+[2025-05-23 10:36:30] ERROR: Erreur lors de la synchronisation spéciale du modèle Evenement: column "referenced_table_name" does not exist
+[2025-05-23 10:36:31] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:36:31] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:36:31] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:36:31] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:36:31] ERROR: Erreur lors de la synchronisation manuelle du modèle User: column "referenced_table_name" does not exist
+[2025-05-23 10:36:31] ERROR: Erreur lors de la synchronisation spéciale du modèle Evenement: column "referenced_table_name" does not exist
+[2025-05-23 10:36:52] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:36:52] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:36:52] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:36:52] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:36:52] ERROR: Erreur lors de la synchronisation manuelle du modèle User: column "referenced_table_name" does not exist
+[2025-05-23 10:36:52] ERROR: Erreur lors de la synchronisation spéciale du modèle Evenement: column "referenced_table_name" does not exist
+[2025-05-23 10:36:52] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:36:52] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:36:52] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:36:52] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:36:52] ERROR: Erreur lors de la synchronisation manuelle du modèle User: column "referenced_table_name" does not exist
+[2025-05-23 10:36:52] ERROR: Erreur lors de la synchronisation spéciale du modèle Evenement: column "referenced_table_name" does not exist
+[2025-05-23 10:56:17] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:56:17] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:56:17] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:56:17] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:56:17] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:56:17] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:56:17] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:56:17] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:56:17] ERROR: Erreur lors de la synchronisation manuelle du modèle User: column "referenced_table_name" does not exist
+[2025-05-23 10:56:17] ERROR: Erreur lors de la synchronisation manuelle du modèle User: column "referenced_table_name" does not exist
+[2025-05-23 10:56:17] ERROR: Erreur lors de la synchronisation spéciale du modèle Evenement: column "referenced_table_name" does not exist
+[2025-05-23 10:56:17] ERROR: Erreur lors de la synchronisation spéciale du modèle Evenement: column "referenced_table_name" does not exist
+[2025-05-23 10:58:11] ERROR: Erreur lors de l'initialisation de la base de données PostgreSQL:
+[2025-05-23 10:58:11] ERROR: Échec de l'initialisation de la base de données PostgreSQL.
+[2025-05-23 10:58:14] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:58:14] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:58:14] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:58:14] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:58:14] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Cannot read properties of undefined (reading 'exists')
+[2025-05-23 10:58:15] ERROR: Erreur lors de la vérification de la table activites:
+[2025-05-23 10:58:15] ERROR: Erreur lors de la vérification de la table users:
+[2025-05-23 10:58:15] ERROR: Erreur lors de la vérification/modification de status_suivi:
+[2025-05-23 10:58:15] ERROR: Erreur lors de la vérification/modification de evenements:
+[2025-05-23 10:58:15] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Cannot read properties of undefined (reading 'exists')
+[2025-05-23 10:58:15] ERROR: Erreur lors de la synchronisation spéciale du modèle Evenement: constraint "fk_evenements_user" for relation "evenements" already exists
+[2025-05-23 10:58:22] ERROR: ✗ Erreur lors du test: Liste des utilisateurs (GET /users)
+[2025-05-23 10:58:22] ERROR:   Erreur: request to http://localhost:3500/api/users failed, reason: 
+[2025-05-23 10:58:22] ERROR: ✗ Erreur lors du test: Liste des rôles (GET /roles)
+[2025-05-23 10:58:22] ERROR:   Erreur: request to http://localhost:3500/api/roles failed, reason: 
+[2025-05-23 10:58:22] ERROR: ✗ Erreur lors du test: Liste des événements (GET /evenements)
+[2025-05-23 10:58:22] ERROR:   Erreur: request to http://localhost:3500/api/evenements failed, reason: 
+[2025-05-23 10:58:22] ERROR: ✗ Erreur lors du test: Liste des modules (GET /modules)
+[2025-05-23 10:58:22] ERROR:   Erreur: request to http://localhost:3500/api/modules failed, reason: 
+[2025-05-23 10:58:22] ERROR: ✗ Erreur lors du test CREATE: request to http://localhost:3500/api/users failed, reason: 
+[2025-05-23 10:59:41] ERROR: Erreur lors de l'initialisation de la base de données PostgreSQL:
+[2025-05-23 10:59:41] ERROR: Échec de l'initialisation de la base de données PostgreSQL.
+[2025-05-23 10:59:52] ERROR: ✗ Erreur lors du test: Liste des utilisateurs (GET /users)
+[2025-05-23 10:59:52] ERROR:   Erreur: request to http://localhost:3500/api/users failed, reason: 
+[2025-05-23 10:59:52] ERROR: ✗ Erreur lors du test: Liste des rôles (GET /roles)
+[2025-05-23 10:59:52] ERROR:   Erreur: request to http://localhost:3500/api/roles failed, reason: 
+[2025-05-23 10:59:52] ERROR: ✗ Erreur lors du test: Liste des événements (GET /evenements)
+[2025-05-23 10:59:52] ERROR:   Erreur: request to http://localhost:3500/api/evenements failed, reason: 
+[2025-05-23 10:59:52] ERROR: ✗ Erreur lors du test: Liste des modules (GET /modules)
+[2025-05-23 10:59:52] ERROR:   Erreur: request to http://localhost:3500/api/modules failed, reason: 
+[2025-05-23 10:59:52] ERROR: ✗ Erreur lors du test CREATE: request to http://localhost:3500/api/users failed, reason: 
