@@ -68,6 +68,3 @@ databases:
   - name: audacieuses-db
     plan: free
     type: postgres
-    healthCheckPath: /api/health
-    autoDeploy: true
-    plan: free 
