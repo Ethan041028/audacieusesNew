@@ -1,5 +1,4 @@
-services:
-  # Front-end Angular
+services:  # Front-end Angular
   - type: web
     name: audacieuses-web
     env: node
@@ -7,6 +6,7 @@ services:
     buildCommand: |
       cd AudacieusesWeb
       npm install
+      npm install -g @angular/cli
       npm run build
     startCommand: |
       cd AudacieusesWeb
