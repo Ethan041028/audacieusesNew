@@ -60,12 +60,11 @@ services:
     healthCheckPath: /api/health
     autoDeploy: true
     plan: free
-
-  # Base de données MySQL
+  # Base de données PostgreSQL
 databases:
   - name: audacieuses-db
     plan: free
-    type: mysql
+    type: postgres
         value: 8.2.0
       - key: DB_HOST
         value: ${DB_HOST}

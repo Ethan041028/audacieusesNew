@@ -9791,3 +9791,651 @@ Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
 [2025-05-23 09:54:53] DEBUG: Journalisation initialisée en mode développement
 [2025-05-23 09:54:54] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\uploads
 [2025-05-23 09:54:54] ERROR: Impossible de se connecter à la base de données:
+[2025-05-23 10:00:19] DEBUG: Journalisation initialisée en mode développement
+[2025-05-23 10:00:20] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\uploads
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT 1+1 AS result
+[2025-05-23 10:00:20] INFO: Connexion à la base de données établie avec succès.
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'type_activites' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SHOW INDEX FROM `type_activites`
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'roles' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SHOW INDEX FROM `roles`
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'users' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SHOW INDEX FROM `users`
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'modules' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SHOW INDEX FROM `modules`
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'seances' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SHOW INDEX FROM `seances`
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'activites' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SHOW INDEX FROM `activites`
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `type_activites` AS `TypeActivite`;
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `roles` AS `Role`;
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT 1 FROM information_schema.tables WHERE table_schema = 'audacieuses_db' AND table_name = 'activites'
+[2025-05-23 10:00:20] INFO: Table activites existe.
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT 1 FROM information_schema.columns WHERE table_schema = 'audacieuses_db' AND table_name = 'activites' AND column_name = 'type_activite_id'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT COUNT(*) as count FROM activites
+[2025-05-23 10:00:20] INFO: Table activites contient 4 enregistrements.
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT `id`, `type_activite`, `couleur` FROM `type_activites` AS `TypeActivite` WHERE `TypeActivite`.`type_activite` = 'Quiz';
+[2025-05-23 10:00:20] DEBUG: Executing (default): UPDATE activites SET type_activite_id = 2 WHERE type_activite_id IS NULL OR type_activite_id = 0
+[2025-05-23 10:00:20] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT 1 FROM information_schema.tables WHERE table_schema = 'audacieuses_db' AND table_name = 'users'
+[2025-05-23 10:00:20] INFO: Table users existe.
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT 1 FROM information_schema.columns WHERE table_schema = 'audacieuses_db' AND table_name = 'users' AND column_name = 'mail'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT COUNT(*) as count FROM users
+[2025-05-23 10:00:20] INFO: Table users contient 12 enregistrements.
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT 1 FROM information_schema.columns WHERE table_schema = 'audacieuses_db' AND table_name = 'users' AND column_name = 'role_id'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = 'audacieuses_db' AND TABLE_NAME = 'users' AND COLUMN_NAME = 'role_id' AND REFERENCED_TABLE_NAME IS NOT NULL
+[2025-05-23 10:00:20] DEBUG: Executing (default): ALTER TABLE users ADD CONSTRAINT fk_users_role FOREIGN KEY (role_id) REFERENCES roles(id) ON DELETE NO ACTION ON UPDATE CASCADE
+[2025-05-23 10:00:20] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT 1 FROM information_schema.tables WHERE table_schema = 'audacieuses_db' AND table_name = 'status_suivi'
+[2025-05-23 10:00:20] INFO: Table status_suivi existe.
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT 1 FROM information_schema.columns WHERE table_schema = 'audacieuses_db' AND table_name = 'status_suivi' AND column_name = 'type_status'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT COUNT(*) as count FROM status_suivi
+[2025-05-23 10:00:20] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT 1 FROM information_schema.tables WHERE table_schema = 'audacieuses_db' AND table_name = 'evenements'
+[2025-05-23 10:00:20] INFO: Table evenements existe.
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT 1 FROM information_schema.columns WHERE table_schema = 'audacieuses_db' AND table_name = 'evenements' AND column_name = 'createur_id'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT COUNT(*) as count FROM evenements
+[2025-05-23 10:00:20] INFO: Table evenements contient 2 enregistrements.
+[2025-05-23 10:00:20] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'type_activites' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SHOW INDEX FROM `type_activites`
+[2025-05-23 10:00:20] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-23 10:00:20] INFO: Synchronisation du modèle Role...
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'roles' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SHOW INDEX FROM `roles`
+[2025-05-23 10:00:20] INFO: Modèle Role synchronisé avec succès.
+[2025-05-23 10:00:20] INFO: Synchronisation du modèle User...
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = 'audacieuses_db' AND TABLE_NAME = 'users' AND COLUMN_NAME = 'role_id' AND REFERENCED_TABLE_NAME IS NOT NULL
+[2025-05-23 10:00:20] DEBUG: Executing (default): ALTER TABLE users DROP FOREIGN KEY fk_users_role
+[2025-05-23 10:00:20] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-23 10:00:20] DEBUG: Executing (default): ALTER TABLE users CHANGE prenom prenom VARCHAR(50) NOT NULL
+[2025-05-23 10:00:20] DEBUG: Executing (default): ALTER TABLE users CHANGE nom nom VARCHAR(50) NOT NULL
+[2025-05-23 10:00:20] DEBUG: Executing (default): ALTER TABLE users CHANGE mail mail VARCHAR(50) NOT NULL UNIQUE
+[2025-05-23 10:00:20] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-23 10:00:20] INFO: Modèle User synchronisé avec succès.
+[2025-05-23 10:00:20] INFO: Synchronisation du modèle Module...
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'modules' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SHOW INDEX FROM `modules`
+[2025-05-23 10:00:20] INFO: Modèle Module synchronisé avec succès.
+[2025-05-23 10:00:20] INFO: Synchronisation du modèle Seance...
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'seances' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SHOW INDEX FROM `seances`
+[2025-05-23 10:00:20] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-23 10:00:20] INFO: Synchronisation du modèle Activite...
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'activites' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SHOW INDEX FROM `activites`
+[2025-05-23 10:00:20] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-23 10:00:20] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'status_suivi' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SHOW INDEX FROM `status_suivi`
+[2025-05-23 10:00:20] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-23 10:00:20] INFO: Synchronisation du modèle Suivi...
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'suivi' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SHOW INDEX FROM `suivi`
+[2025-05-23 10:00:20] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-23 10:00:20] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'reponse_client' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SHOW INDEX FROM `reponse_client`
+[2025-05-23 10:00:20] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-23 10:00:20] INFO: Synchronisation du modèle Evenement...
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT CONSTRAINT_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE WHERE TABLE_SCHEMA = 'audacieuses_db' AND TABLE_NAME = 'evenements' AND REFERENCED_TABLE_NAME IS NOT NULL
+[2025-05-23 10:00:20] DEBUG: Executing (default): ALTER TABLE evenements DROP FOREIGN KEY fk_evenements_seance
+[2025-05-23 10:00:20] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-23 10:00:20] DEBUG: Executing (default): ALTER TABLE evenements DROP FOREIGN KEY fk_evenements_user
+[2025-05-23 10:00:20] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-23 10:00:20] DEBUG: Executing (default): SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_TYPE = 'BASE TABLE' AND TABLE_NAME = 'evenements' AND TABLE_SCHEMA = 'audacieuses_db'
+[2025-05-23 10:00:20] DEBUG: Executing (default): SHOW INDEX FROM `evenements`
+[2025-05-23 10:00:20] DEBUG: Executing (default): ALTER TABLE evenements ADD CONSTRAINT fk_evenements_user FOREIGN KEY (createur_id) REFERENCES users(id) ON DELETE NO ACTION ON UPDATE CASCADE
+[2025-05-23 10:00:20] DEBUG: Executing (default): ALTER TABLE evenements ADD CONSTRAINT fk_evenements_seance FOREIGN KEY (seance_id) REFERENCES seances(id) ON DELETE SET NULL ON UPDATE CASCADE
+[2025-05-23 10:00:21] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-23 10:00:21] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-23 10:00:21] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-23 10:00:21] INFO: Serveur démarré sur le port 3000.
+[2025-05-23 10:00:21] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-23 10:00:21] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-23 10:01:30] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-23 10:01:30] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:01:30] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-23 10:01:30] DEBUG: Executing (default): SELECT u.*, r.id as role_id_from_join, r.nom as role_nom, r.description as role_description
+      FROM users u
+      LEFT JOIN roles r ON u.role_id = r.id
+      WHERE u.id = 11
+[2025-05-23 10:01:30] INFO: Données utilisateur récupérées:
+[2025-05-23 10:01:30] INFO: - ID: 11
+[2025-05-23 10:01:30] INFO: - Email: ethan@admin.com
+[2025-05-23 10:01:30] INFO: - role_id depuis la table users: 2
+[2025-05-23 10:01:30] INFO: - role_id depuis la jointure: 2
+[2025-05-23 10:01:30] INFO: - role_nom: admin_plus
+[2025-05-23 10:01:30] INFO: - role_description: Super administrateur du système
+[2025-05-23 10:01:30] INFO: Objet utilisateur final construit:
+[2025-05-23 10:01:30] INFO: - ID: 11
+[2025-05-23 10:01:30] INFO: - Email: ethan@admin.com
+[2025-05-23 10:01:30] INFO: - Role.id: 2
+[2025-05-23 10:01:30] INFO: - Role.nom: admin_plus
+[2025-05-23 10:01:30] INFO: - Role.role_type: admin_plus
+[2025-05-23 10:01:30] INFO: - Role.description: Super administrateur du système
+[2025-05-23 10:01:30] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-23 10:01:30] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:01:30] INFO: [isAdmin] Vérification du rôle admin pour l'utilisateur ID=11, Rôle={"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}
+[2025-05-23 10:01:30] INFO: [isAdmin] Rôle utilisateur détecté: nom=admin_plus
+[2025-05-23 10:01:30] INFO: [isAdmin] Accès admin autorisé pour l'utilisateur 11
+[2025-05-23 10:01:30] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `users` AS `User`;
+[2025-05-23 10:01:30] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `users` AS `User` WHERE `User`.`updated_at` >= '2025-05-16 08:01:30';
+[2025-05-23 10:01:30] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `modules` AS `Module`;
+[2025-05-23 10:01:30] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `seances` AS `Seance`;
+[2025-05-23 10:01:30] DEBUG: Executing (default): SELECT `User`.`id`, `User`.`nom`, `User`.`prenom`, `User`.`mail`, `User`.`created_at`, `User`.`updated_at`, `role`.`id` AS `role.id`, `role`.`nom` AS `role.nom`, `role`.`description` AS `role.description`, `role`.`created_at` AS `role.created_at`, `role`.`updated_at` AS `role.updated_at` FROM `users` AS `User` LEFT OUTER JOIN `roles` AS `role` ON `User`.`role_id` = `role`.`id` WHERE (`User`.`updated_at` >= '2025-05-16 08:01:30' OR `User`.`created_at` >= '2025-05-16 08:01:30') ORDER BY `User`.`updated_at` DESC LIMIT 5;
+[2025-05-23 10:01:30] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `date_creation` FROM `modules` AS `Module` ORDER BY `Module`.`date_creation` DESC LIMIT 3;
+[2025-05-23 10:01:30] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `date_creation` FROM `seances` AS `Seance` ORDER BY `Seance`.`date_creation` DESC LIMIT 3;
+[2025-05-23 10:01:30] DEBUG: Réponse des statistiques administrateur:
+[2025-05-23 10:01:30] INFO: ::1 - - [23/May/2025:08:01:30 +0000] "GET /api/admin/stats HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-23 10:22:41] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-23 10:22:41] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:41] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-23 10:22:41] DEBUG: Executing (default): SELECT u.*, r.id as role_id_from_join, r.nom as role_nom, r.description as role_description
+      FROM users u
+      LEFT JOIN roles r ON u.role_id = r.id
+      WHERE u.id = 11
+[2025-05-23 10:22:41] INFO: Données utilisateur récupérées:
+[2025-05-23 10:22:41] INFO: - ID: 11
+[2025-05-23 10:22:41] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:41] INFO: - role_id depuis la table users: 2
+[2025-05-23 10:22:41] INFO: - role_id depuis la jointure: 2
+[2025-05-23 10:22:41] INFO: - role_nom: admin_plus
+[2025-05-23 10:22:41] INFO: - role_description: Super administrateur du système
+[2025-05-23 10:22:41] INFO: Objet utilisateur final construit:
+[2025-05-23 10:22:41] INFO: - ID: 11
+[2025-05-23 10:22:41] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:41] INFO: - Role.id: 2
+[2025-05-23 10:22:41] INFO: - Role.nom: admin_plus
+[2025-05-23 10:22:41] INFO: - Role.role_type: admin_plus
+[2025-05-23 10:22:41] INFO: - Role.description: Super administrateur du système
+[2025-05-23 10:22:41] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-23 10:22:41] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:41] INFO: [isAdmin] Vérification du rôle admin pour l'utilisateur ID=11, Rôle={"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}
+[2025-05-23 10:22:41] INFO: [isAdmin] Rôle utilisateur détecté: nom=admin_plus
+[2025-05-23 10:22:41] INFO: [isAdmin] Accès admin autorisé pour l'utilisateur 11
+[2025-05-23 10:22:41] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `users` AS `User`;
+[2025-05-23 10:22:41] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `users` AS `User` WHERE `User`.`updated_at` >= '2025-05-16 08:22:41';
+[2025-05-23 10:22:41] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `modules` AS `Module`;
+[2025-05-23 10:22:41] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `seances` AS `Seance`;
+[2025-05-23 10:22:41] DEBUG: Executing (default): SELECT `User`.`id`, `User`.`nom`, `User`.`prenom`, `User`.`mail`, `User`.`created_at`, `User`.`updated_at`, `role`.`id` AS `role.id`, `role`.`nom` AS `role.nom`, `role`.`description` AS `role.description`, `role`.`created_at` AS `role.created_at`, `role`.`updated_at` AS `role.updated_at` FROM `users` AS `User` LEFT OUTER JOIN `roles` AS `role` ON `User`.`role_id` = `role`.`id` WHERE (`User`.`updated_at` >= '2025-05-16 08:22:41' OR `User`.`created_at` >= '2025-05-16 08:22:41') ORDER BY `User`.`updated_at` DESC LIMIT 5;
+[2025-05-23 10:22:41] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `date_creation` FROM `modules` AS `Module` ORDER BY `Module`.`date_creation` DESC LIMIT 3;
+[2025-05-23 10:22:41] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `date_creation` FROM `seances` AS `Seance` ORDER BY `Seance`.`date_creation` DESC LIMIT 3;
+[2025-05-23 10:22:41] DEBUG: Réponse des statistiques administrateur:
+[2025-05-23 10:22:41] INFO: ::1 - - [23/May/2025:08:22:41 +0000] "GET /api/admin/stats HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-23 10:22:45] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-23 10:22:45] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:45] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-23 10:22:45] DEBUG: Executing (default): SELECT u.*, r.id as role_id_from_join, r.nom as role_nom, r.description as role_description
+      FROM users u
+      LEFT JOIN roles r ON u.role_id = r.id
+      WHERE u.id = 11
+[2025-05-23 10:22:45] INFO: Données utilisateur récupérées:
+[2025-05-23 10:22:45] INFO: - ID: 11
+[2025-05-23 10:22:45] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:45] INFO: - role_id depuis la table users: 2
+[2025-05-23 10:22:45] INFO: - role_id depuis la jointure: 2
+[2025-05-23 10:22:45] INFO: - role_nom: admin_plus
+[2025-05-23 10:22:45] INFO: - role_description: Super administrateur du système
+[2025-05-23 10:22:45] INFO: Objet utilisateur final construit:
+[2025-05-23 10:22:45] INFO: - ID: 11
+[2025-05-23 10:22:45] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:45] INFO: - Role.id: 2
+[2025-05-23 10:22:45] INFO: - Role.nom: admin_plus
+[2025-05-23 10:22:45] INFO: - Role.role_type: admin_plus
+[2025-05-23 10:22:45] INFO: - Role.description: Super administrateur du système
+[2025-05-23 10:22:45] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-23 10:22:45] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:45] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-23 10:22:45] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-23 10:22:45] INFO: - Méthode: GET
+[2025-05-23 10:22:45] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-23 10:22:45] INFO: - Paramètre statut reçu: ""
+[2025-05-23 10:22:45] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-23 10:22:45] INFO: - ID Utilisateur: 11
+[2025-05-23 10:22:45] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:45] INFO: - Rôle ID: 2
+[2025-05-23 10:22:45] INFO: - Rôle nom: admin_plus
+[2025-05-23 10:22:45] INFO: - Rôle type: admin_plus
+[2025-05-23 10:22:45] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-23 10:22:45] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-23 10:22:45] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `niveau`, `duree`, `image_url`, `objectifs`, `statut`, `date_creation`, `updated_at`, `created_by` FROM `modules` AS `Module`;
+[2025-05-23 10:22:45] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-23 10:22:45] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-23 10:22:45] INFO: - Conditions WHERE construites: {}
+[2025-05-23 10:22:45] INFO: - Options de tri: date_creation desc
+[2025-05-23 10:22:45] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-23 10:22:45] DEBUG: Executing (default): SELECT count(DISTINCT(`id`)) AS `count` FROM `modules` AS `Module`;
+[2025-05-23 10:22:45] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `niveau`, `duree`, `image_url`, `objectifs`, `statut`, `date_creation`, `updated_at`, `created_by` FROM `modules` AS `Module`;
+[2025-05-23 10:22:45] DEBUG: Executing (default): SELECT `Module`.`id`, `Module`.`titre`, `Module`.`description`, `Module`.`niveau`, `Module`.`duree`, `Module`.`image_url`, `Module`.`objectifs`, `Module`.`statut`, `Module`.`date_creation`, `Module`.`updated_at`, `Module`.`created_by`, `users`.`id` AS `users.id`, `users`.`nom` AS `users.nom`, `users`.`prenom` AS `users.prenom`, `users`.`mail` AS `users.mail`, `users`.`mdp` AS `users.mdp`, `users`.`date_naissance` AS `users.date_naissance`, `users`.`role_id` AS `users.role_id`, `users`.`active` AS `users.active`, `users`.`created_at` AS `users.created_at`, `users`.`updated_at` AS `users.updated_at`, `seances`.`id` AS `seances.id`, `seances`.`titre` AS `seances.titre`, `seances`.`description` AS `seances.description`, `seances`.`duree` AS `seances.duree`, `seances`.`type` AS `seances.type`, `seances`.`contenu` AS `seances.contenu`, `seances`.`ressources` AS `seances.ressources`, `seances`.`created_by` AS `seances.created_by`, `seances`.`active` AS `seances.active`, `seances`.`date_creation` AS `seances.date_creation`, `seances`.`created_at` AS `seances.created_at`, `seances`.`updated_at` AS `seances.updated_at`, `seances->ModuleSeance`.`id` AS `seances.ModuleSeance.id`, `seances->ModuleSeance`.`positions` AS `seances.ModuleSeance.positions` FROM `modules` AS `Module` LEFT OUTER JOIN ( `modules_users` AS `users->ModulesUsers` INNER JOIN `users` AS `users` ON `users`.`id` = `users->ModulesUsers`.`user_id`) ON `Module`.`id` = `users->ModulesUsers`.`module_id` LEFT OUTER JOIN ( `module_seance` AS `seances->ModuleSeance` INNER JOIN `seances` AS `seances` ON `seances`.`id` = `seances->ModuleSeance`.`seance_id`) ON `Module`.`id` = `seances->ModuleSeance`.`module_id` ORDER BY `Module`.`date_creation` DESC LIMIT 0, 10;
+[2025-05-23 10:22:45] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-23 10:22:45] INFO: - Détail des modules trouvés:
+[2025-05-23 10:22:45] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-23 10:22:45] INFO: ::1 - - [23/May/2025:08:22:45 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-23 10:22:46] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-23 10:22:46] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:46] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-23 10:22:46] DEBUG: Executing (default): SELECT u.*, r.id as role_id_from_join, r.nom as role_nom, r.description as role_description
+      FROM users u
+      LEFT JOIN roles r ON u.role_id = r.id
+      WHERE u.id = 11
+[2025-05-23 10:22:46] INFO: Données utilisateur récupérées:
+[2025-05-23 10:22:46] INFO: - ID: 11
+[2025-05-23 10:22:46] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:46] INFO: - role_id depuis la table users: 2
+[2025-05-23 10:22:46] INFO: - role_id depuis la jointure: 2
+[2025-05-23 10:22:46] INFO: - role_nom: admin_plus
+[2025-05-23 10:22:46] INFO: - role_description: Super administrateur du système
+[2025-05-23 10:22:46] INFO: Objet utilisateur final construit:
+[2025-05-23 10:22:46] INFO: - ID: 11
+[2025-05-23 10:22:46] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:46] INFO: - Role.id: 2
+[2025-05-23 10:22:46] INFO: - Role.nom: admin_plus
+[2025-05-23 10:22:46] INFO: - Role.role_type: admin_plus
+[2025-05-23 10:22:46] INFO: - Role.description: Super administrateur du système
+[2025-05-23 10:22:46] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-23 10:22:46] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:46] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-23 10:22:46] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-23 10:22:46] INFO: - Méthode: GET
+[2025-05-23 10:22:46] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-23 10:22:46] INFO: - Paramètre statut reçu: ""
+[2025-05-23 10:22:46] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-23 10:22:46] INFO: - ID Utilisateur: 11
+[2025-05-23 10:22:46] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:46] INFO: - Rôle ID: 2
+[2025-05-23 10:22:46] INFO: - Rôle nom: admin_plus
+[2025-05-23 10:22:46] INFO: - Rôle type: admin_plus
+[2025-05-23 10:22:46] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-23 10:22:46] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-23 10:22:46] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `niveau`, `duree`, `image_url`, `objectifs`, `statut`, `date_creation`, `updated_at`, `created_by` FROM `modules` AS `Module`;
+[2025-05-23 10:22:46] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-23 10:22:46] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-23 10:22:46] INFO: - Conditions WHERE construites: {}
+[2025-05-23 10:22:46] INFO: - Options de tri: date_creation desc
+[2025-05-23 10:22:46] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-23 10:22:46] DEBUG: Executing (default): SELECT count(DISTINCT(`id`)) AS `count` FROM `modules` AS `Module`;
+[2025-05-23 10:22:46] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `niveau`, `duree`, `image_url`, `objectifs`, `statut`, `date_creation`, `updated_at`, `created_by` FROM `modules` AS `Module`;
+[2025-05-23 10:22:46] DEBUG: Executing (default): SELECT `Module`.`id`, `Module`.`titre`, `Module`.`description`, `Module`.`niveau`, `Module`.`duree`, `Module`.`image_url`, `Module`.`objectifs`, `Module`.`statut`, `Module`.`date_creation`, `Module`.`updated_at`, `Module`.`created_by`, `users`.`id` AS `users.id`, `users`.`nom` AS `users.nom`, `users`.`prenom` AS `users.prenom`, `users`.`mail` AS `users.mail`, `users`.`mdp` AS `users.mdp`, `users`.`date_naissance` AS `users.date_naissance`, `users`.`role_id` AS `users.role_id`, `users`.`active` AS `users.active`, `users`.`created_at` AS `users.created_at`, `users`.`updated_at` AS `users.updated_at`, `seances`.`id` AS `seances.id`, `seances`.`titre` AS `seances.titre`, `seances`.`description` AS `seances.description`, `seances`.`duree` AS `seances.duree`, `seances`.`type` AS `seances.type`, `seances`.`contenu` AS `seances.contenu`, `seances`.`ressources` AS `seances.ressources`, `seances`.`created_by` AS `seances.created_by`, `seances`.`active` AS `seances.active`, `seances`.`date_creation` AS `seances.date_creation`, `seances`.`created_at` AS `seances.created_at`, `seances`.`updated_at` AS `seances.updated_at`, `seances->ModuleSeance`.`id` AS `seances.ModuleSeance.id`, `seances->ModuleSeance`.`positions` AS `seances.ModuleSeance.positions` FROM `modules` AS `Module` LEFT OUTER JOIN ( `modules_users` AS `users->ModulesUsers` INNER JOIN `users` AS `users` ON `users`.`id` = `users->ModulesUsers`.`user_id`) ON `Module`.`id` = `users->ModulesUsers`.`module_id` LEFT OUTER JOIN ( `module_seance` AS `seances->ModuleSeance` INNER JOIN `seances` AS `seances` ON `seances`.`id` = `seances->ModuleSeance`.`seance_id`) ON `Module`.`id` = `seances->ModuleSeance`.`module_id` ORDER BY `Module`.`date_creation` DESC LIMIT 0, 10;
+[2025-05-23 10:22:46] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-23 10:22:46] INFO: - Détail des modules trouvés:
+[2025-05-23 10:22:46] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-23 10:22:46] INFO: ::1 - - [23/May/2025:08:22:46 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT `Seance`.`id`, `Seance`.`titre`, `Seance`.`description`, `Seance`.`duree`, `Seance`.`type`, `Seance`.`contenu`, `Seance`.`ressources`, `Seance`.`created_by`, `Seance`.`active`, `Seance`.`date_creation`, `Seance`.`created_at`, `Seance`.`updated_at`, `activites`.`id` AS `activites.id`, `activites`.`contenu` AS `activites.contenu`, `activites`.`date_creation` AS `activites.date_creation`, `activites`.`updated_at` AS `activites.updated_at`, `activites`.`titre` AS `activites.titre`, `activites`.`description` AS `activites.description`, `activites`.`type_activite_id` AS `activites.type_activite_id`, `activites`.`duree` AS `activites.duree`, `activites->seanceActivite`.`id` AS `activites.seanceActivite.id`, `activites->seanceActivite`.`ordre` AS `activites.seanceActivite.ordre`, `modules`.`id` AS `modules.id`, `modules`.`titre` AS `modules.titre`, `modules`.`description` AS `modules.description`, `modules`.`niveau` AS `modules.niveau`, `modules`.`duree` AS `modules.duree`, `modules`.`image_url` AS `modules.image_url`, `modules`.`objectifs` AS `modules.objectifs`, `modules`.`statut` AS `modules.statut`, `modules`.`date_creation` AS `modules.date_creation`, `modules`.`updated_at` AS `modules.updated_at`, `modules`.`created_by` AS `modules.created_by`, `modules->ModuleSeance`.`id` AS `modules.ModuleSeance.id`, `modules->ModuleSeance`.`module_id` AS `modules.ModuleSeance.module_id`, `modules->ModuleSeance`.`seance_id` AS `modules.ModuleSeance.seance_id`, `modules->ModuleSeance`.`positions` AS `modules.ModuleSeance.positions`, `modules->ModuleSeance`.`created_at` AS `modules.ModuleSeance.created_at`, `modules->ModuleSeance`.`updated_at` AS `modules.ModuleSeance.updated_at` FROM `seances` AS `Seance` LEFT OUTER JOIN ( `seance_activite` AS `activites->seanceActivite` INNER JOIN `activites` AS `activites` ON `activites`.`id` = `activites->seanceActivite`.`activite_id`) ON `Seance`.`id` = `activites->seanceActivite`.`seance_id` LEFT OUTER JOIN ( `module_seance` AS `modules->ModuleSeance` INNER JOIN `modules` AS `modules` ON `modules`.`id` = `modules->ModuleSeance`.`module_id`) ON `Seance`.`id` = `modules->ModuleSeance`.`seance_id`;
+[2025-05-23 10:22:51] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-23 10:22:51] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:51] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT u.*, r.id as role_id_from_join, r.nom as role_nom, r.description as role_description
+      FROM users u
+      LEFT JOIN roles r ON u.role_id = r.id
+      WHERE u.id = 11
+[2025-05-23 10:22:51] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-23 10:22:51] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:51] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT u.*, r.id as role_id_from_join, r.nom as role_nom, r.description as role_description
+      FROM users u
+      LEFT JOIN roles r ON u.role_id = r.id
+      WHERE u.id = 11
+[2025-05-23 10:22:51] INFO: ::1 - - [23/May/2025:08:22:51 +0000] "GET /api/seances HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-23 10:22:51] INFO: Données utilisateur récupérées:
+[2025-05-23 10:22:51] INFO: - ID: 11
+[2025-05-23 10:22:51] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:51] INFO: - role_id depuis la table users: 2
+[2025-05-23 10:22:51] INFO: - role_id depuis la jointure: 2
+[2025-05-23 10:22:51] INFO: - role_nom: admin_plus
+[2025-05-23 10:22:51] INFO: - role_description: Super administrateur du système
+[2025-05-23 10:22:51] INFO: Objet utilisateur final construit:
+[2025-05-23 10:22:51] INFO: - ID: 11
+[2025-05-23 10:22:51] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:51] INFO: - Role.id: 2
+[2025-05-23 10:22:51] INFO: - Role.nom: admin_plus
+[2025-05-23 10:22:51] INFO: - Role.role_type: admin_plus
+[2025-05-23 10:22:51] INFO: - Role.description: Super administrateur du système
+[2025-05-23 10:22:51] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-23 10:22:51] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT `id`, `type_activite`, `couleur` FROM `type_activites` AS `TypeActivite`;
+[2025-05-23 10:22:51] INFO: ::1 - - [23/May/2025:08:22:51 +0000] "GET /api/activites/types HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-23 10:22:51] INFO: Données utilisateur récupérées:
+[2025-05-23 10:22:51] INFO: - ID: 11
+[2025-05-23 10:22:51] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:51] INFO: - role_id depuis la table users: 2
+[2025-05-23 10:22:51] INFO: - role_id depuis la jointure: 2
+[2025-05-23 10:22:51] INFO: - role_nom: admin_plus
+[2025-05-23 10:22:51] INFO: - role_description: Super administrateur du système
+[2025-05-23 10:22:51] INFO: Objet utilisateur final construit:
+[2025-05-23 10:22:51] INFO: - ID: 11
+[2025-05-23 10:22:51] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:51] INFO: - Role.id: 2
+[2025-05-23 10:22:51] INFO: - Role.nom: admin_plus
+[2025-05-23 10:22:51] INFO: - Role.role_type: admin_plus
+[2025-05-23 10:22:51] INFO: - Role.description: Super administrateur du système
+[2025-05-23 10:22:51] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-23 10:22:51] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:51] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-23 10:22:51] INFO: - URL complète: http://localhost:3000/api/modules
+[2025-05-23 10:22:51] INFO: - Méthode: GET
+[2025-05-23 10:22:51] INFO: - Paramètres de requête: {}
+[2025-05-23 10:22:51] INFO: - Paramètre statut reçu: ""
+[2025-05-23 10:22:51] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-23 10:22:51] INFO: - ID Utilisateur: 11
+[2025-05-23 10:22:51] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:51] INFO: - Rôle ID: 2
+[2025-05-23 10:22:51] INFO: - Rôle nom: admin_plus
+[2025-05-23 10:22:51] INFO: - Rôle type: admin_plus
+[2025-05-23 10:22:51] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-23 10:22:51] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `niveau`, `duree`, `image_url`, `objectifs`, `statut`, `date_creation`, `updated_at`, `created_by` FROM `modules` AS `Module`;
+[2025-05-23 10:22:51] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-23 10:22:51] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-23 10:22:51] INFO: - Conditions WHERE construites: {}
+[2025-05-23 10:22:51] INFO: - Options de tri: date_creation desc
+[2025-05-23 10:22:51] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT count(DISTINCT(`id`)) AS `count` FROM `modules` AS `Module`;
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `niveau`, `duree`, `image_url`, `objectifs`, `statut`, `date_creation`, `updated_at`, `created_by` FROM `modules` AS `Module`;
+[2025-05-23 10:22:51] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-23 10:22:51] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:51] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT u.*, r.id as role_id_from_join, r.nom as role_nom, r.description as role_description
+      FROM users u
+      LEFT JOIN roles r ON u.role_id = r.id
+      WHERE u.id = 11
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT `Module`.`id`, `Module`.`titre`, `Module`.`description`, `Module`.`niveau`, `Module`.`duree`, `Module`.`image_url`, `Module`.`objectifs`, `Module`.`statut`, `Module`.`date_creation`, `Module`.`updated_at`, `Module`.`created_by`, `users`.`id` AS `users.id`, `users`.`nom` AS `users.nom`, `users`.`prenom` AS `users.prenom`, `users`.`mail` AS `users.mail`, `users`.`mdp` AS `users.mdp`, `users`.`date_naissance` AS `users.date_naissance`, `users`.`role_id` AS `users.role_id`, `users`.`active` AS `users.active`, `users`.`created_at` AS `users.created_at`, `users`.`updated_at` AS `users.updated_at`, `seances`.`id` AS `seances.id`, `seances`.`titre` AS `seances.titre`, `seances`.`description` AS `seances.description`, `seances`.`duree` AS `seances.duree`, `seances`.`type` AS `seances.type`, `seances`.`contenu` AS `seances.contenu`, `seances`.`ressources` AS `seances.ressources`, `seances`.`created_by` AS `seances.created_by`, `seances`.`active` AS `seances.active`, `seances`.`date_creation` AS `seances.date_creation`, `seances`.`created_at` AS `seances.created_at`, `seances`.`updated_at` AS `seances.updated_at`, `seances->ModuleSeance`.`id` AS `seances.ModuleSeance.id`, `seances->ModuleSeance`.`positions` AS `seances.ModuleSeance.positions` FROM `modules` AS `Module` LEFT OUTER JOIN ( `modules_users` AS `users->ModulesUsers` INNER JOIN `users` AS `users` ON `users`.`id` = `users->ModulesUsers`.`user_id`) ON `Module`.`id` = `users->ModulesUsers`.`module_id` LEFT OUTER JOIN ( `module_seance` AS `seances->ModuleSeance` INNER JOIN `seances` AS `seances` ON `seances`.`id` = `seances->ModuleSeance`.`seance_id`) ON `Module`.`id` = `seances->ModuleSeance`.`module_id` ORDER BY `Module`.`date_creation` DESC LIMIT 0, 10;
+[2025-05-23 10:22:51] INFO: Données utilisateur récupérées:
+[2025-05-23 10:22:51] INFO: - ID: 11
+[2025-05-23 10:22:51] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:51] INFO: - role_id depuis la table users: 2
+[2025-05-23 10:22:51] INFO: - role_id depuis la jointure: 2
+[2025-05-23 10:22:51] INFO: - role_nom: admin_plus
+[2025-05-23 10:22:51] INFO: - role_description: Super administrateur du système
+[2025-05-23 10:22:51] INFO: Objet utilisateur final construit:
+[2025-05-23 10:22:51] INFO: - ID: 11
+[2025-05-23 10:22:51] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:51] INFO: - Role.id: 2
+[2025-05-23 10:22:51] INFO: - Role.nom: admin_plus
+[2025-05-23 10:22:51] INFO: - Role.role_type: admin_plus
+[2025-05-23 10:22:51] INFO: - Role.description: Super administrateur du système
+[2025-05-23 10:22:51] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-23 10:22:51] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `duree`, `type`, `contenu`, `ressources`, `created_by`, `active`, `date_creation`, `created_at`, `updated_at` FROM `seances` AS `Seance` WHERE `Seance`.`id` = '10';
+[2025-05-23 10:22:51] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-23 10:22:51] INFO: - Détail des modules trouvés:
+[2025-05-23 10:22:51] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-23 10:22:51] INFO: ::1 - - [23/May/2025:08:22:51 +0000] "GET /api/modules HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT `Seance`.`id`, `Seance`.`titre`, `Seance`.`description`, `Seance`.`duree`, `Seance`.`type`, `Seance`.`contenu`, `Seance`.`ressources`, `Seance`.`created_by`, `Seance`.`active`, `Seance`.`date_creation`, `Seance`.`created_at`, `Seance`.`updated_at`, `activites`.`id` AS `activites.id`, `activites`.`contenu` AS `activites.contenu`, `activites`.`date_creation` AS `activites.date_creation`, `activites`.`updated_at` AS `activites.updated_at`, `activites`.`titre` AS `activites.titre`, `activites`.`description` AS `activites.description`, `activites`.`type_activite_id` AS `activites.type_activite_id`, `activites`.`duree` AS `activites.duree`, `activites->seanceActivite`.`id` AS `activites.seanceActivite.id`, `activites->seanceActivite`.`ordre` AS `activites.seanceActivite.ordre`, `activites->typeActivite`.`id` AS `activites.typeActivite.id`, `activites->typeActivite`.`type_activite` AS `activites.typeActivite.type_activite`, `activites->typeActivite`.`couleur` AS `activites.typeActivite.couleur` FROM `seances` AS `Seance` LEFT OUTER JOIN ( `seance_activite` AS `activites->seanceActivite` INNER JOIN `activites` AS `activites` ON `activites`.`id` = `activites->seanceActivite`.`activite_id`) ON `Seance`.`id` = `activites->seanceActivite`.`seance_id` LEFT OUTER JOIN `type_activites` AS `activites->typeActivite` ON `activites`.`type_activite_id` = `activites->typeActivite`.`id` WHERE `Seance`.`id` = '10';
+[2025-05-23 10:22:51] INFO: ::1 - - [23/May/2025:08:22:51 +0000] "GET /api/activites/seance/10 HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-23 10:22:51] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-23 10:22:51] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:51] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT u.*, r.id as role_id_from_join, r.nom as role_nom, r.description as role_description
+      FROM users u
+      LEFT JOIN roles r ON u.role_id = r.id
+      WHERE u.id = 11
+[2025-05-23 10:22:51] INFO: Données utilisateur récupérées:
+[2025-05-23 10:22:51] INFO: - ID: 11
+[2025-05-23 10:22:51] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:51] INFO: - role_id depuis la table users: 2
+[2025-05-23 10:22:51] INFO: - role_id depuis la jointure: 2
+[2025-05-23 10:22:51] INFO: - role_nom: admin_plus
+[2025-05-23 10:22:51] INFO: - role_description: Super administrateur du système
+[2025-05-23 10:22:51] INFO: Objet utilisateur final construit:
+[2025-05-23 10:22:51] INFO: - ID: 11
+[2025-05-23 10:22:51] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:51] INFO: - Role.id: 2
+[2025-05-23 10:22:51] INFO: - Role.nom: admin_plus
+[2025-05-23 10:22:51] INFO: - Role.role_type: admin_plus
+[2025-05-23 10:22:51] INFO: - Role.description: Super administrateur du système
+[2025-05-23 10:22:51] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-23 10:22:51] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:51] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-23 10:22:51] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-23 10:22:51] INFO: - Méthode: GET
+[2025-05-23 10:22:51] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-23 10:22:51] INFO: - Paramètre statut reçu: ""
+[2025-05-23 10:22:51] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-23 10:22:51] INFO: - ID Utilisateur: 11
+[2025-05-23 10:22:51] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:51] INFO: - Rôle ID: 2
+[2025-05-23 10:22:51] INFO: - Rôle nom: admin_plus
+[2025-05-23 10:22:51] INFO: - Rôle type: admin_plus
+[2025-05-23 10:22:51] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-23 10:22:51] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `niveau`, `duree`, `image_url`, `objectifs`, `statut`, `date_creation`, `updated_at`, `created_by` FROM `modules` AS `Module`;
+[2025-05-23 10:22:51] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-23 10:22:51] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-23 10:22:51] INFO: - Conditions WHERE construites: {}
+[2025-05-23 10:22:51] INFO: - Options de tri: date_creation desc
+[2025-05-23 10:22:51] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT count(DISTINCT(`id`)) AS `count` FROM `modules` AS `Module`;
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `niveau`, `duree`, `image_url`, `objectifs`, `statut`, `date_creation`, `updated_at`, `created_by` FROM `modules` AS `Module`;
+[2025-05-23 10:22:51] DEBUG: Executing (default): SELECT `Module`.`id`, `Module`.`titre`, `Module`.`description`, `Module`.`niveau`, `Module`.`duree`, `Module`.`image_url`, `Module`.`objectifs`, `Module`.`statut`, `Module`.`date_creation`, `Module`.`updated_at`, `Module`.`created_by`, `users`.`id` AS `users.id`, `users`.`nom` AS `users.nom`, `users`.`prenom` AS `users.prenom`, `users`.`mail` AS `users.mail`, `users`.`mdp` AS `users.mdp`, `users`.`date_naissance` AS `users.date_naissance`, `users`.`role_id` AS `users.role_id`, `users`.`active` AS `users.active`, `users`.`created_at` AS `users.created_at`, `users`.`updated_at` AS `users.updated_at`, `seances`.`id` AS `seances.id`, `seances`.`titre` AS `seances.titre`, `seances`.`description` AS `seances.description`, `seances`.`duree` AS `seances.duree`, `seances`.`type` AS `seances.type`, `seances`.`contenu` AS `seances.contenu`, `seances`.`ressources` AS `seances.ressources`, `seances`.`created_by` AS `seances.created_by`, `seances`.`active` AS `seances.active`, `seances`.`date_creation` AS `seances.date_creation`, `seances`.`created_at` AS `seances.created_at`, `seances`.`updated_at` AS `seances.updated_at`, `seances->ModuleSeance`.`id` AS `seances.ModuleSeance.id`, `seances->ModuleSeance`.`positions` AS `seances.ModuleSeance.positions` FROM `modules` AS `Module` LEFT OUTER JOIN ( `modules_users` AS `users->ModulesUsers` INNER JOIN `users` AS `users` ON `users`.`id` = `users->ModulesUsers`.`user_id`) ON `Module`.`id` = `users->ModulesUsers`.`module_id` LEFT OUTER JOIN ( `module_seance` AS `seances->ModuleSeance` INNER JOIN `seances` AS `seances` ON `seances`.`id` = `seances->ModuleSeance`.`seance_id`) ON `Module`.`id` = `seances->ModuleSeance`.`module_id` ORDER BY `Module`.`date_creation` DESC LIMIT 0, 10;
+[2025-05-23 10:22:51] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-23 10:22:51] INFO: - Détail des modules trouvés:
+[2025-05-23 10:22:51] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-23 10:22:51] INFO: ::1 - - [23/May/2025:08:22:51 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-23 10:22:52] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-23 10:22:52] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:52] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-23 10:22:52] DEBUG: Executing (default): SELECT u.*, r.id as role_id_from_join, r.nom as role_nom, r.description as role_description
+      FROM users u
+      LEFT JOIN roles r ON u.role_id = r.id
+      WHERE u.id = 11
+[2025-05-23 10:22:52] INFO: Données utilisateur récupérées:
+[2025-05-23 10:22:52] INFO: - ID: 11
+[2025-05-23 10:22:52] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:52] INFO: - role_id depuis la table users: 2
+[2025-05-23 10:22:52] INFO: - role_id depuis la jointure: 2
+[2025-05-23 10:22:52] INFO: - role_nom: admin_plus
+[2025-05-23 10:22:52] INFO: - role_description: Super administrateur du système
+[2025-05-23 10:22:52] INFO: Objet utilisateur final construit:
+[2025-05-23 10:22:52] INFO: - ID: 11
+[2025-05-23 10:22:52] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:52] INFO: - Role.id: 2
+[2025-05-23 10:22:52] INFO: - Role.nom: admin_plus
+[2025-05-23 10:22:52] INFO: - Role.role_type: admin_plus
+[2025-05-23 10:22:52] INFO: - Role.description: Super administrateur du système
+[2025-05-23 10:22:52] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-23 10:22:52] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:52] INFO: [isAdmin] Vérification du rôle admin pour l'utilisateur ID=11, Rôle={"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}
+[2025-05-23 10:22:52] INFO: [isAdmin] Rôle utilisateur détecté: nom=admin_plus
+[2025-05-23 10:22:52] INFO: [isAdmin] Accès admin autorisé pour l'utilisateur 11
+[2025-05-23 10:22:52] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `users` AS `User`;
+[2025-05-23 10:22:52] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `users` AS `User` WHERE `User`.`updated_at` >= '2025-05-16 08:22:52';
+[2025-05-23 10:22:52] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `modules` AS `Module`;
+[2025-05-23 10:22:52] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `seances` AS `Seance`;
+[2025-05-23 10:22:52] DEBUG: Executing (default): SELECT `User`.`id`, `User`.`nom`, `User`.`prenom`, `User`.`mail`, `User`.`created_at`, `User`.`updated_at`, `role`.`id` AS `role.id`, `role`.`nom` AS `role.nom`, `role`.`description` AS `role.description`, `role`.`created_at` AS `role.created_at`, `role`.`updated_at` AS `role.updated_at` FROM `users` AS `User` LEFT OUTER JOIN `roles` AS `role` ON `User`.`role_id` = `role`.`id` WHERE (`User`.`updated_at` >= '2025-05-16 08:22:52' OR `User`.`created_at` >= '2025-05-16 08:22:52') ORDER BY `User`.`updated_at` DESC LIMIT 5;
+[2025-05-23 10:22:52] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `date_creation` FROM `modules` AS `Module` ORDER BY `Module`.`date_creation` DESC LIMIT 3;
+[2025-05-23 10:22:52] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `date_creation` FROM `seances` AS `Seance` ORDER BY `Seance`.`date_creation` DESC LIMIT 3;
+[2025-05-23 10:22:52] DEBUG: Réponse des statistiques administrateur:
+[2025-05-23 10:22:52] INFO: ::1 - - [23/May/2025:08:22:52 +0000] "GET /api/admin/stats HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-23 10:22:52] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-23 10:22:52] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:52] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-23 10:22:52] DEBUG: Executing (default): SELECT u.*, r.id as role_id_from_join, r.nom as role_nom, r.description as role_description
+      FROM users u
+      LEFT JOIN roles r ON u.role_id = r.id
+      WHERE u.id = 11
+[2025-05-23 10:22:52] INFO: Données utilisateur récupérées:
+[2025-05-23 10:22:52] INFO: - ID: 11
+[2025-05-23 10:22:52] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:52] INFO: - role_id depuis la table users: 2
+[2025-05-23 10:22:52] INFO: - role_id depuis la jointure: 2
+[2025-05-23 10:22:52] INFO: - role_nom: admin_plus
+[2025-05-23 10:22:52] INFO: - role_description: Super administrateur du système
+[2025-05-23 10:22:52] INFO: Objet utilisateur final construit:
+[2025-05-23 10:22:52] INFO: - ID: 11
+[2025-05-23 10:22:52] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:52] INFO: - Role.id: 2
+[2025-05-23 10:22:52] INFO: - Role.nom: admin_plus
+[2025-05-23 10:22:52] INFO: - Role.role_type: admin_plus
+[2025-05-23 10:22:52] INFO: - Role.description: Super administrateur du système
+[2025-05-23 10:22:52] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-23 10:22:52] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:52] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-23 10:22:52] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-23 10:22:52] INFO: - Méthode: GET
+[2025-05-23 10:22:52] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-23 10:22:52] INFO: - Paramètre statut reçu: ""
+[2025-05-23 10:22:52] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-23 10:22:52] INFO: - ID Utilisateur: 11
+[2025-05-23 10:22:52] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:52] INFO: - Rôle ID: 2
+[2025-05-23 10:22:52] INFO: - Rôle nom: admin_plus
+[2025-05-23 10:22:52] INFO: - Rôle type: admin_plus
+[2025-05-23 10:22:52] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-23 10:22:52] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-23 10:22:52] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `niveau`, `duree`, `image_url`, `objectifs`, `statut`, `date_creation`, `updated_at`, `created_by` FROM `modules` AS `Module`;
+[2025-05-23 10:22:52] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-23 10:22:52] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-23 10:22:52] INFO: - Conditions WHERE construites: {}
+[2025-05-23 10:22:52] INFO: - Options de tri: date_creation desc
+[2025-05-23 10:22:52] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-23 10:22:52] DEBUG: Executing (default): SELECT count(DISTINCT(`id`)) AS `count` FROM `modules` AS `Module`;
+[2025-05-23 10:22:52] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `niveau`, `duree`, `image_url`, `objectifs`, `statut`, `date_creation`, `updated_at`, `created_by` FROM `modules` AS `Module`;
+[2025-05-23 10:22:52] DEBUG: Executing (default): SELECT `Module`.`id`, `Module`.`titre`, `Module`.`description`, `Module`.`niveau`, `Module`.`duree`, `Module`.`image_url`, `Module`.`objectifs`, `Module`.`statut`, `Module`.`date_creation`, `Module`.`updated_at`, `Module`.`created_by`, `users`.`id` AS `users.id`, `users`.`nom` AS `users.nom`, `users`.`prenom` AS `users.prenom`, `users`.`mail` AS `users.mail`, `users`.`mdp` AS `users.mdp`, `users`.`date_naissance` AS `users.date_naissance`, `users`.`role_id` AS `users.role_id`, `users`.`active` AS `users.active`, `users`.`created_at` AS `users.created_at`, `users`.`updated_at` AS `users.updated_at`, `seances`.`id` AS `seances.id`, `seances`.`titre` AS `seances.titre`, `seances`.`description` AS `seances.description`, `seances`.`duree` AS `seances.duree`, `seances`.`type` AS `seances.type`, `seances`.`contenu` AS `seances.contenu`, `seances`.`ressources` AS `seances.ressources`, `seances`.`created_by` AS `seances.created_by`, `seances`.`active` AS `seances.active`, `seances`.`date_creation` AS `seances.date_creation`, `seances`.`created_at` AS `seances.created_at`, `seances`.`updated_at` AS `seances.updated_at`, `seances->ModuleSeance`.`id` AS `seances.ModuleSeance.id`, `seances->ModuleSeance`.`positions` AS `seances.ModuleSeance.positions` FROM `modules` AS `Module` LEFT OUTER JOIN ( `modules_users` AS `users->ModulesUsers` INNER JOIN `users` AS `users` ON `users`.`id` = `users->ModulesUsers`.`user_id`) ON `Module`.`id` = `users->ModulesUsers`.`module_id` LEFT OUTER JOIN ( `module_seance` AS `seances->ModuleSeance` INNER JOIN `seances` AS `seances` ON `seances`.`id` = `seances->ModuleSeance`.`seance_id`) ON `Module`.`id` = `seances->ModuleSeance`.`module_id` ORDER BY `Module`.`date_creation` DESC LIMIT 0, 10;
+[2025-05-23 10:22:52] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-23 10:22:52] INFO: - Détail des modules trouvés:
+[2025-05-23 10:22:52] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-23 10:22:52] INFO: ::1 - - [23/May/2025:08:22:52 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-23 10:22:53] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-23 10:22:53] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:53] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-23 10:22:53] DEBUG: Executing (default): SELECT u.*, r.id as role_id_from_join, r.nom as role_nom, r.description as role_description
+      FROM users u
+      LEFT JOIN roles r ON u.role_id = r.id
+      WHERE u.id = 11
+[2025-05-23 10:22:53] INFO: Données utilisateur récupérées:
+[2025-05-23 10:22:53] INFO: - ID: 11
+[2025-05-23 10:22:53] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:53] INFO: - role_id depuis la table users: 2
+[2025-05-23 10:22:53] INFO: - role_id depuis la jointure: 2
+[2025-05-23 10:22:53] INFO: - role_nom: admin_plus
+[2025-05-23 10:22:53] INFO: - role_description: Super administrateur du système
+[2025-05-23 10:22:53] INFO: Objet utilisateur final construit:
+[2025-05-23 10:22:53] INFO: - ID: 11
+[2025-05-23 10:22:53] INFO: - Email: ethan@admin.com
+[2025-05-23 10:22:53] INFO: - Role.id: 2
+[2025-05-23 10:22:53] INFO: - Role.nom: admin_plus
+[2025-05-23 10:22:53] INFO: - Role.role_type: admin_plus
+[2025-05-23 10:22:53] INFO: - Role.description: Super administrateur du système
+[2025-05-23 10:22:53] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-23 10:22:53] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-23 10:22:53] INFO: [isAdmin] Vérification du rôle admin pour l'utilisateur ID=11, Rôle={"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}
+[2025-05-23 10:22:53] INFO: [isAdmin] Rôle utilisateur détecté: nom=admin_plus
+[2025-05-23 10:22:53] INFO: [isAdmin] Accès admin autorisé pour l'utilisateur 11
+[2025-05-23 10:22:53] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `users` AS `User`;
+[2025-05-23 10:22:53] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `users` AS `User` WHERE `User`.`updated_at` >= '2025-05-16 08:22:53';
+[2025-05-23 10:22:53] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `modules` AS `Module`;
+[2025-05-23 10:22:53] DEBUG: Executing (default): SELECT count(*) AS `count` FROM `seances` AS `Seance`;
+[2025-05-23 10:22:53] DEBUG: Executing (default): SELECT `User`.`id`, `User`.`nom`, `User`.`prenom`, `User`.`mail`, `User`.`created_at`, `User`.`updated_at`, `role`.`id` AS `role.id`, `role`.`nom` AS `role.nom`, `role`.`description` AS `role.description`, `role`.`created_at` AS `role.created_at`, `role`.`updated_at` AS `role.updated_at` FROM `users` AS `User` LEFT OUTER JOIN `roles` AS `role` ON `User`.`role_id` = `role`.`id` WHERE (`User`.`updated_at` >= '2025-05-16 08:22:53' OR `User`.`created_at` >= '2025-05-16 08:22:53') ORDER BY `User`.`updated_at` DESC LIMIT 5;
+[2025-05-23 10:22:53] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `date_creation` FROM `modules` AS `Module` ORDER BY `Module`.`date_creation` DESC LIMIT 3;
+[2025-05-23 10:22:53] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `date_creation` FROM `seances` AS `Seance` ORDER BY `Seance`.`date_creation` DESC LIMIT 3;
+[2025-05-23 10:22:53] DEBUG: Réponse des statistiques administrateur:
+[2025-05-23 10:22:53] INFO: ::1 - - [23/May/2025:08:22:53 +0000] "GET /api/admin/stats HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"

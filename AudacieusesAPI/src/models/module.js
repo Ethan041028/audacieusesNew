@@ -13,10 +13,15 @@ module.exports = (sequelize, DataTypes) => {  const Module = sequelize.define('M
     description: {
       type: DataTypes.TEXT,
       allowNull: true
-    },
-    niveau: {
-      type: DataTypes.ENUM('Débutant', 'Intermédiaire', 'Avancé'),
-      allowNull: true
+    },    niveau: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate: {
+        isIn: {
+          args: [['Débutant', 'Intermédiaire', 'Avancé']],
+          msg: 'Le niveau doit être l\'un des suivants: Débutant, Intermédiaire, Avancé'
+        }
+      }
     },
     duree: {
       type: DataTypes.INTEGER,
@@ -31,8 +36,14 @@ module.exports = (sequelize, DataTypes) => {  const Module = sequelize.define('M
       allowNull: true
     },
     statut: {
-      type: DataTypes.ENUM('brouillon', 'publié', 'archivé'),
-      defaultValue: 'brouillon'
+      type: DataTypes.STRING,
+      defaultValue: 'brouillon',
+      validate: {
+        isIn: {
+          args: [['brouillon', 'publié', 'archivé']],
+          msg: 'Le statut doit être l\'un des suivants: brouillon, publié, archivé'
+        }
+      }
     },date_creation: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW

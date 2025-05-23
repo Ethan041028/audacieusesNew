@@ -24,20 +24,31 @@ module.exports = (sequelize, DataTypes) => {
       date_fin: {
         type: DataTypes.DATE,
         allowNull: false,
-      },
-      lieu: {
+      },      lieu: {
         type: DataTypes.STRING(100),
         allowNull: true,
       },
       type: {
-        type: DataTypes.ENUM('evenement', 'rendez-vous', 'rappel', 'seance'),
+        type: DataTypes.STRING,
         allowNull: false,
         defaultValue: 'evenement',
+        validate: {
+          isIn: {
+            args: [['evenement', 'rendez-vous', 'rappel', 'seance']],
+            msg: 'La valeur doit être l\'une des suivantes: evenement, rendez-vous, rappel, seance'
+          }
+        }
       },
       statut: {
-        type: DataTypes.ENUM('planifie', 'confirme', 'annule', 'complete'),
+        type: DataTypes.STRING,
         allowNull: false,
         defaultValue: 'planifie',
+        validate: {
+          isIn: {
+            args: [['planifie', 'confirme', 'annule', 'complete']],
+            msg: 'La valeur doit être l\'une des suivantes: planifie, confirme, annule, complete'
+          }
+        }
       },
       rappel: {
         type: DataTypes.BOOLEAN,

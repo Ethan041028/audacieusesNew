@@ -39,3 +39,4 @@
 [2025-05-23 09:54:18] ERROR: Impossible de se connecter à la base de données:
 [2025-05-23 09:54:34] ERROR: Impossible de se connecter à la base de données:
 [2025-05-23 09:54:54] ERROR: Impossible de se connecter à la base de données:
+[2025-05-23 10:00:20] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
