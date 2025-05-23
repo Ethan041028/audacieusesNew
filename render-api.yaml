@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: audacieuses-api
+    env: node
+    region: frankfurt
+    buildCommand: |
+      cd AudacieusesAPI
+      npm install
+    startCommand: |
+      cd AudacieusesAPI
+      npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.1
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DB_DIALECT
+        value: postgres
+      - key: DB_HOST
+        value: "dpg-d0o3qk3e5dus73b5divg-a"
+      - key: DB_DATABASE
+        value: "audacieuses_db_fg7b"
+      - key: DB_USERNAME
+        value: "audacieuses_db_fg7b_user"
+      - key: DB_PASSWORD
+        value: "HCNTnWrf0o00MKeMN5mhIkZfGBDZe1Ku"
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        value: https://audacieuses-web.onrender.com
+    healthCheckPath: /api/health
+    autoDeploy: true
+    plan: free

@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: audacieuses-web
+    env: node
+    region: frankfurt
+    buildCommand: |
+      cd AudacieusesWeb
+      npm install
+      npm install -g @angular/cli
+      npm run build
+    startCommand: |
+      cd AudacieusesWeb
+      npm install -g serve
+      serve -s dist/audacieuses-web/browser -l $PORT
+    envVars:
+      - key: NODE_VERSION
+        value: 20.11.1
+      - key: NPM_VERSION
+        value: 10.2.4
+      - key: API_URL
+        value: https://audacieuses-api.onrender.com
+    healthCheckPath: /
+    autoDeploy: true
+    plan: free

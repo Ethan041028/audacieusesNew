@@ -1,0 +1,6 @@
+databases:
+  - name: audacieuses-db
+    region: frankfurt
+    plan: free
+    databaseName: audacieuses_db
+    ipAllowList: []
