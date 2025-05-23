@@ -207,7 +207,7 @@ app.use((err, req, res, next) => {
         // 4. Vérifier si la table activites existe et contient des données
         try {
           const tableExists = await sequelize.query(
-            "SELECT 1 FROM information_schema.tables WHERE table_schema = 'audacieuses_db' AND table_name = 'activites'",
+            "SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'activites'",
             { type: sequelize.QueryTypes.SELECT }
           );
             if (tableExists.length > 0) {
@@ -215,7 +215,7 @@ app.use((err, req, res, next) => {
             
             // Vérifier si la colonne type_activite_id existe déjà dans activites
             const columnExists = await sequelize.query(
-              "SELECT 1 FROM information_schema.columns WHERE table_schema = 'audacieuses_db' AND table_name = 'activites' AND column_name = 'type_activite_id'",
+              "SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'activites' AND column_name = 'type_activite_id'",
               { type: sequelize.QueryTypes.SELECT }
             );
             
@@ -245,7 +245,7 @@ app.use((err, req, res, next) => {
         // 5. Vérifier si la table users existe et contient des données
         try {
           const usersExists = await sequelize.query(
-            "SELECT 1 FROM information_schema.tables WHERE table_schema = 'audacieuses_db' AND table_name = 'users'",
+            "SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'users'",
             { type: sequelize.QueryTypes.SELECT }
           );
           
@@ -254,7 +254,7 @@ app.use((err, req, res, next) => {
             
             // Vérifier si la colonne mail existe déjà
             const mailColumnExists = await sequelize.query(
-              "SELECT 1 FROM information_schema.columns WHERE table_schema = 'audacieuses_db' AND table_name = 'users' AND column_name = 'mail'",
+              "SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'users' AND column_name = 'mail'",
               { type: sequelize.QueryTypes.SELECT }
             );
             
@@ -280,7 +280,7 @@ app.use((err, req, res, next) => {
                 logger.info('Valeurs temporaires ajoutées pour la colonne mail.');
                 
                 // Maintenant rendre la colonne NOT NULL et UNIQUE
-                await sequelize.query('ALTER TABLE users MODIFY COLUMN mail VARCHAR(50) NOT NULL UNIQUE', {
+                await sequelize.query('ALTER TABLE users ALTER COLUMN mail TYPE VARCHAR(50) NOT NULL UNIQUE', {
                   type: sequelize.QueryTypes.RAW
                 });
                 logger.info('Colonne mail mise à jour pour être NOT NULL et UNIQUE.');
@@ -291,7 +291,7 @@ app.use((err, req, res, next) => {
             
             // Vérifier également la colonne role_id
             const roleColumnExists = await sequelize.query(
-              "SELECT 1 FROM information_schema.columns WHERE table_schema = 'audacieuses_db' AND table_name = 'users' AND column_name = 'role_id'",
+              "SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'users' AND column_name = 'role_id'",
               { type: sequelize.QueryTypes.SELECT }
             );
             
@@ -355,7 +355,7 @@ app.use((err, req, res, next) => {
           // Vérifier et initialiser les StatusSuivi pour éviter l'erreur de validation
           try {
             const statusTableExists = await sequelize.query(
-              "SELECT 1 FROM information_schema.tables WHERE table_schema = 'audacieuses_db' AND table_name = 'status_suivi'",
+              "SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'status_suivi'",
               { type: sequelize.QueryTypes.SELECT }
             );
             
@@ -364,7 +364,7 @@ app.use((err, req, res, next) => {
               
               // Vérifier si la colonne type_status existe déjà
               const typeStatusExists = await sequelize.query(
-                "SELECT 1 FROM information_schema.columns WHERE table_schema = 'audacieuses_db' AND table_name = 'status_suivi' AND column_name = 'type_status'",
+                "SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'status_suivi' AND column_name = 'type_status'",
                 { type: sequelize.QueryTypes.SELECT }
               );
               
@@ -391,7 +391,7 @@ app.use((err, req, res, next) => {
                   logger.info('Valeurs temporaires ajoutées pour la colonne type_status.');
                   
                   // Maintenant rendre la colonne NOT NULL et UNIQUE
-                  await sequelize.query('ALTER TABLE status_suivi MODIFY COLUMN type_status VARCHAR(50) NOT NULL UNIQUE', {
+                  await sequelize.query('ALTER TABLE status_suivi ALTER COLUMN type_status TYPE VARCHAR(50) NOT NULL UNIQUE', {
                     type: sequelize.QueryTypes.RAW
                   });
                   logger.info('Colonne type_status mise à jour pour être NOT NULL et UNIQUE.');
@@ -407,7 +407,7 @@ app.use((err, req, res, next) => {
           // Traitement spécial pour la table evenements
           try {
             const evenementTableExists = await sequelize.query(
-              "SELECT 1 FROM information_schema.tables WHERE table_schema = 'audacieuses_db' AND table_name = 'evenements'",
+              "SELECT EXISTS(SELECT 1 FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'evenements'",
               { type: sequelize.QueryTypes.SELECT }
             );
             
@@ -416,7 +416,7 @@ app.use((err, req, res, next) => {
               
               // Vérifier si la colonne createur_id existe déjà
               const createurIdExists = await sequelize.query(
-                "SELECT 1 FROM information_schema.columns WHERE table_schema = 'audacieuses_db' AND table_name = 'evenements' AND column_name = 'createur_id'",
+                "SELECT EXISTS(SELECT 1 FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'evenements' AND column_name = 'createur_id'",
                 { type: sequelize.QueryTypes.SELECT }
               );
               

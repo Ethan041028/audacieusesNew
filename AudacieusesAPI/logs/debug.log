@@ -10439,3 +10439,4 @@ Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
 [2025-05-23 10:22:53] DEBUG: Executing (default): SELECT `id`, `titre`, `description`, `date_creation` FROM `seances` AS `Seance` ORDER BY `Seance`.`date_creation` DESC LIMIT 3;
 [2025-05-23 10:22:53] DEBUG: Réponse des statistiques administrateur:
 [2025-05-23 10:22:53] INFO: ::1 - - [23/May/2025:08:22:53 +0000] "GET /api/admin/stats HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-23 10:27:52] DEBUG: Journalisation initialisée en mode développement

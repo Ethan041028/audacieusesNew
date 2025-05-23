@@ -36,3 +36,15 @@ TypeError: Router.use() requires a middleware function but got a Object
     at Module.load (node:internal/modules/cjs/loader:1289:32)
     at Function._load (node:internal/modules/cjs/loader:1108:12)
     at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+[2025-05-23 10:27:52] ERROR: uncaughtException: Please install pg package manually
+Error: Please install pg package manually
+    at ConnectionManager._loadDialectModule (C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\node_modules\sequelize\lib\dialects\abstract\connection-manager.js:55:15)
+    at new ConnectionManager (C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\node_modules\sequelize\lib\dialects\postgres\connection-manager.js:15:24)
+    at new PostgresDialect (C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\node_modules\sequelize\lib\dialects\postgres\index.js:13:30)
+    at new Sequelize (C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\node_modules\sequelize\lib\sequelize.js:194:20)
+    at Object.<anonymous> (C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\src\config\database.js:58:19)
+    at Module._compile (node:internal/modules/cjs/loader:1554:14)
+    at Object..js (node:internal/modules/cjs/loader:1706:10)
+    at Module.load (node:internal/modules/cjs/loader:1289:32)
+    at Function._load (node:internal/modules/cjs/loader:1108:12)
+    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
