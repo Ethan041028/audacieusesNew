@@ -5787,3 +5787,994 @@ Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
 [2025-05-22 14:08:53] INFO: Documentation API disponible sur http://localhost:3000/api-docs
 [2025-05-22 14:08:53] INFO: Socket.IO initialisé et prêt à recevoir des connexions
 [2025-05-22 14:08:53] INFO: Nouvelle connexion socket: 0maUpgf7PnvN7CSfAAAB pour l'utilisateur 11
+[2025-05-22 14:37:08] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 14:37:08] ERROR: Impossible de se connecter à la base de données: getaddrinfo ENOTFOUND sql213.infinityfree.com
+[2025-05-22 14:37:14] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 14:37:14] ERROR: Impossible de se connecter à la base de données: getaddrinfo ENOTFOUND sql213.infinityfree.com
+[2025-05-22 14:39:45] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 14:39:46] ERROR: Impossible de se connecter à la base de données: getaddrinfo ENOTFOUND sql213.infinityfree.com
+[2025-05-22 14:40:42] ERROR: Impossible de se connecter à la base de données: getaddrinfo ENOTFOUND sql213.infinityfree.com
+[2025-05-22 14:41:34] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 14:41:34] ERROR: Impossible de se connecter à la base de données: getaddrinfo ENOTFOUND sql213.infinityfree.com
+[2025-05-22 14:42:00] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 14:42:00] ERROR: Impossible de se connecter à la base de données: getaddrinfo ENOTFOUND sql213.infinityfree.com
+[2025-05-22 15:14:20] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 15:14:20] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 15:14:20] INFO: Table activites existe.
+[2025-05-22 15:14:20] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 15:14:20] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 15:14:20] INFO: Table users existe.
+[2025-05-22 15:14:20] INFO: Table users contient 12 enregistrements.
+[2025-05-22 15:14:20] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 15:14:20] INFO: Table status_suivi existe.
+[2025-05-22 15:14:20] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 15:14:20] INFO: Table evenements existe.
+[2025-05-22 15:14:20] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 15:14:20] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 15:14:20] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 15:14:20] INFO: Synchronisation du modèle Role...
+[2025-05-22 15:14:20] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 15:14:20] INFO: Synchronisation du modèle User...
+[2025-05-22 15:14:20] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 15:14:20] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 15:14:20] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 15:14:20] INFO: Synchronisation du modèle Module...
+[2025-05-22 15:14:20] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 15:14:20] INFO: Synchronisation du modèle Seance...
+[2025-05-22 15:14:20] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 15:14:20] INFO: Synchronisation du modèle Activite...
+[2025-05-22 15:14:20] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 15:14:20] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 15:14:20] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 15:14:20] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 15:14:20] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 15:14:20] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 15:14:20] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 15:14:20] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 15:14:20] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 15:14:20] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 15:14:20] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 15:14:20] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 15:14:20] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 15:14:20] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 15:14:20] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 15:14:20] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 15:14:25] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 15:14:25] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 15:14:25] INFO: Table activites existe.
+[2025-05-22 15:14:25] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 15:14:25] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 15:14:25] INFO: Table users existe.
+[2025-05-22 15:14:25] INFO: Table users contient 12 enregistrements.
+[2025-05-22 15:14:25] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 15:14:25] INFO: Table status_suivi existe.
+[2025-05-22 15:14:25] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 15:14:25] INFO: Table evenements existe.
+[2025-05-22 15:14:25] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 15:14:25] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 15:14:25] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 15:14:25] INFO: Synchronisation du modèle Role...
+[2025-05-22 15:14:25] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 15:14:25] INFO: Synchronisation du modèle User...
+[2025-05-22 15:14:25] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 15:14:25] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 15:14:25] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 15:14:25] INFO: Synchronisation du modèle Module...
+[2025-05-22 15:14:25] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 15:14:25] INFO: Synchronisation du modèle Seance...
+[2025-05-22 15:14:25] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 15:14:25] INFO: Synchronisation du modèle Activite...
+[2025-05-22 15:14:25] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 15:14:25] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 15:14:25] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 15:14:25] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 15:14:25] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 15:14:25] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 15:14:25] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 15:14:25] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 15:14:25] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 15:14:25] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 15:14:25] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 15:14:25] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 15:14:25] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 15:14:25] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 15:14:25] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 15:14:25] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 20:24:39] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 20:24:39] ERROR: Impossible de se connecter à la base de données:
+[2025-05-22 20:25:48] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses\AudacieusesAPI\uploads
+[2025-05-22 20:25:48] INFO: Connexion à la base de données établie avec succès.
+[2025-05-22 20:25:48] INFO: Table activites existe.
+[2025-05-22 20:25:48] INFO: Table activites contient 4 enregistrements.
+[2025-05-22 20:25:48] INFO: Activités existantes avec type_activite_id NULL ou 0 mises à jour avec le type par défaut.
+[2025-05-22 20:25:48] INFO: Table users existe.
+[2025-05-22 20:25:48] INFO: Table users contient 12 enregistrements.
+[2025-05-22 20:25:48] INFO: Contrainte de clé étrangère ajoutée avec succès pour la colonne role_id existante.
+[2025-05-22 20:25:48] INFO: Table status_suivi existe.
+[2025-05-22 20:25:48] INFO: Table status_suivi contient 4 enregistrements.
+[2025-05-22 20:25:48] INFO: Table evenements existe.
+[2025-05-22 20:25:48] INFO: Table evenements contient 2 enregistrements.
+[2025-05-22 20:25:48] INFO: Synchronisation du modèle TypeActivite...
+[2025-05-22 20:25:48] INFO: Modèle TypeActivite synchronisé avec succès.
+[2025-05-22 20:25:48] INFO: Synchronisation du modèle Role...
+[2025-05-22 20:25:48] INFO: Modèle Role synchronisé avec succès.
+[2025-05-22 20:25:48] INFO: Synchronisation du modèle User...
+[2025-05-22 20:25:49] INFO: Contrainte fk_users_role supprimée avec succès.
+[2025-05-22 20:25:49] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 20:25:49] INFO: Modèle User synchronisé avec succès.
+[2025-05-22 20:25:49] INFO: Synchronisation du modèle Module...
+[2025-05-22 20:25:49] INFO: Modèle Module synchronisé avec succès.
+[2025-05-22 20:25:49] INFO: Synchronisation du modèle Seance...
+[2025-05-22 20:25:49] INFO: Modèle Seance synchronisé avec succès.
+[2025-05-22 20:25:49] INFO: Synchronisation du modèle Activite...
+[2025-05-22 20:25:49] INFO: Modèle Activite synchronisé avec succès.
+[2025-05-22 20:25:49] INFO: Synchronisation du modèle StatusSuivi...
+[2025-05-22 20:25:49] INFO: Modèle StatusSuivi synchronisé avec succès.
+[2025-05-22 20:25:49] INFO: Synchronisation du modèle Suivi...
+[2025-05-22 20:25:49] INFO: Modèle Suivi synchronisé avec succès.
+[2025-05-22 20:25:49] INFO: Synchronisation du modèle ReponseClient...
+[2025-05-22 20:25:49] INFO: Modèle ReponseClient synchronisé avec succès.
+[2025-05-22 20:25:49] INFO: Synchronisation du modèle Evenement...
+[2025-05-22 20:25:49] INFO: Contrainte fk_evenements_seance supprimée avec succès.
+[2025-05-22 20:25:49] INFO: Contrainte fk_evenements_user supprimée avec succès.
+[2025-05-22 20:25:49] INFO: Contraintes de clé étrangère correctes ajoutées manuellement à la table evenements.
+[2025-05-22 20:25:49] INFO: Modèle Evenement synchronisé avec succès.
+[2025-05-22 20:25:49] INFO: Tous les modèles synchronisés individuellement avec la base de données.
+[2025-05-22 20:25:49] INFO: Serveur démarré sur le port 3000.
+[2025-05-22 20:25:49] INFO: Documentation API disponible sur http://localhost:3000/api-docs
+[2025-05-22 20:25:49] INFO: Socket.IO initialisé et prêt à recevoir des connexions
+[2025-05-22 20:25:57] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:25:57] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:25:57] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:25:57] INFO: Données utilisateur récupérées:
+[2025-05-22 20:25:57] INFO: - ID: 11
+[2025-05-22 20:25:57] INFO: - Email: ethan@admin.com
+[2025-05-22 20:25:57] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:25:57] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:25:57] INFO: - role_nom: admin_plus
+[2025-05-22 20:25:57] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:25:57] INFO: Objet utilisateur final construit:
+[2025-05-22 20:25:57] INFO: - ID: 11
+[2025-05-22 20:25:57] INFO: - Email: ethan@admin.com
+[2025-05-22 20:25:57] INFO: - Role.id: 2
+[2025-05-22 20:25:57] INFO: - Role.nom: admin_plus
+[2025-05-22 20:25:57] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:25:57] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:25:57] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:25:57] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:25:57] INFO: [isAdmin] Vérification du rôle admin pour l'utilisateur ID=11, Rôle={"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}
+[2025-05-22 20:25:57] INFO: [isAdmin] Rôle utilisateur détecté: nom=admin_plus
+[2025-05-22 20:25:57] INFO: [isAdmin] Accès admin autorisé pour l'utilisateur 11
+[2025-05-22 20:25:57] INFO: ::1 - - [22/May/2025:18:25:57 +0000] "GET /api/admin/stats HTTP/1.1" 200 1424 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:04] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:04] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:04] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:04] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:04] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:04] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:04] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:04] INFO: - ID: 11
+[2025-05-22 20:26:04] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:04] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:04] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:04] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:04] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:04] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:04] INFO: - ID: 11
+[2025-05-22 20:26:04] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:04] INFO: - Role.id: 2
+[2025-05-22 20:26:04] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:04] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:04] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:04] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:04] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:04] INFO: [checkRole] Vérification des rôles pour l'utilisateur ID=11, Rôle={"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}
+[2025-05-22 20:26:04] INFO: [checkRole] Rôles requis: admin, admin_plus, Rôle utilisateur (nom): admin_plus, Accès accordé: true
+[2025-05-22 20:26:04] INFO: [checkRole] Accès accordé à l'utilisateur 11
+[2025-05-22 20:26:04] INFO: Récupération des utilisateurs avec filtres: {"page":"1","limit":"10"}
+[2025-05-22 20:26:04] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:04] INFO: - ID: 11
+[2025-05-22 20:26:04] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:04] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:04] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:04] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:04] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:04] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:04] INFO: - ID: 11
+[2025-05-22 20:26:04] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:04] INFO: - Role.id: 2
+[2025-05-22 20:26:04] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:04] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:04] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:04] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:04] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:04] INFO: ::1 - - [22/May/2025:18:26:04 +0000] "GET /api/users?page=1&limit=10 HTTP/1.1" 200 2737 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:04] INFO: ::1 - - [22/May/2025:18:26:04 +0000] "GET /api/auth/roles HTTP/1.1" 200 293 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:08] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:08] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:08] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:08] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:08] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:08] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:08] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:08] INFO: - ID: 11
+[2025-05-22 20:26:08] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:08] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:08] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:08] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:08] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:08] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:08] INFO: - ID: 11
+[2025-05-22 20:26:08] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:08] INFO: - Role.id: 2
+[2025-05-22 20:26:08] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:08] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:08] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:08] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:08] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:08] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:08] INFO: - ID: 11
+[2025-05-22 20:26:08] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:08] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:08] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:08] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:08] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:08] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:08] INFO: - ID: 11
+[2025-05-22 20:26:08] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:08] INFO: - Role.id: 2
+[2025-05-22 20:26:08] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:08] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:08] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:08] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:08] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:08] INFO: ::1 - - [22/May/2025:18:26:08 +0000] "GET /api/activites/types HTTP/1.1" 200 293 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:08] INFO: ::1 - - [22/May/2025:18:26:08 +0000] "GET /api/seances HTTP/1.1" 200 1562 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:08] INFO: ::1 - - [22/May/2025:18:26:08 +0000] "GET /api/activites HTTP/1.1" 200 2217 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:09] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:09] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:09] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:09] INFO: ::1 - - [22/May/2025:18:26:09 +0000] "GET /api/seances HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:09] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:09] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:09] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:09] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:09] INFO: - ID: 11
+[2025-05-22 20:26:09] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:09] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:09] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:09] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:09] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:09] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:09] INFO: - ID: 11
+[2025-05-22 20:26:09] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:09] INFO: - Role.id: 2
+[2025-05-22 20:26:09] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:09] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:09] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:09] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:09] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:09] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:09] INFO: - ID: 11
+[2025-05-22 20:26:09] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:09] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:09] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:09] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:09] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:09] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:09] INFO: - ID: 11
+[2025-05-22 20:26:09] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:09] INFO: - Role.id: 2
+[2025-05-22 20:26:09] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:09] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:09] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:09] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:09] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:09] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 20:26:09] INFO: - URL complète: http://localhost:3000/api/modules
+[2025-05-22 20:26:09] INFO: - Méthode: GET
+[2025-05-22 20:26:09] INFO: - Paramètres de requête: {}
+[2025-05-22 20:26:09] INFO: - Paramètre statut reçu: ""
+[2025-05-22 20:26:09] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 20:26:09] INFO: - ID Utilisateur: 11
+[2025-05-22 20:26:09] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:09] INFO: - Rôle ID: 2
+[2025-05-22 20:26:09] INFO: - Rôle nom: admin_plus
+[2025-05-22 20:26:09] INFO: - Rôle type: admin_plus
+[2025-05-22 20:26:09] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 20:26:09] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 20:26:09] INFO: ::1 - - [22/May/2025:18:26:09 +0000] "GET /api/activites/types HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:09] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 20:26:09] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 20:26:09] INFO: - Conditions WHERE construites: {}
+[2025-05-22 20:26:09] INFO: - Options de tri: date_creation desc
+[2025-05-22 20:26:09] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 20:26:09] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:09] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:09] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:09] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:09] INFO: - ID: 11
+[2025-05-22 20:26:09] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:09] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:09] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:09] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:09] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:09] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:09] INFO: - ID: 11
+[2025-05-22 20:26:09] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:09] INFO: - Role.id: 2
+[2025-05-22 20:26:09] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:09] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:09] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:09] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:09] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:09] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 20:26:09] INFO: - Détail des modules trouvés:
+[2025-05-22 20:26:09] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 20:26:09] INFO: ::1 - - [22/May/2025:18:26:09 +0000] "GET /api/modules HTTP/1.1" 200 1017 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:09] INFO: ::1 - - [22/May/2025:18:26:09 +0000] "GET /api/activites/seance/10 HTTP/1.1" 200 1069 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:10] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:10] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:10] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:10] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:10] INFO: - ID: 11
+[2025-05-22 20:26:10] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:10] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:10] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:10] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:10] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:10] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:10] INFO: - ID: 11
+[2025-05-22 20:26:10] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:10] INFO: - Role.id: 2
+[2025-05-22 20:26:10] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:10] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:10] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:10] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:10] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:10] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 20:26:10] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-22 20:26:10] INFO: - Méthode: GET
+[2025-05-22 20:26:10] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-22 20:26:10] INFO: - Paramètre statut reçu: ""
+[2025-05-22 20:26:10] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 20:26:10] INFO: - ID Utilisateur: 11
+[2025-05-22 20:26:10] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:10] INFO: - Rôle ID: 2
+[2025-05-22 20:26:10] INFO: - Rôle nom: admin_plus
+[2025-05-22 20:26:10] INFO: - Rôle type: admin_plus
+[2025-05-22 20:26:10] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 20:26:10] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 20:26:10] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 20:26:10] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 20:26:10] INFO: - Conditions WHERE construites: {}
+[2025-05-22 20:26:10] INFO: - Options de tri: date_creation desc
+[2025-05-22 20:26:10] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 20:26:10] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 20:26:10] INFO: - Détail des modules trouvés:
+[2025-05-22 20:26:10] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 20:26:10] INFO: ::1 - - [22/May/2025:18:26:10 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 200 1017 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:11] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:11] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:11] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:11] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:11] INFO: - ID: 11
+[2025-05-22 20:26:11] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:11] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:11] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:11] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:11] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:11] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:11] INFO: - ID: 11
+[2025-05-22 20:26:11] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:11] INFO: - Role.id: 2
+[2025-05-22 20:26:11] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:11] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:11] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:11] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:11] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:11] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 20:26:11] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-22 20:26:11] INFO: - Méthode: GET
+[2025-05-22 20:26:11] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-22 20:26:11] INFO: - Paramètre statut reçu: ""
+[2025-05-22 20:26:11] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 20:26:11] INFO: - ID Utilisateur: 11
+[2025-05-22 20:26:11] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:11] INFO: - Rôle ID: 2
+[2025-05-22 20:26:11] INFO: - Rôle nom: admin_plus
+[2025-05-22 20:26:11] INFO: - Rôle type: admin_plus
+[2025-05-22 20:26:11] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 20:26:11] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 20:26:11] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 20:26:11] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 20:26:11] INFO: - Conditions WHERE construites: {}
+[2025-05-22 20:26:11] INFO: - Options de tri: date_creation desc
+[2025-05-22 20:26:11] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 20:26:11] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 20:26:11] INFO: - Détail des modules trouvés:
+[2025-05-22 20:26:11] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 20:26:11] INFO: ::1 - - [22/May/2025:18:26:11 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:17] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:17] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:17] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:17] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:17] INFO: - ID: 11
+[2025-05-22 20:26:17] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:17] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:17] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:17] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:17] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:17] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:17] INFO: - ID: 11
+[2025-05-22 20:26:17] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:17] INFO: - Role.id: 2
+[2025-05-22 20:26:17] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:17] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:17] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:17] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:17] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:17] INFO: [isAdmin] Vérification du rôle admin pour l'utilisateur ID=11, Rôle={"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}
+[2025-05-22 20:26:17] INFO: [isAdmin] Rôle utilisateur détecté: nom=admin_plus
+[2025-05-22 20:26:17] INFO: [isAdmin] Accès admin autorisé pour l'utilisateur 11
+[2025-05-22 20:26:17] INFO: ::1 - - [22/May/2025:18:26:17 +0000] "GET /api/admin/stats HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:24] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:24] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:24] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:24] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:24] INFO: - ID: 11
+[2025-05-22 20:26:24] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:24] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:24] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:24] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:24] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:24] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:24] INFO: - ID: 11
+[2025-05-22 20:26:24] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:24] INFO: - Role.id: 2
+[2025-05-22 20:26:24] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:24] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:24] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:24] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:24] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:24] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 20:26:24] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-22 20:26:24] INFO: - Méthode: GET
+[2025-05-22 20:26:24] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-22 20:26:24] INFO: - Paramètre statut reçu: ""
+[2025-05-22 20:26:24] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 20:26:24] INFO: - ID Utilisateur: 11
+[2025-05-22 20:26:24] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:24] INFO: - Rôle ID: 2
+[2025-05-22 20:26:24] INFO: - Rôle nom: admin_plus
+[2025-05-22 20:26:24] INFO: - Rôle type: admin_plus
+[2025-05-22 20:26:24] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 20:26:24] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 20:26:24] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 20:26:24] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 20:26:24] INFO: - Conditions WHERE construites: {}
+[2025-05-22 20:26:24] INFO: - Options de tri: date_creation desc
+[2025-05-22 20:26:24] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 20:26:24] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 20:26:24] INFO: - Détail des modules trouvés:
+[2025-05-22 20:26:24] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 20:26:24] INFO: ::1 - - [22/May/2025:18:26:24 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:25] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:25] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:25] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:25] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:25] INFO: - ID: 11
+[2025-05-22 20:26:25] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:25] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:25] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:25] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:25] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:25] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:25] INFO: - ID: 11
+[2025-05-22 20:26:25] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:25] INFO: - Role.id: 2
+[2025-05-22 20:26:25] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:25] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:25] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:25] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:25] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:25] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 20:26:25] INFO: - URL complète: http://localhost:3000/api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true
+[2025-05-22 20:26:25] INFO: - Méthode: GET
+[2025-05-22 20:26:25] INFO: - Paramètres de requête: {"sortBy":"date_creation","sortOrder":"desc","debug":"true","noFilter":"true"}
+[2025-05-22 20:26:25] INFO: - Paramètre statut reçu: ""
+[2025-05-22 20:26:25] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 20:26:25] INFO: - ID Utilisateur: 11
+[2025-05-22 20:26:25] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:25] INFO: - Rôle ID: 2
+[2025-05-22 20:26:25] INFO: - Rôle nom: admin_plus
+[2025-05-22 20:26:25] INFO: - Rôle type: admin_plus
+[2025-05-22 20:26:25] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 20:26:25] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 20:26:25] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 20:26:25] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 20:26:25] INFO: - Conditions WHERE construites: {}
+[2025-05-22 20:26:25] INFO: - Options de tri: date_creation desc
+[2025-05-22 20:26:25] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 20:26:25] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 20:26:25] INFO: - Détail des modules trouvés:
+[2025-05-22 20:26:25] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 20:26:25] INFO: ::1 - - [22/May/2025:18:26:25 +0000] "GET /api/modules?sortBy=date_creation&sortOrder=desc&debug=true&noFilter=true HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:28] INFO: ::1 - - [22/May/2025:18:26:28 +0000] "GET /api/seances HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:28] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:28] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:28] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:28] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:28] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:28] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:28] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:28] INFO: - ID: 11
+[2025-05-22 20:26:28] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:28] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:28] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:28] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:28] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:28] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:28] INFO: - ID: 11
+[2025-05-22 20:26:28] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:28] INFO: - Role.id: 2
+[2025-05-22 20:26:28] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:28] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:28] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:28] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:28] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:28] INFO: ===== DÉTAIL DE LA REQUÊTE MODULES =====
+[2025-05-22 20:26:28] INFO: - URL complète: http://localhost:3000/api/modules
+[2025-05-22 20:26:28] INFO: - Méthode: GET
+[2025-05-22 20:26:28] INFO: - Paramètres de requête: {}
+[2025-05-22 20:26:28] INFO: - Paramètre statut reçu: ""
+[2025-05-22 20:26:28] INFO: ===== INFORMATIONS UTILISATEUR =====
+[2025-05-22 20:26:28] INFO: - ID Utilisateur: 11
+[2025-05-22 20:26:28] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:28] INFO: - Rôle ID: 2
+[2025-05-22 20:26:28] INFO: - Rôle nom: admin_plus
+[2025-05-22 20:26:28] INFO: - Rôle type: admin_plus
+[2025-05-22 20:26:28] INFO: - L'utilisateur est-il admin? Oui
+[2025-05-22 20:26:28] INFO: 
+========== IMPORTANT ==========
+Dump complet de l'objet utilisateur: {"id":11,"mail":"ethan@admin.com","mdp":"$2b$10$u.3DPptbsuMlZb5Zm.tIAO5v5uiVQ.bLTWy0w.OM/KAe1fbG7P1kS","prenom":"Ethan","nom":"admin","date_naissance":null,"role_id":2,"active":1,"created_at":"2025-05-19T12:06:31.000Z","updated_at":"2025-05-19T12:06:31.000Z","role_id_from_join":2,"role_nom":"admin_plus","role_description":"Super administrateur du système","role":{"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}}
+==============================
+
+[2025-05-22 20:26:28] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:28] INFO: - ID: 11
+[2025-05-22 20:26:28] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:28] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:28] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:28] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:28] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:28] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:28] INFO: - ID: 11
+[2025-05-22 20:26:28] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:28] INFO: - Role.id: 2
+[2025-05-22 20:26:28] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:28] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:28] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:28] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:28] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:28] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:28] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:28] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:28] INFO: - VÉRIFICATION: Nombre total de modules sans filtre: 1
+[2025-05-22 20:26:28] INFO:   Module 1: ID=7, Titre=test module, Statut=publié
+[2025-05-22 20:26:28] INFO: - Conditions WHERE construites: {}
+[2025-05-22 20:26:28] INFO: - Options de tri: date_creation desc
+[2025-05-22 20:26:28] INFO: - Utilisateur role: admin_plus, Admin: Oui
+[2025-05-22 20:26:28] INFO: ::1 - - [22/May/2025:18:26:28 +0000] "GET /api/activites/types HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:28] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:28] INFO: - ID: 11
+[2025-05-22 20:26:28] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:28] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:28] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:28] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:28] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:28] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:28] INFO: - ID: 11
+[2025-05-22 20:26:28] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:28] INFO: - Role.id: 2
+[2025-05-22 20:26:28] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:28] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:28] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:28] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:28] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:28] INFO: - Modules trouvés pour l'administrateur: 1
+[2025-05-22 20:26:28] INFO: - Détail des modules trouvés:
+[2025-05-22 20:26:28] INFO:   Module 1: ID=7, Titre="test module", Statut=publié, Séances=1, Clients=1
+[2025-05-22 20:26:28] INFO: ::1 - - [22/May/2025:18:26:28 +0000] "GET /api/modules HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:28] INFO: ::1 - - [22/May/2025:18:26:28 +0000] "GET /api/activites/seance/10 HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:42] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:42] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:42] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:42] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:42] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:42] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:42] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:42] INFO: - ID: 11
+[2025-05-22 20:26:42] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:42] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:42] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:42] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:42] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:42] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:42] INFO: - ID: 11
+[2025-05-22 20:26:42] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:42] INFO: - Role.id: 2
+[2025-05-22 20:26:42] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:42] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:42] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:42] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:42] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:42] INFO: ::1 - - [22/May/2025:18:26:42 +0000] "GET /api/seances HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:42] INFO: ::1 - - [22/May/2025:18:26:42 +0000] "GET /api/activites HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:42] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:42] INFO: - ID: 11
+[2025-05-22 20:26:42] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:42] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:42] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:42] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:42] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:42] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:42] INFO: - ID: 11
+[2025-05-22 20:26:42] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:42] INFO: - Role.id: 2
+[2025-05-22 20:26:42] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:42] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:42] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:42] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:42] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:42] INFO: ::1 - - [22/May/2025:18:26:42 +0000] "GET /api/activites/types HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:44] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:44] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:44] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:44] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:44] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:44] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:44] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:44] INFO: - ID: 11
+[2025-05-22 20:26:44] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:44] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:44] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:44] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:44] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:44] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:44] INFO: - ID: 11
+[2025-05-22 20:26:44] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:44] INFO: - Role.id: 2
+[2025-05-22 20:26:44] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:44] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:44] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:44] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:44] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:44] INFO: [checkRole] Vérification des rôles pour l'utilisateur ID=11, Rôle={"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}
+[2025-05-22 20:26:44] INFO: [checkRole] Rôles requis: admin, admin_plus, Rôle utilisateur (nom): admin_plus, Accès accordé: true
+[2025-05-22 20:26:44] INFO: [checkRole] Accès accordé à l'utilisateur 11
+[2025-05-22 20:26:44] INFO: Récupération des utilisateurs avec filtres: {"page":"1","limit":"10"}
+[2025-05-22 20:26:44] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:44] INFO: - ID: 11
+[2025-05-22 20:26:44] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:44] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:44] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:44] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:44] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:44] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:44] INFO: - ID: 11
+[2025-05-22 20:26:44] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:44] INFO: - Role.id: 2
+[2025-05-22 20:26:44] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:44] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:44] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:44] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:44] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:44] INFO: ::1 - - [22/May/2025:18:26:44 +0000] "GET /api/users?page=1&limit=10 HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:44] INFO: ::1 - - [22/May/2025:18:26:44 +0000] "GET /api/auth/roles HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:46] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:46] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:46] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:46] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:46] INFO: - ID: 11
+[2025-05-22 20:26:46] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:46] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:46] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:46] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:46] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:46] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:46] INFO: - ID: 11
+[2025-05-22 20:26:46] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:46] INFO: - Role.id: 2
+[2025-05-22 20:26:46] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:46] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:46] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:46] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:46] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:46] INFO: ::1 - - [22/May/2025:18:26:46 +0000] "GET /api/users/11 HTTP/1.1" 200 208 "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:26:59] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:26:59] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:59] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:26:59] INFO: Données utilisateur récupérées:
+[2025-05-22 20:26:59] INFO: - ID: 11
+[2025-05-22 20:26:59] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:59] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:26:59] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:26:59] INFO: - role_nom: admin_plus
+[2025-05-22 20:26:59] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:26:59] INFO: Objet utilisateur final construit:
+[2025-05-22 20:26:59] INFO: - ID: 11
+[2025-05-22 20:26:59] INFO: - Email: ethan@admin.com
+[2025-05-22 20:26:59] INFO: - Role.id: 2
+[2025-05-22 20:26:59] INFO: - Role.nom: admin_plus
+[2025-05-22 20:26:59] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:26:59] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:26:59] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:26:59] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:26:59] INFO: [isAdmin] Vérification du rôle admin pour l'utilisateur ID=11, Rôle={"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}
+[2025-05-22 20:26:59] INFO: [isAdmin] Rôle utilisateur détecté: nom=admin_plus
+[2025-05-22 20:26:59] INFO: [isAdmin] Accès admin autorisé pour l'utilisateur 11
+[2025-05-22 20:26:59] INFO: ::1 - - [22/May/2025:18:26:59 +0000] "GET /api/admin/stats HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:27:11] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:27:11] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:27:11] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:27:11] INFO: Données utilisateur récupérées:
+[2025-05-22 20:27:11] INFO: - ID: 11
+[2025-05-22 20:27:11] INFO: - Email: ethan@admin.com
+[2025-05-22 20:27:11] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:27:11] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:27:11] INFO: - role_nom: admin_plus
+[2025-05-22 20:27:11] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:27:11] INFO: Objet utilisateur final construit:
+[2025-05-22 20:27:11] INFO: - ID: 11
+[2025-05-22 20:27:11] INFO: - Email: ethan@admin.com
+[2025-05-22 20:27:11] INFO: - Role.id: 2
+[2025-05-22 20:27:11] INFO: - Role.nom: admin_plus
+[2025-05-22 20:27:11] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:27:11] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:27:11] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:27:11] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:27:11] INFO: [isAdmin] Vérification du rôle admin pour l'utilisateur ID=11, Rôle={"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}
+[2025-05-22 20:27:11] INFO: [isAdmin] Rôle utilisateur détecté: nom=admin_plus
+[2025-05-22 20:27:11] INFO: [isAdmin] Accès admin autorisé pour l'utilisateur 11
+[2025-05-22 20:27:11] INFO: ::1 - - [22/May/2025:18:27:11 +0000] "GET /api/admin/stats HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-22 20:27:13] INFO: 
+========== IMPORTANT ==========
+Contenu du token décodé: {"id":11,"iat":1747905472,"exp":1747991872}
+==============================
+
+[2025-05-22 20:27:13] INFO: ====== DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:27:13] INFO: Décodage du token pour l'utilisateur 11
+[2025-05-22 20:27:13] INFO: Données utilisateur récupérées:
+[2025-05-22 20:27:13] INFO: - ID: 11
+[2025-05-22 20:27:13] INFO: - Email: ethan@admin.com
+[2025-05-22 20:27:13] INFO: - role_id depuis la table users: 2
+[2025-05-22 20:27:13] INFO: - role_id depuis la jointure: 2
+[2025-05-22 20:27:13] INFO: - role_nom: admin_plus
+[2025-05-22 20:27:13] INFO: - role_description: Super administrateur du système
+[2025-05-22 20:27:13] INFO: Objet utilisateur final construit:
+[2025-05-22 20:27:13] INFO: - ID: 11
+[2025-05-22 20:27:13] INFO: - Email: ethan@admin.com
+[2025-05-22 20:27:13] INFO: - Role.id: 2
+[2025-05-22 20:27:13] INFO: - Role.nom: admin_plus
+[2025-05-22 20:27:13] INFO: - Role.role_type: admin_plus
+[2025-05-22 20:27:13] INFO: - Role.description: Super administrateur du système
+[2025-05-22 20:27:13] INFO: 
+========== IMPORTANT ==========
+Utilisateur ethan@admin.com authentifié avec le rôle: admin_plus
+==============================
+
+[2025-05-22 20:27:13] INFO: ====== FIN DÉBOGAGE AUTHENTIFICATION ======
+[2025-05-22 20:27:13] INFO: [isAdmin] Vérification du rôle admin pour l'utilisateur ID=11, Rôle={"id":2,"nom":"admin_plus","description":"Super administrateur du système","role_type":"admin_plus"}
+[2025-05-22 20:27:13] INFO: [isAdmin] Rôle utilisateur détecté: nom=admin_plus
+[2025-05-22 20:27:13] INFO: [isAdmin] Accès admin autorisé pour l'utilisateur 11
+[2025-05-22 20:27:13] INFO: ::1 - - [22/May/2025:18:27:13 +0000] "GET /api/admin/stats HTTP/1.1" 304 - "http://localhost:4200/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
+[2025-05-23 09:54:18] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\uploads
+[2025-05-23 09:54:18] ERROR: Impossible de se connecter à la base de données:
+[2025-05-23 09:54:34] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\uploads
+[2025-05-23 09:54:34] ERROR: Impossible de se connecter à la base de données:
+[2025-05-23 09:54:54] INFO: Dossier des uploads configuré: C:\Users\ethan\Desktop\Audacieuses - Copie\AudacieusesAPI\uploads
+[2025-05-23 09:54:54] ERROR: Impossible de se connecter à la base de données:

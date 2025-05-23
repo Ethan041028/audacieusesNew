@@ -26,3 +26,16 @@
 [2025-05-22 14:04:11] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
 [2025-05-22 14:05:28] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
 [2025-05-22 14:08:53] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 14:37:08] ERROR: Impossible de se connecter à la base de données: getaddrinfo ENOTFOUND sql213.infinityfree.com
+[2025-05-22 14:37:14] ERROR: Impossible de se connecter à la base de données: getaddrinfo ENOTFOUND sql213.infinityfree.com
+[2025-05-22 14:39:46] ERROR: Impossible de se connecter à la base de données: getaddrinfo ENOTFOUND sql213.infinityfree.com
+[2025-05-22 14:40:42] ERROR: Impossible de se connecter à la base de données: getaddrinfo ENOTFOUND sql213.infinityfree.com
+[2025-05-22 14:41:34] ERROR: Impossible de se connecter à la base de données: getaddrinfo ENOTFOUND sql213.infinityfree.com
+[2025-05-22 14:42:00] ERROR: Impossible de se connecter à la base de données: getaddrinfo ENOTFOUND sql213.infinityfree.com
+[2025-05-22 15:14:20] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 15:14:25] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-22 20:24:39] ERROR: Impossible de se connecter à la base de données:
+[2025-05-22 20:25:49] ERROR: Erreur lors de la synchronisation manuelle du modèle User: Too many keys specified; max 64 keys allowed
+[2025-05-23 09:54:18] ERROR: Impossible de se connecter à la base de données:
+[2025-05-23 09:54:34] ERROR: Impossible de se connecter à la base de données:
+[2025-05-23 09:54:54] ERROR: Impossible de se connecter à la base de données:
